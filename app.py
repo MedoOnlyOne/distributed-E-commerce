@@ -1,29 +1,28 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
-from utils.GUID import GUID
-import uuid
-
+import forms
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SECRET_KEY'] = '123'
+
 db = SQLAlchemy(app)
-
-
-class User(db.Model, UserMixin):
-    user_id = db.Column(GUID, default=uuid.uuid4, primary_key=True)
-    username = db.Column(db.String(length=255), nullable=False, unique=True)
-    password = db.Column(db.String(length=255), nullable=False)
-    balance = db.Column(db.Integer(), default=0)
 
 @app.get('/')
 def home():
-    return "Home"
+    return render_template('index.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = forms.LogInForm()
+    return render_template('login.html', form=form)
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    form = forms.SignUpForm()
+    return render_template('signup.html', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
