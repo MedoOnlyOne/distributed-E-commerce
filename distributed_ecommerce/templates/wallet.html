@@ -1,0 +1,253 @@
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Wallet</title>
+      <style>
+        body{
+          margin: 0px;
+          padding: 0.7%;
+        }
+        .Container{
+          overflow:hidden;
+        }
+        header{
+        background-color: #2c578f;
+        color: #ffffff;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 1;
+        }
+        #header{
+          display:inline-block;
+        }
+        header #webname {
+        font-weight: bold;
+        font-size:36pt;
+        color:white;
+        float: left;
+        margin-left: 50px;
+        
+        }
+    
+        header #webname h1{ margin:0;}
+    
+        header ul{
+        margin:0;
+        padding: 0;
+        }
+    
+        header li {
+        display: inline;
+        padding: 0 20px 0 20px;
+        }
+    
+        header a{
+        text-decoration: none;
+        color: #bdd5f1;
+        text-transform: uppercase;
+        font-size:15pt;
+        }
+    
+        header nav{float:right;
+        padding-right:30px;}
+    
+            
+        header a:hover {
+        color:white;
+        }
+        .items
+        {
+          /* margin-top:100px; */
+          width:730px;
+          /* padding:0px; */
+          margin: auto;
+          overflow: hidden;
+        }
+        #official {
+            color: white;
+            margin-top: 10%;
+            margin-bottom: 5%;
+            display:inline;
+            font-size: 1rem;
+            text-transform: none;
+            }
+        #vividly {
+            font-size: 40px;
+            color: white;
+            display:inline;
+            text-transform: none;
+        }
+   .item
+   {
+    float:left;
+    width:70%;
+    background-color:white;
+    border:5px solid #2c578f;
+    margin-left:13%;
+    margin-top: 3%;
+    padding: 2%;
+    padding-bottom: 2%;
+    border-radius: 5px;
+   }
+   .item a{
+        color:black;
+        text-decoration: none;
+    }
+    .item a:hover{
+        color:#2c578f;
+    }
+
+   .item p
+    {
+        color:#232732;
+        font-size:17px;
+        position:relative;
+        top:17px;
+        margin-left:30%;
+        width: 70%;
+    }
+    .item img
+    {
+        float:left;
+        height:135px;
+        margin-right:5px;
+    }
+    .total
+    {
+      font-size:30px;
+      font-weight:bold;
+      color:#232732;
+      width:680px;
+      background-color:white;
+      border:5px solid #BFB367;
+      margin:23px 43px;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+   .count{
+    display:inline;
+    bottom:-17px; 
+    position:relative; 
+    margin-left:2px;
+    width:25px;
+    margin-bottom: 5px; 
+   }
+   .wallet{
+     width: 100%;
+     margin: 60px auto;
+     margin-bottom: 10px;
+     padding-left: 10px;
+     text-align: center;
+     color: #2c578f;
+     margin-bottom: 5%;
+   }
+   .info {
+    height: 100px;
+    border-top:3px solid #2c578f;
+    width: 100%;
+    margin-bottom: 5%;
+   }
+   .seller {
+     margin-left: 40%;
+   }
+   .add {
+      border-radius: 10px;
+      background:#2c578f;
+      margin: auto;
+      margin-bottom: 2%;
+      padding: 5px;
+      width: 150px;
+      padding: 5px;
+      font-size: larger;
+      display: inline-block;
+      margin-left: 34%;
+   }
+   .addpage {
+      text-decoration: none;
+      color:white;
+      font-weight: bold;
+   }
+   .wallet-inputs {
+       display: block;
+       height: 25px;
+       border-radius: 5px;
+       outline: none;
+       width: 30%;
+       margin-left:16%;
+       margin-bottom: 2%;
+       margin-top: 3px;
+       border: #ffffff;
+       padding: 3px;
+   }
+   label {
+    margin-left:16%;
+    font-size: large;
+    font-weight: bold;
+    color:#2c578f;
+   }
+   .wallet-data {
+    border:3px solid #2c578f;
+    width: 30%;
+    background-color: #bdd5f1;
+    border-radius: 5px;
+    margin-left: 35%;
+   }
+  </style>
+
+</head>
+<body>
+  <div>
+  <header>
+    <div class="Container">
+        <div id="header">
+          <span><a id="vividly" href="{% url 'home' %}">Vividly</a></span>
+          <span><a id="official" href="{% url 'home' %}">The Official online store</a> </span>
+    </div>
+    
+  <nav> <ul style="margin-top:12px;"> 
+    <!-- {% if user.is_authenticated %} -->
+      <li> <a href="{% url 'home' %}"> Home </a> </li>
+      <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
+      <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>
+      <li> <a href="{% url 'logout' %}">  Logout  </a> </li>
+      <!-- {% else %} -->
+      <li> <a href="{% url 'home' %}"> Home </a> </li>
+      <li> <a href="{% url 'signup' %}">SignUp</a></li>
+      <li> <a href="{% url 'login' %}">  Login  </a> </li>
+    <!-- {% endif %} -->
+  </ul> </nav>
+    </div>
+</header>
+</div>
+
+  <!-- <div class="shop_info" title="{{ shop.name }}"> 
+    <p><span style="font-weight:bold;">Shop name : </span> {{shop.name}}</p>
+    <p><span style="font-weight:bold;">Shop address : </span> {{shop.address}}</p>
+    <p><span style="font-weight:bold;">Shop description : </span> {{shop.description}}</p>
+  </div> -->
+  <h1 class="wallet">Your wallet is <span>{{amount}}</span></h1>
+<div class="wallet-data">
+    <h1 class="wallet">Add to your Wallet</h1>
+    <div class="items" style="margin-bottom:30px;">
+            <form>
+            <label for="cardNumber">Card number</label>
+            <input type="text" name="cardNumber" class="wallet-inputs" required>
+            <label for="nameOnCard">Name on card</label>
+            <input type="text" name="nameOnCard" class="wallet-inputs" required>
+            <label for="amount">Enter the amount of money</label>
+            <input type="text" name="amount" class="wallet-inputs" required>
+            <label for="expiryDate">Expiry date</label>
+            <input type="date" name="expiryDate" class="wallet-inputs" required>
+            </form>
+    </div>
+  <button  class="add"><a href="{% url 'addproductinshop' %}" class="addpage">Add to Wallet<a></button>
+</div>
+  
+</body>
+</html>
+
