@@ -1,24 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Sign Up</title>
-    </head>
-    <body>
-        <h1>Sign Up</h1>
-        <form method="POST" action="">
-            {{ form.hidden_tag() }}
-            <div>{{ form.first_name.label }} {{ form.first_name }}</div>
-            <div>{{ form.last_name.label }} {{ form.last_name }}</div>
-            <div>{{ form.username.label }} {{ form.username }}</div>
-            <div>{{ form.email.label }} {{ form.email }}</div>
-            <div>{{ form.password.label }} {{ form.password }}</div>
-            <div>
-                {{ form.confirm_password.label }} {{ form.confirm_password }}
-            </div>
-            {{ form.submit }}
-        </form>
-    </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+    <style>
+        header {
+          background-color:#232732;
+          text-decoration:none;
+          margin-bottom:0%;
+          overflow: hidden;
+        }
+        body{
+          margin: 0;
+          /* background:url('../static/users/signup.png') no-repeat ; */
+          background-size: 1550px 760px;
+        }
+        h1{
+          margin-left: auto;
+          margin-right: auto;
+          color:black;
+          text-align: center;
+          padding-right: 0%;
+          background:#bdd5f1;
+          width: 40%;
+          margin-top:10%; 
+          border :6px solid #2c578f;
+          border-radius: 5px;
+        }
+      p{
+          color:black;
+          text-align: center;
+          width:150px;
+          margin-left: auto;
+          margin-bottom: auto;
+          margin-right: auto;
+          margin-top: 10%;
+        }
+
+        #m9 .signup_btn{
+
+          border-radius: 10px;
+          width: 50%;
+          background:#2c578f;
+          padding: 5px;
+          color:white;
+          font-weight: bold;
+          margin-top: 8%;
+          display: block;
+          margin-left:auto;
+          margin-right: auto;
+        }
+        
+        #m9 .signup_btn:hover{
+          color:#ffffff
+        }
+
+        #m9 .signup_btn[disabled],
+        #m9 .signup_btn:disabled{
+          color:rgb(255, 255, 255);
+          background:#4a525c;
+          cursor:default;
+        }
+
+        #m9 .login_btn{
+          border-radius: 10px;
+          background:#2c578f;
+          margin: auto;
+          margin-bottom: 10px;
+          padding: 5px;
+          width: 30%;
+          display: inline-block;
+        }
+        #m9 .login_btn a{
+        text-decoration: none;
+        color:white;
+        font-weight: bold;
+        }
+        #m9 .login_btn:hover a{
+          color:#ffffff;
+        }
+        #m9 button:hover{cursor: pointer;}
+      .correct{
+        border:2px green solid;
+      }
+      .wrong{
+        border:2px red solid;
+      }
+  input{
+    outline:none;
+    padding: 5px;
+    border-radius: 10px;
+    border-color: white;
+    margin-top: 5%;
+  }
+div {
+  margin-right:0%;
+}
+h2 {
+  display: inline;
+  font-size: 15px;
+}
+
+.phone_code, .phone_num{
+    display: inline-block;
+}
+.phone_code{
+    width: 12%;
+}
+.phone_num{
+    width: 35%;
+}
+.Container {
+  overflow: hidden;
+  }
+
+  header{
+  background-color: #2c578f;
+  color: #ffffff;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+  }
+  
+  header #webname {
+  font-weight: bold;
+  font-size:36pt;
+  color:white;
+  float: left;
+  margin-left: 50px;
+  
+  }
+
+  header .official  {
+  color: #bdd5f1;
+  font-size: 1rem;
+  font-weight: bold;
+  }
+
+  header #webname h1{ margin:0;}
+
+  header ul{
+  margin:0;
+  padding: 0;
+  }
+
+  header li {
+  display: inline;
+  padding: 0 20px 0 20px;
+  }
+
+  header a{
+  text-decoration: none;
+  color: #bdd5f1;
+  text-transform: uppercase;
+  font-size:15pt;
+  }
+
+  header nav{float:right;
+  padding-right:30px;}
+
+      
+  header a:hover {
+  color:white;
+  }
+#official {
+  color: #bdd5f1;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  display:inline;
+  font-size: 1rem;
+  text-transform: none;
+  }
+  #BlackJack {
+  font-size: 40px;
+  color: white;
+  display:inline;
+  text-transform: none;
+  padding-left: 10px;
+  }
+  #header{
+    display:inline-block;
+  }
+  #first_name{
+    display: inline-block;
+  }
+  #last_name{
+    display: inline-block;
+  }
+    </style>
+</head>
+<body>
+  <div>
+    <header>
+      <div class="Container">
+          <div id="header">
+            <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
+            <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
+      </div>
+      
+  <nav> <ul style="margin-top:12px;"> 
+      {% if current_user.is_authenticated %}
+      <li> <a href="{{ url_for('home') }}"> Home </a> </li>
+      {# <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
+      <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>
+      <li> <a href="{% url 'logout' %}">  Logout  </a> </li> #}
+      {% else %}
+      <li><a href="{{ url_for('home') }}"> Home </a></li>
+      <li> <a href="{{ url_for('auth.signup') }}">SignUp</a></li>
+      <li> <a href="{{ url_for('auth.login') }}">  Login  </a> </li>
+      {% endif %}
+  </ul> </nav>
+      </div>
+  </header>
+  </div>
+   <h1 id="m9">
+     <div id="m99">
+     <p id="signup"> Sign up </p>
+   
+    <form id="form" method="post" action="{{ url_for('auth.signup') }}">
+      {{ form.csrf_token }}
+      <input type="text" id="first_name" name="first_name" placeholder="Enter your first name">
+    
+    
+      <input type="text" id="last_name" name="last_name" placeholder="Enter your last name">
+   
+  
+      <input type="email"  id="email" name="email" placeholder="Enter Email">
+   
+    
+      <input type="text" id="username" name="username" placeholder="Username">
+  
+      <input type="password" id="password" name="password" placeholder="Enter Password">
+      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
+   
+      
+ 
+      <input type="text" id="address" name="address" placeholder="Address">
+      <div>
+      <input type="text" id="code" name="code" class="phone_code" value="+">
+      <input type="number" id="phone_num" name="phone_num" class="phone_num" placeholder="Phone number">
+    </div>
+      <!-- <h2>Country</h2> -->
+      <input name="country" list="countries" placeholder="Select your country" id="CO">
+        <datalist id="countries" >
+            <option value="Afghanistan">
+            <option value="Albania">
+            <option value="Algeria">
+            <option value="Andorra">
+            <option value="Angola">
+            <option value="Antigua & Deps">
+            <option value="Argentina">
+            <option value="Armenia">
+            <option value="Australia">
+            <option value="Austria">
+            <option value="Azerbaijan">
+            <option value="Bahamas">
+            <option value="Bahrain">
+            <option value="Bangladesh">
+            <option value="Barbados">
+            <option value="Belarus">
+            <option value="Belgium">
+            <option value="Belize">
+            <option value="Benin">
+            <option value="Bhutan">
+            <option value="Bolivia">
+            <option value="Bosnia Herzegovina">
+            <option value="Botswana">
+            <option value="Brazil">
+            <option value="Brunei">
+            <option value="Bulgaria">
+            <option value="Burkina">
+            <option value="Burundi">
+            <option value="Cambodia">
+            <option value="Cameroon">
+            <option value="Canada">
+            <option value="Cape Verde">
+            <option value="Central African Rep">
+            <option value="Chad">
+            <option value="Chile">
+            <option value="China">
+            <option value="Colombia">
+            <option value="Comoros">
+            <option value="Congo">
+            <option value="Congo {Democratic Rep}">
+            <option value="Costa Rica">
+            <option value="Croatia">
+            <option value="Cuba">
+            <option value="Cyprus">
+            <option value="Czech Republic">
+            <option value="Denmark">
+            <option value="Djibouti">
+            <option value="Dominica">
+            <option value="Dominican Republic">
+            <option value="East Timor">
+            <option value="Ecuador">
+            <option value="Egypt">
+            <option value="El Salvador">
+            <option value="Equatorial Guinea">
+            <option value="Eritrea">
+            <option value="Estonia">
+            <option value="Ethiopia">
+            <option value="Fiji">
+            <option value="Finland">
+            <option value="France">
+            <option value="Gabon">
+            <option value="Gambia">
+            <option value="Georgia">
+            <option value="Germany">
+            <option value="Ghana">
+            <option value="Greece">
+            <option value="Grenada">
+            <option value="Guatemala">
+            <option value="Guinea">
+            <option value="Guinea-Bissau">
+            <option value="Guyana">
+            <option value="Haiti">
+            <option value="Honduras">
+            <option value="Hungary">
+            <option value="Iceland">
+            <option value="India">
+            <option value="Indonesia">
+            <option value="Iran">
+            <option value="Iraq">
+            <option value="Ireland {Republic}">
+            <option value="Italy">
+            <option value="Ivory Coast">
+            <option value="Jamaica">
+            <option value="Japan">
+            <option value="Jordan">
+            <option value="Kazakhstan">
+            <option value="Kenya">
+            <option value="Kiribati">
+            <option value="Korea North">
+            <option value="Korea South">
+            <option value="Kosovo">
+            <option value="Kuwait">
+            <option value="Kyrgyzstan">
+            <option value="Laos">
+            <option value="Latvia">
+            <option value="Lebanon">
+            <option value="Lesotho">
+            <option value="Liberia">
+            <option value="Libya">
+            <option value="Liechtenstein">
+            <option value="Lithuania">
+            <option value="Luxembourg">
+            <option value="Macedonia">
+            <option value="Madagascar">
+            <option value="Malawi">
+            <option value="Malaysia">
+            <option value="Maldives">
+            <option value="Mali">
+            <option value="Malta">
+            <option value="Marshall Islands">
+            <option value="Mauritania">
+            <option value="Mauritius">
+            <option value="Mexico">
+            <option value="Micronesia">
+            <option value="Moldova">
+            <option value="Monaco">
+            <option value="Mongolia">
+            <option value="Montenegro">
+            <option value="Morocco">
+            <option value="Mozambique">
+            <option value="Myanmar, {Burma}">
+            <option value="Namibia">
+            <option value="Nauru">
+            <option value="Nepal">
+            <option value="Netherlands">
+            <option value="New Zealand">
+            <option value="Nicaragua">
+            <option value="Niger">
+            <option value="Nigeria">
+            <option value="Norway">
+            <option value="Oman">
+            <option value="Pakistan">
+            <option value="Palau">
+            <option value="Panama">
+            <option value="Papua New Guinea">
+            <option value="Paraguay">
+            <option value="Peru">
+            <option value="Philippines">
+            <option value="Poland">
+            <option value="Portugal">
+            <option value="Qatar">
+            <option value="Romania">
+            <option value="Russian Federation">
+            <option value="Rwanda">
+            <option value="St Kitts & Nevis">
+            <option value="St Lucia">
+            <option value="Saint Vincent & the Grenadines">
+            <option value="Samoa">
+            <option value="San Marino">
+            <option value="Sao Tome & Principe">
+            <option value="Saudi Arabia">
+            <option value="Senegal">
+            <option value="Serbia">
+            <option value="Seychelles">
+            <option value="Sierra Leone">
+            <option value="Singapore">
+            <option value="Slovakia">
+            <option value="Slovenia">
+            <option value="Solomon Islands">
+            <option value="Somalia">
+            <option value="South Africa">
+            <option value="South Sudan">
+            <option value="Spain">
+            <option value="Sri Lanka">
+            <option value="Sudan">
+            <option value="Suriname">
+            <option value="Swaziland">
+            <option value="Sweden">
+            <option value="Switzerland">
+            <option value="Syria">
+            <option value="Taiwan">
+            <option value="Tajikistan">
+            <option value="Tanzania">
+            <option value="Thailand">
+            <option value="Togo">
+            <option value="Tonga">
+            <option value="Trinidad & Tobago">
+            <option value="Tunisia">
+            <option value="Turkey">
+            <option value="Turkmenistan">
+            <option value="Tuvalu">
+            <option value="Uganda">
+            <option value="Ukraine">
+            <option value="United Arab Emirates">
+            <option value="United Kingdom">
+            <option value="United States">
+            <option value="Uruguay">
+            <option value="Uzbekistan">
+            <option value="Vanuatu">
+            <option value="Vatican City">
+            <option value="Venezuela">
+            <option value="Vietnam">
+            <option value="Yemen">
+            <option value="Zambia">
+            <option value="Zimbabwe">
+        </datalist>
+   
+     
+        <input name="Preferred_Currency" list="Preferred_Currency" placeholder="Select your currency" id="PC">
+        <datalist id="Preferred_Currency" >
+            <option value="EGP">Egyptian Pound</option>
+            <option value="EUR">Euro</option>
+            <option value="USD">US Dollar</option>
+            <option value="GBP">Pound Sterling</option>
+    </datalist>
+    
+    {% if message %}
+    <div>
+      <p style="font-size: 0.9rem; text-align: center; color:red">
+        {{message}}
+      </p>
+    </div>
+    {% endif %}
+        <button type="submit" id="signup_btn" class="signup_btn" disabled>Sign up</button>
+      </form>
+      <p style="display: inline-block; font-weight: lighter; font-size: 15px; margin-top: -80px; margin-left: -20px;">Have an account?</p>
+      <button form="" formmethod="get" class="login_btn" disabled><a href="{{ url_for('auth.login') }}">Log in</a></button>
+      </div>    
+    </div>
+     </div>
+   </h1>
+   <script src="../static/users/signup.js"></script>
+</body>
 </html>

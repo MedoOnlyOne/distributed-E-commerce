@@ -37,6 +37,10 @@ def load_user(user_id):
 @app.get('/')
 def home():
     return render_template('index.html')
+@app.get('/contactus')
+def contactus():
+    return render_template('contactus.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

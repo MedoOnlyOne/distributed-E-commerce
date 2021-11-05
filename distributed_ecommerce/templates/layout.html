@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block head %}{% endblock %}
+        <link rel="stylesheet" href="../static/users/css/layout.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="wrapper">
+
+        </div>
+        <div class="mobile-nav">
+            <nav> <ul> 
+                {% if user.is_authenticated %}
+                    <li> <a href="{% url 'home' %}"> Home </a> </li>
+                    <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
+                    <li> <a href="{% url 'userdashboard' %}"> My Account </a>
+                    {% if user.is_seller %}
+                        <li> <a href="{% url 'shopdashboard' %}"> My shop </a>
+                    {% endif %}
+                    <li> <a href="{% url 'orders' %}"> Orders </a> 
+                    <li> <a href="{% url 'wishlist' %}"> Wishlist </a>
+                    <li> <a href="{% url 'cart' %}"> Cart </a> 
+                    <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>  
+                    <li> <a href="{% url 'logout' %}">  Logout  </a> </li>
+                    {% else %}
+                    <li> <a href="{% url 'home' %}"> Home </a> </li> 
+                    <li> <a href="{% url 'signup' %}">SignUp</a></li>
+                    <li> <a href="{% url 'login' %}">  Login  </a> </li>
+                {% endif %}
+            </ul> </nav>
+        </div>
+        <header>
+            <div class="logo-burger-search">
+                <div class="burgers">
+                    <div class="burger burger-one">
+
+                    </div>
+                    <div class="burger burger-two">
+
+                    </div>
+                    <div class="burger burger-three">
+
+                    </div>
+                </div>
+                <div class="logo">
+                    <div class="BlackJack"><a id="BlackJack" href="{% url 'home' %}">Vividly</a></div>
+                    <div class="official"><a id="official" href="{% url 'home' %}">The Official online store</a> </div>
+                </div>
+                <div class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <form method="GET" class="search-form" action="{% url 'search' %}">
+                        <input class="search-field" type="text" name="search_name" placeholder="Search">
+                        <input type="hidden" name="sort_by" value="name">
+                        <input type="hidden" name="search_for" value="products">
+                    </form>
+                </div>
+            </div>
+            
+        <nav> <ul> 
+            {% if user.is_authenticated %}
+                <li> <a href="{% url 'home' %}"> Home </a> </li>
+                <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
+                <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>
+                <li> <a href="{% url 'logout' %}">  Logout  </a> </li>
+                {% else %}
+                <li> <a href="{% url 'home' %}"> Home </a> </li> 
+                <li> <a href="{% url 'signup' %}">SignUp</a></li>
+                <li> <a href="{% url 'login' %}">  Login  </a> </li>
+            {% endif %}
+        </ul> </nav>
+        </header>
+        {% if user.is_authenticated %}
+        <section class="sidemenu">
+            <span class="dashboard">   DASHBOARD  </span>
+            <nav> <ul> 
+            <li> <a href="{% url 'userdashboard' %}"> My Account </a>
+            {% if user.is_seller %}
+            <li> <a href="{% url 'shopdashboard' %}"> My shop </a>
+            {% endif %}
+            <li> <a href="{% url 'orders' %}"> Orders </a> 
+            <li> <a href="{% url 'wishlist' %}"> Wishlist </a>
+            <li> <a href="{% url 'cart' %}"> Cart </a> 
+        </ul> </nav>
+        </section>
+        {% endif %}
+        
+        <main role="main">
+            <!-- <div id="upperinfo">
+          
+              <h1>{% block name %} {% endblock %}</h1>
+            </div> -->
+
+            <div id="info">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </main>
+        <script src="../static/users/js/layout.js"></script>
+    </body>
+</html>
+
