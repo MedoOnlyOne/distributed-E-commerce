@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.validators import InputRequired, Length, Email, ValidationError
+from wtforms.validators import InputRequired, Length, Email, ValidationError, EqualTo
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.widgets.core import Input
 
@@ -20,11 +20,11 @@ def validate_email(form, email):
         raise ValidationError('This email already exists')
 
 class SignUpForm(FlaskForm):
-    first_name = StringField('first_name', [InputRequired(), Length(min=3, max=255)])
-    last_name = StringField('last_name', [InputRequired(), Length(min=3, max=255)])
-    email = StringField('email', [InputRequired(), Email('Please enter a proper email'), Length(max=255), validate_email])
-    username = StringField('username', [InputRequired(), Length(min=3, max=255), validate_username])
-    password = PasswordField('password', [InputRequired(), Length(min=8, max=255)])
-    confirm_password = PasswordField('confirm_password', [InputRequired(), Length(min=8, max=255)])
+    first_name = StringField('First Name', [InputRequired(), Length(min=3, max=255)])
+    last_name = StringField('Last Name', [InputRequired(), Length(min=3, max=255)])
+    email = StringField('Email', [InputRequired(), Email('Please enter a proper email'), Length(max=255), validate_email])
+    username = StringField('Username', [InputRequired(), Length(min=3, max=255), validate_username])
+    password = PasswordField('Password', [InputRequired(), Length(min=8, max=255)])
+    confirm_password = PasswordField('Confirm password', [InputRequired(), Length(min=8, max=255), EqualTo('password')])
     submit = SubmitField('Sign Up')  
     

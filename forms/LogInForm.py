@@ -4,7 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.widgets.core import Input
 
 class LogInForm(FlaskForm):
-    username = StringField('username', [InputRequired(), Length(min=3, max=255)])
-    password = PasswordField('password', [InputRequired(), Length(min=8, max=255)])
+    username = StringField('Username', [InputRequired(), Length(min=3, max=255)])
+    password = PasswordField('Password', [InputRequired(), Length(min=8, max=255)])
     submit = SubmitField('Login')    
     
