@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms.validators import InputRequired, Length, Email, ValidationError, EqualTo
+from wtforms.validators import InputRequired, Length, Email, ValidationError
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.widgets.core import Input
 
-from ..models import User
+from ..models.User import User
 
 def validate_confirm_password(form, confirm_password):
     if confirm_password.data != form.password.data:
@@ -25,6 +25,6 @@ class SignUpForm(FlaskForm):
     email = StringField('Email', [InputRequired(), Email('Please enter a proper email'), Length(max=255), validate_email])
     username = StringField('Username', [InputRequired(), Length(min=3, max=255), validate_username])
     password = PasswordField('Password', [InputRequired(), Length(min=8, max=255)])
-    confirm_password = PasswordField('Confirm password', [InputRequired(), Length(min=8, max=255), EqualTo('password')])
+    confirm_password = PasswordField('Confirm password', [InputRequired(), Length(min=8, max=255), validate_confirm_password])
     submit = SubmitField('Sign Up')  
     

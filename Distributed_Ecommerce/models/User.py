@@ -1,11 +1,12 @@
 from Distributed_Ecommerce import db
 from flask_login import UserMixin
 from ..utils import GUID
+from sqlalchemy.dialects.postgresql import UUID
 import uuid 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'Users'
-    user_id = db.Column(GUID, default=uuid.uuid4, primary_key=True)
+    user_id = db.Column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
     first_name = db.Column(db.String(255), nullable=False)
     last_name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
