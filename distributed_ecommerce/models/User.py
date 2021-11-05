@@ -1,11 +1,10 @@
 from db import db
 from flask_login import UserMixin
-from sqlalchemy.dialects.postgresql import UUID
 import uuid 
 
 class User(db.Model, UserMixin):
     __tablename__ = 'Users'
-    user_id = db.Column(UUID(as_uuid=True), default=uuid.uuid4, primary_key=True)
+    user_id = db.Column('id', db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     first_name = db.Column(db.String(length=255), nullable=False)
     last_name = db.Column(db.String(length=255), nullable=False)
     email = db.Column(db.String(length=255), nullable=False, unique=True)

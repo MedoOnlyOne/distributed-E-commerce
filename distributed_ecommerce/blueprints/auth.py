@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for
-import forms
+import distributed_ecommerce.forms as forms
 from db import db
 from app_bcrypt import bcrypt
-from models.User import User
+from distributed_ecommerce.models.User import User
 from flask_login import login_required, login_user, logout_user
 
 auth = Blueprint('auth', __name__, template_folder='templates')
