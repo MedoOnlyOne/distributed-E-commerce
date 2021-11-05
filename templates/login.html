@@ -9,10 +9,16 @@
 <body>
     <h1>
         Log In
-        {{ form.hidden_tag() }}
-        {{ form.username }}
-        {{ form.password }}
-        {{ form.submit }}
+        <form method="POST" action="/login">
+            {% for field, error in form.errors.items() %}
+                {{ error }}
+            {% endfor %}
+            {{ error_message }}
+            {{ form.hidden_tag() }}
+            {{ form.username }}
+            {{ form.password }}
+            {{ form.submit }}
+        </form>
     </h1>
 </body>
 </html>
