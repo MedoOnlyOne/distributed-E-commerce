@@ -1,6 +1,6 @@
-from app import db
+from Distributed_Ecommerce import db
 from flask_login import UserMixin
-from utils.GUID import GUID
+from ..utils import GUID
 import uuid 
 
 class User(db.Model, UserMixin):

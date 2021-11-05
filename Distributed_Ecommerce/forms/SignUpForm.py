@@ -3,7 +3,7 @@ from wtforms.validators import InputRequired, Length, Email, ValidationError, Eq
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.widgets.core import Input
 
-from models.User import User
+from ..models import User
 
 def validate_confirm_password(form, confirm_password):
     if confirm_password.data != form.password.data:
