@@ -221,29 +221,32 @@ h2 {
      <p id="signup"> Sign up </p>
    
     <form id="form" method="post" action="{{ url_for('auth.signup') }}">
-      {{ form.csrf_token }}
-      <input type="text" id="first_name" name="first_name" placeholder="Enter your first name">
+      {{ form.hidden_tag() }}
+      <!-- <input type="text" id="first_name" name="first_name" placeholder="Enter your first name"> -->
+      {{ form.first_name(id="first_name", placeholder="Enter your first name") }}
     
     
-      <input type="text" id="last_name" name="last_name" placeholder="Enter your last name">
-   
+      <!-- <input type="text" id="last_name" name="last_name" placeholder="Enter your last name"> -->
+      {{ form.last_name(id="last_name", placeholder="Enter your last name") }}
   
-      <input type="email"  id="email" name="email" placeholder="Enter Email">
-   
+      <!-- <input type="email"  id="email" name="email" placeholder="Enter Email"> -->
+      {{ form.email(id="email", placeholder="Enter Email") }}
     
-      <input type="text" id="username" name="username" placeholder="Username">
-  
-      <input type="password" id="password" name="password" placeholder="Enter Password">
-      <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password">
-   
+      <!-- <input type="text" id="username" name="username" placeholder="Username"> -->
+      {{ form.username(id="username", placeholder="Username") }}
+
+      <!-- <input type="password" id="password" name="password" placeholder="Enter Password"> -->
+      <!-- <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password"> -->
+      {{ form.password(id="password", placeholder="Enter password") }}
+      {{ form.confirm_password(id="confirm_password", placeholder="Confirm password") }}
       
  
-      <input type="text" id="address" name="address" placeholder="Address">
+      <!-- <input type="text" id="address" name="address" placeholder="Address">
       <div>
       <input type="text" id="code" name="code" class="phone_code" value="+">
       <input type="number" id="phone_num" name="phone_num" class="phone_num" placeholder="Phone number">
-    </div>
-      <!-- <h2>Country</h2> -->
+      </div>
+      <h2>Country</h2>
       <input name="country" list="countries" placeholder="Select your country" id="CO">
         <datalist id="countries" >
             <option value="Afghanistan">
@@ -450,7 +453,7 @@ h2 {
             <option value="EUR">Euro</option>
             <option value="USD">US Dollar</option>
             <option value="GBP">Pound Sterling</option>
-    </datalist>
+        </datalist> -->
     
     {% if message %}
     <div>
@@ -459,8 +462,9 @@ h2 {
       </p>
     </div>
     {% endif %}
-        <button type="submit" id="signup_btn" class="signup_btn" disabled>Sign up</button>
-      </form>
+        <button type="submit" id="signup_btn" class="signup_btn">Sign up</button>
+    </form>
+
       <p style="display: inline-block; font-weight: lighter; font-size: 15px; margin-top: -80px; margin-left: -20px;">Have an account?</p>
       <button form="" formmethod="get" class="login_btn" disabled><a href="{{ url_for('auth.login') }}">Log in</a></button>
       </div>    
