@@ -462,7 +462,8 @@ h2 {
       </p>
     </div>
     {% endif %}
-        <button type="submit" id="signup_btn" class="signup_btn">Sign up</button>
+      {# <button type="submit" id="signup_btn" class="signup_btn">Sign up</button> #}
+      {{ form.submit(class_="signup_btn") }}  
     </form>
 
       <p style="display: inline-block; font-weight: lighter; font-size: 15px; margin-top: -80px; margin-left: -20px;">Have an account?</p>
