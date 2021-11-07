@@ -1,4 +1,5 @@
-
+{% extends 'templates/layoutuser.html' %}
+{% block head %} 
   <title>Contact us</title>
   <style>
       /* form{
@@ -40,99 +41,19 @@
           height: 30px;
           color: #FFF;
     }
-
-
     button:hover{
         cursor: pointer;
         color: #FFF;
     }
-    header a{
-        text-decoration: none;
-        color: #bdd5f1;
-        text-transform: uppercase;
-        font-size:15pt;
-        }
-        header nav{float:right;
-        padding-right:30px;}
-        header a:hover {
-        color:white;
-        }
-      #official {
-        color: #bdd5f1;
-        margin-top: 10%;
-        margin-bottom: 5%;
-        display:inline;
-        font-size: 1rem;
-        text-transform: none;
-        }
-        #BlackJack {
-        font-size: 40px;
-        color: white;
-        display:inline;
-        text-transform: none;
-        padding-left: 10px;
-        }
-        header{
-            background-color: #2c578f;
-            color: #ffffff;
-            position: fixed;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            z-index: 1;
-        }
-        .Container {
-            overflow: hidden;
-        }
-        header a{
-            text-decoration: none;
-            color: #bdd5f1;
-            text-transform: uppercase;
-            font-size:15pt;
-        }
-        header a:hover {
-            color:white;
-        }     
-        #header{
-            display:inline-block;
-        }
-        header nav{float:right;
-        padding-right:30px;}
-        header ul{
-        margin:0;
-        padding: 0;
-        }                
-        header li {
-        display: inline;
-        padding: 0 20px 0 20px;
-        }
-                              
   </style>
-  <div>
-    <header>
-      <div class="Container">
-          <div id="header">
-            <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
-            <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
-      </div>
-      
-  <nav> <ul style="margin-top:12px;"> 
-      {% if current_user.is_authenticated %}
-      <li> <a href="{{ url_for('home') }}"> Home </a> </li>
-      {# <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
-      <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>
-      <li> <a href="{% url 'logout' %}">  Logout  </a> </li> #}
-      {% else %}
-      <li><a href="{{ url_for('home') }}"> Home </a></li>
-      <li> <a href="{{ url_for('auth.signup') }}">SignUp</a></li>
-      <li> <a href="{{ url_for('auth.login') }}">  Login  </a> </li>
-      {% endif %}
-  </ul> </nav>
-      </div>
-      </header>
-<div class="m">
-  <form action="{{ url_for('contactus') }}" method="POST">
+{% endblock %}
 
+<!-- {% block name %}Contact Us{% endblock %} -->
+
+{% block body %}
+<div class="m">
+  <form action="{% url 'contactus' %}" method="POST">
+      {% csrf_token %}
     
       <input type="text" class="in" name="subject" placeholder="Subject">
       <br>
@@ -146,3 +67,4 @@
     </div>
   </form>
 </div>>
+{% endblock %}

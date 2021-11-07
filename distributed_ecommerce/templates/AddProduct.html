@@ -1,0 +1,122 @@
+{% extends 'templates/layoutshop.html' %}
+{% load static %}
+{% block head %}
+  <title>Add Product</title>
+
+  <style>
+    .add_product{
+      width: 100%;
+    }
+
+    input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+
+    form {
+      margin-left: 20%;
+      /* text-align:center; */
+      padding-left:15px;
+      padding-right:10px;
+      font-size:14pt;
+    }
+    h3{display: inline;}
+    input[type="text"],
+    input[type="number"],
+    select{
+      width :300px;
+      height:25px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+    textarea{
+      width :300px;
+      height: 300px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    }
+    input[type="file"]{
+      margin-top: 20px;
+      } 
+    #submit_btn
+    {
+      display: block;
+      margin:20px;
+      margin-left: 200px;
+      width:120px;
+      height:30px;
+      border-radius: 10px;
+      background:#2c578f;
+      color: #BFB367 ;
+      font-weight:bold;
+    }
+    #submit_btn:disabled,
+    #submit_btn[disabled]
+    {
+      color:#ccc;
+      cursor:default;
+    }
+    input[type="submit"]:hover{
+      cursor: pointer;
+      color: #FFF;
+    }
+  </style>
+{% endblock %}
+
+
+
+{% block body %}
+  <div class="add_product">
+    <form action="{% url 'addproduct' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div style="display:flex; flex-wrap:wrap;">
+        <h3>Product Name:</h3>
+        <input type="text" id="product_name" placeholder="Product name" name="product" style="margin-left: 65px;">
+      </div>
+      <div style="display:flex; flex-wrap:wrap;">
+        <h3>Category:</h3>
+        <select name="cat" style="margin-left: 120px;">
+          <option value="other">Other</option>
+          <option value="clothing">Clothing</option>
+          <option value="tvs">TVs</option>
+          <option value="electronics">Electronics</option>
+          <option value="home_applicanes">Home Applicanes</option>
+          <option value="furniture">Furniture</option>
+        </select>
+      </div>
+      <div style="display:flex; flex-wrap:wrap;">
+        <h3>Remaining in Stock:</h3>
+        <input type="number" id="stock" placeholder="Remaining in stock" name="remaining_in_stock" style="margin-left: 18px;">
+      </div>
+      <div>
+        <h3>Price</h3>
+        <input type="number" id="price" step="0.01" placeholder="Product price in {{currency_name}}" name="price" style="margin-left: 150px;">
+        <br>
+        <h3>in {{currency_name}}:</h3>
+      </div>
+      <div style="padding: 0px; display:flex; flex-wrap:wrap; margin-top: 1em;">
+        <h3 style="display: inline; margin: 1px;padding: 0px;">Description:</h3>
+        <textarea placeholder="Description" id="description" name="discription" style="margin: 10px 90px;"></textarea>
+      </div>
+      <div >
+        <h3 >Image:</h3><br>
+        <input type="file" id="fileToUpload" name="image">
+      </div>
+      <input id="submit_btn" type="submit" value="Add product" disabled>
+    </form>
+  </div>
+  <script src="{% static 'shop/addproduct.js' %}"></script>
+  {% if message %}
+  <script>
+    alert("{{message}}");
+  </script>
+  {% endif %}
+{% endblock %}
+
+
+    

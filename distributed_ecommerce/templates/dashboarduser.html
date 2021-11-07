@@ -1,0 +1,307 @@
+{% extends 'templates/layoutuser.html' %}
+
+{% block head %} 
+  <title>Dashboard</title>
+  <!-- <link rel="stylesheet" type="text/css" href="../static/users/css/dashboard.css?{% now "U" %}"> -->
+  <style>
+    .buttonsContainer {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#info form {
+  flex-direction: column;
+  text-align: left;
+  padding-left: 15px;
+  padding-right: 10px;
+  font-size: 14pt;
+}
+
+#info input,
+#info select {
+  width: 300px;
+  position: absolute;
+  margin: 0;
+  left: 300px;
+  top: 15px;
+}
+
+.info-button {
+  font-weight: bold;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 20px;
+  float: right;
+  margin-bottom: 5px;
+}
+
+#ConfirmButton {
+  margin-top: 40px;
+  margin-bottom: 60px;
+  width: 90px;
+  height: 30px;
+  background-color: #2c578f;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#ChangePassword {
+  margin-top: 40px;
+  margin-bottom: 60px;
+  width: 190px;
+  height: 30px;
+  background-color: #2c578f;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#Become_a_seller {
+  margin-top: 40px;
+  margin-bottom: 60px;
+  width: 162px;
+  height: 30px;
+  background-color: #2c578f;
+  border-radius: 10px;
+  color: #ffffff;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+#ConfirmButton:hover,
+#ChangePassword:hover,
+#Become_a_seller:hover,
+button[type="button"]:hover {
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+}
+
+#ConfirmButton[disabled],
+#ConfirmButton:disabled {
+  border-radius: 10px;
+  color: #ccc;
+  cursor: default;
+}
+
+#ConfirmButton,
+#ChangePassword,
+#Become_a_seller {
+  max-width: 140px;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: black;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.info-field {
+  position: relative;
+  padding-left: 0.5em;
+  height: 52px;
+}
+
+.info-field-name {
+  position: absolute;
+  left: 30px;
+  top: 15px;
+}
+
+.form-button {
+  position: absolute;
+  right: 15px;
+  height: 22px;
+  top: 15px;
+  width: 20vw;
+  min-width: 60px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2c578f;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 0;
+}
+
+.dropdown-content p {
+  color: white;
+  padding: 7px 5px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+.dropdown-content {
+  right: 0;
+}
+
+button[type="button"] {
+  border-radius: 10px;
+  max-width: 85px;
+  width: 10vw;
+  background: #2c578f;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+#ChangePassword a, #Become_a_seller a {
+  color: #bdd5f1;
+  text-decoration: none;
+}
+
+#ChangePassword a:hover, #Become_a_seller a:hover {
+  color: #fff;
+}
+
+select {
+  position: absolute;
+  margin: 0;
+  left: 300px;
+}
+
+@media (max-width: 1028px) {
+  #info input,
+  #info select {
+    width: 150px;
+  }
+}
+.m{
+          margin-left: auto;
+          margin-right: auto;
+          color:black;
+          padding-right: 0%;
+          background:#bdd5f1;
+          width:80%;
+          margin-top:5%; 
+          border :6px solid #2c578f;
+          border-radius: 5px;
+        }
+@media (max-width: 577px) {
+  .info-field-name {
+    font-size: 1rem;
+  }
+  .form-button {
+    top: 40px;
+  }
+  #info input,
+  #info select {
+    left: 32px;
+    top: 41px;
+  }
+  .buttonsContainer.not-seller {
+    display: block;
+    margin-top: 28px;
+  }
+  #ConfirmButton.not-seller {
+    margin: 15px auto;
+    display: block;
+  }
+  #ChangePassword.not-seller {
+    margin: 15px auto;
+    display: block;
+  }
+  #Become_a_seller.not-seller {
+    margin: 15px auto;
+    display: block;
+  }
+  
+}
+
+  </style>
+{% endblock %}
+
+{% block name %}My account{% endblock %}
+
+{% block body %} 
+<div class="m">
+  <form method="post" action="{% url 'userdashboard' %}">
+    {% csrf_token %}
+    <div class="info-field">
+      <div class="info-field-name">First Name:</div>
+      <input type="text" class="form-input" id="first_name" name="first" value="{{first}}" disabled="true">
+      <button type="button" class="form-button" onclick="enable('first_name')"> Edit </button>
+    </div>     
+    <div class="info-field">
+      <div class="info-field-name">Last Name:</div>
+      <input type="text" class="form-input" id="last_name" name="last" value="{{last}}" disabled="true">
+      <button type="button" class="form-button" onclick="enable('last_name')"> Edit </button>
+    </div> 
+    <div class="info-field">
+      <div class="info-field-name">Phone Number:</div>
+      <input type="text" class="form-input" id="code" name="code" value="{{code}}" disabled="true">
+      <input type="text" class="form-input" id="number" name="num" value="{{num}}" disabled="true">
+      <button type="button" class="form-button" onclick="enable('number'); enable('code')"> Edit </button>
+    </div>  
+    <div class="info-field">
+      <div class="info-field-name">Email:</div>
+      <input type="text" class="form-input" id="email" name="email" value="{{email}}" disabled="true">
+      <button type="button" class="form-button" onclick="enable('email')"> Edit </button>
+    </div>        
+    <div class="info-field">
+      <div class="info-field-name">Address:</div>
+      <input type="text" class="form-input" id="address" name="address" value="{{address}}" disabled="true">
+      <button type="button" class="form-button" onclick="enable('address')"> Edit </button>
+    </div>       
+    <div class="info-field">
+      <div class="info-field-name">Preferred Currency:</div>
+      <select id="currency" name="currency" disabled="true">
+        {% for c in currency_list %}
+          <option value="{{c}}"
+              {% if c == currency %}selected="selected"{% endif %}>
+              {% if c == 'EGP' %}
+              Egyptian Pound
+              {% endif %}
+              {% if c == 'USD' %}
+              US Dollar
+              {% endif %}
+              {% if c == 'EUR' %}
+              Euro
+              {% endif %}
+              {% if c == 'GBP'%}
+              Pound Sterling
+              {% endif %}
+          </option>
+      {% endfor %}
+      </select> 
+      <button type="button" class="form-button" onclick="enable('currency')"> Edit </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Event Promo Code:</div>
+      <input type="text" class="form-input" value="iOpKe" disabled="true">
+    </div>    
+    <div class="info-field">
+      <div class="info-field-name">Account Type:</div>
+      <input type="text" class="form-input" id="acc_type" name="acc_type"{% if is_seller %} value="Buyer and seller" {% else %} value="Buyer" {% endif %} disabled="true">
+    </div>        
+    <div class="buttonsContainer">
+      <!-- <div style="display:inline; float: right;"> -->
+        <button type="button" id="ChangePassword"><a href="{% url 'changepassword' %}">Change Password</a></button>
+      
+      <!-- <div style="display:inline; float: left; margin-left: 350px;"> -->
+        <button type="submit" id="ConfirmButton" onclick="enableAll()" disabled> Confirm </button>
+        {% if not request.user.is_seller %}
+        <button type="button" id="Become_a_seller"><a href="{% url 'create_shop'%}">Become a seller</a></button>
+        {% endif %}
+      </div>
+  </form>
+</div>
+  <script src="../static/users/js/dashboard.js"></script>    
+{% endblock %}

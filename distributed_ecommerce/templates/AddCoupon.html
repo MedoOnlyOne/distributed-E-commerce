@@ -1,0 +1,100 @@
+{% extends 'templates/layoutshop.html' %}
+
+{% block head %}
+  <title>Add coupon</title>
+
+  <style>
+    .add_coupon{
+      margin-left:35%;
+    }
+    input[type="text"]{
+      display: block;
+      width :300px;
+      margin-top: 20px;
+      margin-bottom: 5px;
+    } 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+    input[type="submit"]
+    {
+      display: block;
+      margin:20px;
+      margin-left:12%;
+      width:140px;
+      height:30px;
+      border-radius: 10px;
+      background:#2c578f;
+      color: white ;
+      font-weight:bold;
+    }
+    input[type="submit"]:hover,
+    .deactivate:hover{
+      cursor: pointer;
+      color: #FFF;
+    }
+    #submit_btn[disabled],
+    #submit_btn:disabled{
+      cursor:default;
+      color:#ccc;
+    }
+    .coupons{
+      margin: 10px;
+      border: #BFB367 4px solid;;
+    }
+    .deactivate{
+      width:120px;
+      height:30px;
+      background-color :#232732;
+      font-weight:bold; 
+    }
+    .deactivate a{
+      color: #BFB367;
+      text-decoration: none;
+    }
+    .deactivate a:hover{
+      color: #FFF;
+    }
+    #discount{
+      width: 300px;
+    }
+  </style>
+{% endblock %}
+
+
+{% block body %}
+  <div class="add_coupon" >
+    <form action="{% url 'addcoupon' %}" method="POST">
+      {% csrf_token %}
+      <input type="text" id="name" placeholder="Coupon name" name="name">
+      <input type="number" id="discount" placeholder="Discount percentage" name="discount">
+      <input type="submit" id="submit_btn" value="Generate coupon" disabled>
+    </form>
+  </div>
+  {% if success %}
+  <div style="text-align: center; margin-bottom: 8px;"><strong style="color:green; margin:6%;">{{ message }}</strong></div>
+  {% else %}
+  <div style="text-align: center; margin-bottom: 8px;"><strong style="color:red; margin:6%;">{{ message }}</strong></div>
+  {% endif %}
+  <script>
+    var namee=document.getElementById('name');
+    var discount=document.getElementById('discount');
+    var submit=document.getElementById('submit_btn');
+    function check(){
+      if (namee.value.length>2 && discount.value.length>0 && discount.value.length<3){
+        submit.disabled=false;
+      }
+      else
+        submit.disabled=true;
+    }
+    namee.addEventListener('input',check);
+    discount.addEventListener('input',check);
+  </script>
+{% endblock %}
