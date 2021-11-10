@@ -1,6 +1,6 @@
 import os 
-from flask import Flask, render_template, redirect, url_for
-from flask_login import LoginManager
+from flask import Flask, request, render_template, redirect, url_for
+from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
 from db import db
 from app_bcrypt import bcrypt
@@ -42,10 +42,21 @@ def home():
 @app.get('/contactus')
 def contactus():
     return render_template('contactus.html')
-
-@app.get('/userdashboard')
+@login_required
+@app.route('/userdashboard', methods=['GET', 'POST'])
 def userdashboard():
-    return render_template('userdashboard.html')
+    if request.method == "POST":
+        first_name = request.form.get("first_name","")
+        last_name = request.form.get("last_name", "")
+        email = request.form.get("email", "")        
 
+        user = User.query.filter_by(username=current_user.username).first()
+        user.first_name = first_name if first_name != '' else user.first_name
+        user.last_name = last_name if last_name != '' else user.last_name
+        user.email = email if email != '' else user.email
+
+        db.session.commit()
+        return redirect(url_for("userdashboard"))
+    return render_template('userdashboard.html')
 if __name__ == '__main__':
     app.run(debug=True)
