@@ -7,8 +7,9 @@ from app_bcrypt import bcrypt
 from distributed_ecommerce.models.User import User
 
 template_dir = os.path.join('.', 'distributed_ecommerce', 'templates')
+static_dir = os.path.join('.', 'distributed_ecommerce', 'static')
 
-app = Flask(__name__, template_folder=template_dir)
+app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.register_blueprint(auth)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,11 +37,15 @@ def load_user(user_id):
 
 @app.get('/')
 def home():
-    return render_template('index.html')
+    return render_template('Mainpage.html')
+
 @app.get('/contactus')
 def contactus():
     return render_template('contactus.html')
 
+@app.get('/userdashboard')
+def userdashboard():
+    return render_template('userdashboard.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

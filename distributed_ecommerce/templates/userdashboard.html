@@ -1,0 +1,117 @@
+{% extends 'layoutuser.html' %} {% block head %}
+<title>Dashboard</title>
+<link
+  href="{{ url_for('static', filename='css/userdashboard.css') }}"
+  rel="stylesheet"
+/>
+{% endblock %} {% block name %}My account{% endblock %} {% block body %}
+<div class="m">
+  <form method="post" action="{{ url_for('userdashboard') }}">
+    <div class="info-field">
+      <div class="info-field-name">First Name:</div>
+      <input
+        type="text"
+        class="form-input"
+        id="first_name"
+        name="first"
+        value="{{current_user.first_name}}"
+        disabled="true"
+      />
+      <button type="button" class="form-button" onclick="enable('first_name')">
+        Edit
+      </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Last Name:</div>
+      <input
+        type="text"
+        class="form-input"
+        id="last_name"
+        name="last"
+        value="{{current_user.last_name}}"
+        disabled="true"
+      />
+      <button type="button" class="form-button" onclick="enable('last_name')">
+        Edit
+      </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Phone Number:</div>
+      <input
+        type="text"
+        class="form-input"
+        id="code"
+        name="code"
+        value="{{current_user.phonecode}}"
+        disabled="true"
+      />
+      <input
+        type="text"
+        class="form-input"
+        id="number"
+        name="num"
+        value="{{num}}"
+        disabled="true"
+      />
+      <button
+        type="button"
+        class="form-button"
+        onclick="enable('number'); enable('code')"
+      >
+        Edit
+      </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Email:</div>
+      <input
+        type="text"
+        class="form-input"
+        id="email"
+        name="email"
+        value="{{current_user.email}}"
+        disabled="true"
+      />
+      <button type="button" class="form-button" onclick="enable('email')">
+        Edit
+      </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Address:</div>
+      <input
+        type="text"
+        class="form-input"
+        id="address"
+        name="address"
+        value="{{address}}"
+        disabled="true"
+      />
+      <button type="button" class="form-button" onclick="enable('address')">
+        Edit
+      </button>
+    </div>
+    <div class="info-field">
+      <div class="info-field-name">Event Promo Code:</div>
+      <input type="text" class="form-input" value="iOpKe" disabled="true" />
+    </div>
+    <div class="buttonsContainer">
+      <!-- <div style="display:inline; float: right;"> -->
+      {#
+      <button type="button" id="ChangePassword">
+        <a href="{% url 'changepassword' %}">Change Password</a>
+      </button>
+      #}
+
+      <!-- <div style="display:inline; float: left; margin-left: 350px;"> -->
+      <button type="submit" id="ConfirmButton" onclick="enableAll()" disabled>
+        Confirm
+      </button>
+      {% if not current_user.is_seller %} {#
+      <button type="button" id="Become_a_seller">
+        <a href="{% url 'create_shop'%}">Become a seller</a>
+      </button>
+      #} {% endif %}
+    </div>
+  </form>
+</div>
+<script src="{{ url_for('static', filename='js/userdashboard.js') }}"></script>
+{% endblock %}

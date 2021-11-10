@@ -1,51 +1,48 @@
-{% extends 'templates/layoutuser.html' %}
-{% block head %} 
-  <title>Contact us</title>
-  <style>
-      /* form{
+{% extends 'templates/layoutuser.html' %} {% block head %}
+<title>Contact us</title>
+<style>
+  /* form{
           width: 25%;
           margin: 10px auto;
       } */
 
-    input[type="text"], textarea{
-        display:block;
-        width:300px;
-        margin-right: auto;
-        margin-left: auto;
-        
-    }
-    .m{
-          margin-left: auto;
-          margin-right: auto;
-          color:black;
-          padding-right: 0%;
-          background:#bdd5f1;
-          width: 40%;
-          margin-top:10%; 
-          border :6px solid #2c578f;
-          border-radius: 5px;
-        }
-        .in{
-          margin-top: 20px;
-        }
-    button
-    {
-     
-      border-radius: 10px;
-          background:#2c578f;
-          margin-left: 30%;
-          margin-bottom: 10px;
-          margin-top: 10px;
-          padding: 5px;
-          width: 120px;
-          height: 30px;
-          color: #FFF;
-    }
-    button:hover{
-        cursor: pointer;
-        color: #FFF;
-    }
-  </style>
+  input[type='text'],
+  textarea {
+    display: block;
+    width: 300px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .m {
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    padding-right: 0%;
+    background: #bdd5f1;
+    width: 40%;
+    margin-top: 10%;
+    border: 6px solid #2c578f;
+    border-radius: 5px;
+  }
+  .in {
+    margin-top: 20px;
+  }
+  button {
+    border-radius: 10px;
+    background: #2c578f;
+    margin-left: 30%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 5px;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+  }
+  button:hover {
+    cursor: pointer;
+    color: #fff;
+  }
+</style>
 {% endblock %}
 
 <!-- {% block name %}Contact Us{% endblock %} -->
@@ -53,18 +50,25 @@
 {% block body %}
 <div class="m">
   <form action="{% url 'contactus' %}" method="POST">
-      {% csrf_token %}
-    
-      <input type="text" class="in" name="subject" placeholder="Subject">
-      <br>
-     
-      <textarea name="message" cols="30" rows="10" placeholder="Message"></textarea>
-      {% if message%}
-        <script> alert("{{message}}");</script>
-      {% endif %}
-      <div>
+    {% csrf_token %}
+
+    <input type="text" class="in" name="subject" placeholder="Subject" />
+    <br />
+
+    <textarea
+      name="message"
+      cols="30"
+      rows="10"
+      placeholder="Message"
+    ></textarea>
+    {% if message%}
+    <script>
+      alert('{{message}}');
+    </script>
+    {% endif %}
+    <div>
       <button type="submit">Contact us</button>
     </div>
   </form>
-</div>>
-{% endblock %}
+</div>
+> {% endblock %}

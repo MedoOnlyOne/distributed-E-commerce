@@ -1,494 +1,503 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block head %}{% endblock %}
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
-        <style>
-            header {
-                background-color: #2c578f;
-                color: #ffffff;
-                position: fixed;
-                top: 0px;
-                left: 0px;
-                right: 0px;
-                z-index: 1;
-              }
-              
-              header a {
-                text-decoration: none;
-                color: #bdd5f1;
-                text-transform: uppercase;
-                font-size:15pt;
-              }
-              
-              header a:hover {
-                color: white;
-              }
-              
-              header nav {
-                position: fixed;
-                top: 0;
-                right: 0;
-                padding: 0.7em 0.7em;
-              }
-              
-              header nav ul {
-                margin: 0;
-                padding: 0;
-              }
-              
-              header nav ul li {
-                display: inline;
-                padding: 1rem 1.2rem;
-              }
-              
-              .logo-burger-search {
-                display: flex;
-              }
-              
-              .logo-burger-search .logo {
-                display: flex;
-              }
-              
-              .logo-burger-search .logo .official {
-                padding-top: 1.4em;
-              }
-              
-              .logo-burger-search .search-bar {
-                display: flex;
-                width: calc(100% - 30px - 20px - 30px - 352px - 523px);
-                height: 22px;
-                margin-top: 11px;
-                margin-left: 10px;
-                padding: 3px;
-                padding-left: 6px;
-              }
-              
-              .logo-burger-search .search-bar.focused {
-                background-color: #eeeeee;
-                border: none;
-                outline: 2px solid #ffffff;
-                color: white;
-              }
-              
-              .logo-burger-search .search-bar .fa {
-                
-                font-size: 0.8rem;
-              }
-              
-              .logo-burger-search .search-bar .search-form {
-                width: 100%;
-              }
-              
-              .logo-burger-search .search-bar .search-form .search-field {
-                width: 100%;
-                margin-left: 2px;
-                height: 22px;
-                color: white;
-                font-size: 1rem;
-                font-family: 'Ubuntu', sans-serif;
-                background: transparent;
-                border: none;
-              }
-              
-              .logo-burger-search .search-bar .search-form .search-field:focus {
-                border: none;
-                outline: none;
-                color: black;
-              }
-              
-              .burgers {
-                margin: auto 1em;
-              }
-              
-              .burgers:hover {
-                cursor: pointer;
-              }
-              
-              .burgers .burger {
-                width: 20px;
-                height: 3px;
-                background-color: white;
-                margin: 5px;
-                transition: all 0.3s ease-in-out;
-              }
-              
-              #BlackJack {
-                font-size: 40px;
-                color: white;
-                display:inline;
-                text-transform: none;
-                padding-left: 10px;
-              }
-              
-              #official {
-                color: #bdd5f1;
-                margin-top: 10%;
-                margin-bottom: 5%;
-                display:inline;
-                font-size: 1rem;
-                text-transform: none;
-              }
-              
-              .mobile-nav {
-                visibility: hidden;
-              }
-              
-              body {
-                margin: 0;
-                padding: 0;
-                width: 100vw;
-                height: 100vh;
-                font-family: 'Ubuntu', sans-serif;
-              }
-              
-              .sidemenu {
-                padding-right: 1.5em;
-                background-color:#2c578f;
-                text-align: left;
-                text-decoration: none;
-                position: fixed;
-                z-index: 3;
-                width: 250px;
-                top: 45px;
-                bottom: 0;
-                left: -270px;
-                transition: all 0.3s ease-in-out;
-              }
-              
-              .sidemenu.shown {
-                transform: translate(240px);
-              }
-              
-              .sidemenu .dashboard {
-                color: white;
-                font-size: 1.8rem;
-                margin: 0.5em 0.5em;
-                margin-top: 40px;
-                display: block;
-              }
-              
-              .sidemenu a {
-                text-decoration: none;
-                color: #bdd5f1;
-                padding: 8px 30px;
-                display: block;
-                font-size: 16pt;
-                text-align: center;
-              }
-              
-              .sidemenu a:hover {
-                color: white;
-              }
-              
-              .sidemenu nav {
-                text-align: left;
-              }
-              
-              .sidemenu nav ul {
-                padding: 0;
-                margin: 0;
-              }
-              
-              .sidemenu nav ul li {
-                list-style: none;
-                padding: 0 0.5em;
-              }
-              
-              main {
-                color: #232732;
-                position: absolute;
-                display: flex;
-                flex-direction: column;
-                left: 0;
-                top: 50px;
-                width: 100%;
-                transition: all 0.3s ease-in-out;
-              }
-              
-              main.shrink {
-                width: calc(100% - 232px);
-                margin-left: 232px;
-              }
-              
-              .wrapper {
-                position: fixed;
-                top: 45px;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #333333;
-                opacity: 40%;
-                visibility: hidden;
-                z-index: 2;
-              }
-              
-              .wrapper.grey-out {
-                visibility: visible;
-              }
-              
-              #upperinfo {
-                text-align: center;
-              
-              }
-              
-              #info {
-                font-weight: bold;
-              }
-              
-              @media (max-width: 1028px) {
-                body {
-                  width: 100vw;
-                }
-                main {
-                  width: 100vw;
-                }
-                header {
-                  width: 100vw;
-                  display: block;
-                  height: 50px;
-                }
-                header .logo-burger-search .logo {
-                  position: fixed;
-                  width: 56vw;
-                  left: calc(22vw + 9px);
-                }
-                header .logo-burger-search .logo .BlackJack {
-                  text-align: center;
-                  width: 100%;
-                }
-                header .logo-burger-search .logo .official {
-                  width: 0;
-                  visibility: hidden;
-                }
-                header .logo-burger-search .burgers {
-                  position: fixed;
-                  top: 7px;
-                }
-                header .logo-burger-search .search-bar {
-                  visibility: hidden;
-                }
-                header nav {
-                  visibility: hidden;
-                }
-                .sidemenu {
-                  visibility: hidden;
-                }
-                .wrapper.grey-out {
-                  visibility: hidden;
-                }
-                main.shrink {
-                  width: 100%;
-                  margin-left: 0;
-                }
-                .mobile-nav {
-                  position: fixed;
-                  top: 45px;
-                  bottom: 0px;
-                  left: 0;
-                  width: 100vw;
-                  opacity: 1;
-                  z-index: 3;
-                  background-color: #2c578f;
-                  overflow-y: scroll;
-                  visibility: hidden;
-                }
-                .mobile-nav.open {
-                  visibility: visible;
-                }
-                .mobile-nav nav {
-                  text-align: center;
-                  height: 50%;
-                  margin: 0 auto;
-                }
-                .mobile-nav nav ul {
-                  padding: 0;
-                  margin: 0;
-                }
-                .mobile-nav nav ul li {
-                  list-style: none;
-                  padding: 10px 0.5em;
-                }
-                .mobile-nav nav ul li a {
-                  font-size: 6vw;
-                  color: #bdd5f1;
-                  text-decoration: none;
-                }
-                .mobile-nav nav ul li a:hover, .mobile-nav nav ul li a:focus {
-                  color: white;
-                }
-              }
-              
-              @media (orientation: landscape) {
-                .mobile-nav nav ul li a {
-                  font-size: 8vh;
-                }
-              }
-        </style>
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% block head %}{% endblock %}
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      header {
+        background-color: #2c578f;
+        color: #ffffff;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        z-index: 1;
+      }
 
-    <body>
-        <div class="wrapper">
+      header a {
+        text-decoration: none;
+        color: #bdd5f1;
+        text-transform: uppercase;
+        font-size: 15pt;
+      }
 
+      header a:hover {
+        color: white;
+      }
+
+      header nav {
+        position: fixed;
+        top: 0;
+        right: 0;
+        padding: 0.7em 0.7em;
+      }
+
+      header nav ul {
+        margin: 0;
+        padding: 0;
+      }
+
+      header nav ul li {
+        display: inline;
+        padding: 1rem 1.2rem;
+      }
+
+      .logo-burger-search {
+        display: flex;
+      }
+
+      .logo-burger-search .logo {
+        display: flex;
+      }
+
+      .logo-burger-search .logo .official {
+        padding-top: 1.4em;
+      }
+
+      .logo-burger-search .search-bar {
+        display: flex;
+        width: calc(100% - 30px - 20px - 30px - 352px - 523px);
+        height: 22px;
+        margin-top: 11px;
+        margin-left: 10px;
+        padding: 3px;
+        padding-left: 6px;
+      }
+
+      .logo-burger-search .search-bar.focused {
+        background-color: #eeeeee;
+        border: none;
+        outline: 2px solid #ffffff;
+        color: white;
+      }
+
+      .logo-burger-search .search-bar .fa {
+        font-size: 0.8rem;
+      }
+
+      .logo-burger-search .search-bar .search-form {
+        width: 100%;
+      }
+
+      .logo-burger-search .search-bar .search-form .search-field {
+        width: 100%;
+        margin-left: 2px;
+        height: 22px;
+        color: white;
+        font-size: 1rem;
+        font-family: 'Ubuntu', sans-serif;
+        background: transparent;
+        border: none;
+      }
+
+      .logo-burger-search .search-bar .search-form .search-field:focus {
+        border: none;
+        outline: none;
+        color: black;
+      }
+
+      .burgers {
+        margin: auto 1em;
+      }
+
+      .burgers:hover {
+        cursor: pointer;
+      }
+
+      .burgers .burger {
+        width: 20px;
+        height: 3px;
+        background-color: white;
+        margin: 5px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      #BlackJack {
+        font-size: 40px;
+        color: white;
+        display: inline;
+        text-transform: none;
+        padding-left: 10px;
+      }
+
+      #official {
+        color: #bdd5f1;
+        margin-top: 10%;
+        margin-bottom: 5%;
+        display: inline;
+        font-size: 1rem;
+        text-transform: none;
+      }
+
+      .mobile-nav {
+        visibility: hidden;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        font-family: 'Ubuntu', sans-serif;
+      }
+
+      .sidemenu {
+        padding-right: 1.5em;
+        background-color: #2c578f;
+        text-align: left;
+        text-decoration: none;
+        position: fixed;
+        z-index: 3;
+        width: 250px;
+        top: 45px;
+        bottom: 0;
+        left: -270px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .sidemenu.shown {
+        transform: translate(240px);
+      }
+
+      .sidemenu .dashboard {
+        color: white;
+        font-size: 1.8rem;
+        margin: 0.5em 0.5em;
+        margin-top: 40px;
+        display: block;
+      }
+
+      .sidemenu a {
+        text-decoration: none;
+        color: #bdd5f1;
+        padding: 8px 30px;
+        display: block;
+        font-size: 16pt;
+        text-align: center;
+      }
+
+      .sidemenu a:hover {
+        color: white;
+      }
+
+      .sidemenu nav {
+        text-align: left;
+      }
+
+      .sidemenu nav ul {
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidemenu nav ul li {
+        list-style: none;
+        padding: 0 0.5em;
+      }
+
+      main {
+        color: #232732;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        left: 0;
+        top: 50px;
+        width: 100%;
+        transition: all 0.3s ease-in-out;
+      }
+
+      main.shrink {
+        width: calc(100% - 232px);
+        margin-left: 232px;
+      }
+
+      .wrapper {
+        position: fixed;
+        top: 45px;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #333333;
+        opacity: 40%;
+        visibility: hidden;
+        z-index: 2;
+      }
+
+      .wrapper.grey-out {
+        visibility: visible;
+      }
+
+      #upperinfo {
+        text-align: center;
+      }
+
+      #info {
+        font-weight: bold;
+      }
+
+      @media (max-width: 1028px) {
+        body {
+          width: 100vw;
+        }
+        main {
+          width: 100vw;
+        }
+        header {
+          width: 100vw;
+          display: block;
+          height: 50px;
+        }
+        header .logo-burger-search .logo {
+          position: fixed;
+          width: 56vw;
+          left: calc(22vw + 9px);
+        }
+        header .logo-burger-search .logo .BlackJack {
+          text-align: center;
+          width: 100%;
+        }
+        header .logo-burger-search .logo .official {
+          width: 0;
+          visibility: hidden;
+        }
+        header .logo-burger-search .burgers {
+          position: fixed;
+          top: 7px;
+        }
+        header .logo-burger-search .search-bar {
+          visibility: hidden;
+        }
+        header nav {
+          visibility: hidden;
+        }
+        .sidemenu {
+          visibility: hidden;
+        }
+        .wrapper.grey-out {
+          visibility: hidden;
+        }
+        main.shrink {
+          width: 100%;
+          margin-left: 0;
+        }
+        .mobile-nav {
+          position: fixed;
+          top: 45px;
+          bottom: 0px;
+          left: 0;
+          width: 100vw;
+          opacity: 1;
+          z-index: 3;
+          background-color: #2c578f;
+          overflow-y: scroll;
+          visibility: hidden;
+        }
+        .mobile-nav.open {
+          visibility: visible;
+        }
+        .mobile-nav nav {
+          text-align: center;
+          height: 50%;
+          margin: 0 auto;
+        }
+        .mobile-nav nav ul {
+          padding: 0;
+          margin: 0;
+        }
+        .mobile-nav nav ul li {
+          list-style: none;
+          padding: 10px 0.5em;
+        }
+        .mobile-nav nav ul li a {
+          font-size: 6vw;
+          color: #bdd5f1;
+          text-decoration: none;
+        }
+        .mobile-nav nav ul li a:hover,
+        .mobile-nav nav ul li a:focus {
+          color: white;
+        }
+      }
+
+      @media (orientation: landscape) {
+        .mobile-nav nav ul li a {
+          font-size: 8vh;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrapper"></div>
+    <div class="mobile-nav">
+      <nav>
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'home' %}"> Home </a></li>
+          <li><a href="{% url 'userdashboard' %}"> Profile </a></li>
+          <li>
+            <a href="{% url 'userdashboard' %}"> My Account </a> {% if
+            user.is_seller %}
+          </li>
+
+          <li><a href="{% url 'shopdashboard' %}"> My shop </a> {% endif %}</li>
+
+          <li><a href="{% url 'shopdashboard' %}"> My Products </a></li>
+          <li><a href="{% url 'addproduct' %}"> Add Product </a></li>
+          <li><a href="{% url 'addcoupon' %}"> Add coupon </a></li>
+          <li><a href="{% url 'activecoupons' %}"> Active Coupons</a></li>
+          <li><a href="{% url 'shop_orders'%}"> Orders </a></li>
+          <li><a href="{% url 'logout' %}"> Logout </a></li>
+          {% else %}
+          <li><a href="{% url 'home' %}"> Home </a></li>
+          <li><a href="{% url 'signup' %}">SignUp</a></li>
+          <li><a href="{% url 'login' %}"> Login </a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+    <header>
+      <div class="logo-burger-search">
+        <div class="burgers">
+          <div class="burger burger-one"></div>
+          <div class="burger burger-two"></div>
+          <div class="burger burger-three"></div>
         </div>
-        <div class="mobile-nav">
-            <nav> <ul> 
-                {% if user.is_authenticated %}
-                    <li> <a href="{% url 'home' %}"> Home </a> </li>
-                    <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
-                    <li> <a href="{% url 'userdashboard' %}"> My Account </a>
-                    {% if user.is_seller %}
-                        <li> <a href="{% url 'shopdashboard' %}"> My shop </a>
-                    {% endif %}
-        <li> <a href="{% url 'shopdashboard' %}"> My Products </a>
-            <li> <a href="{% url 'addproduct' %}"> Add Product </a> </li>
-            <li> <a href="{% url 'addcoupon' %}"> Add coupon </a> 
-            <li> <a href="{% url 'activecoupons' %}"> Active Coupons</a></li>
-            <li> <a href="{% url 'shop_orders'%}"> Orders </a>
-                    <li> <a href="{% url 'logout' %}">  Logout  </a> </li>
-                    {% else %}
-                    <li> <a href="{% url 'home' %}"> Home </a> </li> 
-                    <li> <a href="{% url 'signup' %}">SignUp</a></li>
-                    <li> <a href="{% url 'login' %}">  Login  </a> </li>
-                {% endif %}
-            </ul> </nav>
+        <div class="logo">
+          <div class="BlackJack">
+            <a id="BlackJack" href="{% url 'home' %}">Vividly</a>
+          </div>
+          <div class="official">
+            <a id="official" href="{% url 'home' %}"
+              >The Official online store</a
+            >
+          </div>
         </div>
-        <header>
-            <div class="logo-burger-search">
-                <div class="burgers">
-                    <div class="burger burger-one">
+      </div>
 
-                    </div>
-                    <div class="burger burger-two">
+      <nav>
+        <ul>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'home' %}"> Home </a></li>
+          <li><a href="{% url 'userdashboard' %}"> Profile </a></li>
+          <li><a href="{% url 'contactus' %}"> Contact Us </a></li>
+          <li><a href="{% url 'logout' %}"> Logout </a></li>
+          {% else %}
+          <li><a href="{% url 'home' %}"> Home </a></li>
+          <li><a href="{% url 'signup' %}">SignUp</a></li>
+          <li><a href="{% url 'login' %}"> Login </a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+    {% if user.is_authenticated %}
+    <section class="sidemenu">
+      <h1 style="color: white; font-size: 23pt; text-align: center">My Shop</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'shopdashboard' %}"> My Products </a></li>
+          <li><a href="{% url 'addproduct' %}"> Add Product </a></li>
+          <li><a href="{% url 'addcoupon' %}"> Add coupon </a></li>
+          <li><a href="{% url 'activecoupons' %}"> Active Coupons</a></li>
+          <li><a href="{% url 'shop_orders'%}"> Orders </a></li>
+        </ul>
+      </nav>
+    </section>
+    {% endif %}
 
-                    </div>
-                    <div class="burger burger-three">
-
-                    </div>
-                </div>
-                <div class="logo">
-                    <div class="BlackJack"><a id="BlackJack" href="{% url 'home' %}">Vividly</a></div>
-                    <div class="official"><a id="official" href="{% url 'home' %}">The Official online store</a> </div>
-                </div>
-              
-            </div>
-            
-        <nav> <ul> 
-            {% if user.is_authenticated %}
-                <li> <a href="{% url 'home' %}"> Home </a> </li>
-                <li> <a href="{% url 'userdashboard' %}"> Profile </a></li>
-                <li> <a href="{% url 'contactus' %}"> Contact Us </a></li>
-                <li> <a href="{% url 'logout' %}">  Logout  </a> </li>
-                {% else %}
-                <li> <a href="{% url 'home' %}"> Home </a> </li> 
-                <li> <a href="{% url 'signup' %}">SignUp</a></li>
-                <li> <a href="{% url 'login' %}">  Login  </a> </li>
-            {% endif %}
-        </ul> </nav>
-        </header>
-        {% if user.is_authenticated %}
-        <section class="sidemenu">
-             <h1 style="color:white;  font-size:23pt;text-align:center;">   My Shop  </h1>
-            <nav> <ul> 
-            <li> <a href="{% url 'shopdashboard' %}"> My Products </a>
-            <li> <a href="{% url 'addproduct' %}"> Add Product </a> </li>
-            <li> <a href="{% url 'addcoupon' %}"> Add coupon </a> 
-            <li> <a href="{% url 'activecoupons' %}"> Active Coupons</a></li>
-            <li> <a href="{% url 'shop_orders'%}"> Orders </a>
-        </ul> </nav>
-        </section>
-        {% endif %}
-        
-        <main role="main">
-            <!-- <div id="upperinfo">
+    <main role="main">
+      <!-- <div id="upperinfo">
           
               <h1>{% block name %} {% endblock %}</h1>
             </div> -->
 
-            <div id="info">
-                {% block body %}
-                {% endblock %}
-            </div>
-        </main>
-        <script>var menu_open=false;
-            const sidemenu=document.getElementsByClassName('sidemenu')[0];
-            const header=document.getElementsByTagName('header')[0];
-            const burgers=document.getElementsByClassName('burgers')[0];
-            const main=document.getElementsByTagName('main')[0];
-            const wrapper=document.getElementsByClassName('wrapper')[0];
-            const mobile=document.querySelector('.mobile-nav');
-            const search_input=document.querySelector('.search-field');
-            const search_bar=document.querySelector('.search-bar');
-            document.addEventListener('click', function(event){
-                if(!sidemenu.contains(event.target) && menu_open && event.target!=burgers && !burgers.contains(event.target)){
-                    for(let i=0;i<burgers.children.length;i++)
-                    {   
-                        burgers.children[i].classList.remove('clicked');
-                    }
-                    sidemenu.classList.remove('shown');
-                    main.classList.remove('shrink');
-                    wrapper.classList.remove('grey-out');
-                    menu_open=false;
-                }
-            })
-            burgers.addEventListener('click', function() {
-                if(!menu_open)
-                {
-                    for(let i=0;i<burgers.children.length;i++)
-                    {   
-                        burgers.children[i].classList.add('clicked');
-                    }
-                    sidemenu.classList.add('shown');
-                    main.classList.add('shrink');
-                    wrapper.classList.add('grey-out');
-                    mobile.classList.add('open');
-                    menu_open=true;
-                }
-                else
-                {
-                    for(let i=0;i<burgers.children.length;i++)
-                    {   
-                        burgers.children[i].classList.remove('clicked');
-                    }
-                    main.classList.remove('shrink');
-                    sidemenu.classList.remove('shown');
-                    wrapper.classList.remove('grey-out');
-                    mobile.classList.remove('open');
-                    menu_open=false;
-                }
-            })
-            
-            function resize(){
-                const body=document.querySelector('body');
-                if (header.clientHeight+main.clientHeight<body.clientHeight)
-                    document.querySelector('.wrapper').style=`height:${body.clientHeight}px`;
-                else
-                    document.querySelector('.wrapper').style=`height:${header.clientHeight+main.clientHeight+6}px`;
-            }
-            
-            const resizeObserver = new ResizeObserver(entries =>{
-                resize();
-            })
-              
-              // start observing a DOM node
-              resizeObserver.observe(main);
-              
-            document.addEventListener('click',function(){
-                if (search_input===document.activeElement){
-                    search_bar.classList.add('focused');
-                }
-                else{
-                    search_bar.classList.remove('focused');
-                }
-            })
-            
-            </script>
-       
-    </body>
+      <div id="info">{% block body %} {% endblock %}</div>
+    </main>
+    <script>
+      var menu_open = false;
+      const sidemenu = document.getElementsByClassName('sidemenu')[0];
+      const header = document.getElementsByTagName('header')[0];
+      const burgers = document.getElementsByClassName('burgers')[0];
+      const main = document.getElementsByTagName('main')[0];
+      const wrapper = document.getElementsByClassName('wrapper')[0];
+      const mobile = document.querySelector('.mobile-nav');
+      const search_input = document.querySelector('.search-field');
+      const search_bar = document.querySelector('.search-bar');
+      document.addEventListener('click', function (event) {
+        if (
+          !sidemenu.contains(event.target) &&
+          menu_open &&
+          event.target != burgers &&
+          !burgers.contains(event.target)
+        ) {
+          for (let i = 0; i < burgers.children.length; i++) {
+            burgers.children[i].classList.remove('clicked');
+          }
+          sidemenu.classList.remove('shown');
+          main.classList.remove('shrink');
+          wrapper.classList.remove('grey-out');
+          menu_open = false;
+        }
+      });
+      burgers.addEventListener('click', function () {
+        if (!menu_open) {
+          for (let i = 0; i < burgers.children.length; i++) {
+            burgers.children[i].classList.add('clicked');
+          }
+          sidemenu.classList.add('shown');
+          main.classList.add('shrink');
+          wrapper.classList.add('grey-out');
+          mobile.classList.add('open');
+          menu_open = true;
+        } else {
+          for (let i = 0; i < burgers.children.length; i++) {
+            burgers.children[i].classList.remove('clicked');
+          }
+          main.classList.remove('shrink');
+          sidemenu.classList.remove('shown');
+          wrapper.classList.remove('grey-out');
+          mobile.classList.remove('open');
+          menu_open = false;
+        }
+      });
+
+      function resize() {
+        const body = document.querySelector('body');
+        if (header.clientHeight + main.clientHeight < body.clientHeight)
+          document.querySelector(
+            '.wrapper'
+          ).style = `height:${body.clientHeight}px`;
+        else
+          document.querySelector('.wrapper').style = `height:${
+            header.clientHeight + main.clientHeight + 6
+          }px`;
+      }
+
+      const resizeObserver = new ResizeObserver((entries) => {
+        resize();
+      });
+
+      // start observing a DOM node
+      resizeObserver.observe(main);
+
+      document.addEventListener('click', function () {
+        if (search_input === document.activeElement) {
+          search_bar.classList.add('focused');
+        } else {
+          search_bar.classList.remove('focused');
+        }
+      });
+    </script>
+  </body>
 </html>

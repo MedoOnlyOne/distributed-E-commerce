@@ -1,55 +1,48 @@
-{% extends 'templates/layoutshop.html' %}
-{% block head %}
+{% extends 'templates/layoutshop.html' %} {% block head %}
 <title>Active coupons</title>
 <style>
-    .coupon{
-        margin: 10px;
-        border: #2c578f 4px solid;
-        padding:10px;
-        text-align:center;
-        background-color: #bdd5f1;
-    }
-    .deactivate{
-      width:120px;
-      height:30px;
-      background-color :#2c578f;
-      font-weight:bold; 
-      border-radius: 10px;
-    }
-    .deactivate a{
-      color: white;
-      text-decoration: none;
-      
-    }
-    .deactivate a:hover{
-      color: #FFF;
-      
-      cursor: pointer;
-    }
+  .coupon {
+    margin: 10px;
+    border: #2c578f 4px solid;
+    padding: 10px;
+    text-align: center;
+    background-color: #bdd5f1;
+  }
+  .deactivate {
+    width: 120px;
+    height: 30px;
+    background-color: #2c578f;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+  .deactivate a {
+    color: white;
+    text-decoration: none;
+  }
+  .deactivate a:hover {
+    color: #fff;
 
-        
+    cursor: pointer;
+  }
 </style>
-{% endblock %}
-
-{% block name %}Coupons{% endblock %}
-
-{% block body %}
-{% if coupons %}
-<h2 style="text-align: center;">Your active coupons</h2>
-    {% for coupon in coupons %}
-    {% if coupon.activated%}
-    <div class="coupon">
-        <p style="display: inline; margin-right: 15px;">Name: {{coupon.name}}</p>   
-        <p style="display: inline; margin-right: 15px;">Code: {{coupon.code}}</p>  
-        <p style="display: inline; margin-right: 15px;">Discount: {{coupon.discount}}%</p>
-        <button class="deactivate"><a href="{% url 'deactivatecoupon' coupon.code %}">Deactivate</a></button>
-    </div>
-    {% endif %}
-    {% endfor %}
-  {% else %}
-  <div>
-    <p style="font-size:2.5rem; text-align:center">You don't have active coupons</p>
+{% endblock %} {% block name %}Coupons{% endblock %} {% block body %} {% if
+coupons %}
+<h2 style="text-align: center">Your active coupons</h2>
+{% for coupon in coupons %} {% if coupon.activated%}
+<div class="coupon">
+  <p style="display: inline; margin-right: 15px">Name: {{coupon.name}}</p>
+  <p style="display: inline; margin-right: 15px">Code: {{coupon.code}}</p>
+  <p style="display: inline; margin-right: 15px">
+    Discount: {{coupon.discount}}%
+  </p>
+  <button class="deactivate">
+    <a href="{% url 'deactivatecoupon' coupon.code %}">Deactivate</a>
+  </button>
 </div>
-  {% endif %}
-  
-  {% endblock %}
+{% endif %} {% endfor %} {% else %}
+<div>
+  <p style="font-size: 2.5rem; text-align: center">
+    You don't have active coupons
+  </p>
+</div>
+{% endif %} {% endblock %}

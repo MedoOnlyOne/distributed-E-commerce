@@ -1,112 +1,125 @@
-{% extends 'templates/layoutuser.html' %}
-{% load mathfilters %}
-{% block head %} 
-  <title>Wishlist</title>
-  <style>
-    #items
-    {
-      margin-left: 40px;
-      overflow: auto;
-    }
-    
-    .item{
-      float:left;
-      width:700px;
-      background-color:white;
-      border:5px solid #2c578f;
-      background-color: #bdd5f1;
-      margin:3px;
-      padding-bottom:1em;
-    }
-    .item a{
-         color:black;
-         text-decoration: none;
-     }
-     .item a:hover{
-         color:#2c578f;
-     }
-    .itemscontainer
-    {
-     border:navy;
-    }
-    
-    .item p
-     {
-         color:#232732;
-         font-size:17px;
-         position:relative;
-         top:17px;
-         margin:1px;
-     }
-     .item img
-     {
-         float:left;
-         height:135px;
-         margin-right:5px;
-     }
-     .total
-     {
-       font-size:30px;
-       font-weight:bold;
-       color:#232732;
-       width:680px;
-       background-color:white;
-       border:5px solid #2c578f;
-       margin:23px 43px;
-       padding-bottom: 10px;
-       text-align: center;
-     }
-    
-    .count{
-     display:inline;
-     bottom:-17px; 
-     position:relative; 
-     margin-left:2px;
-     width:25px;
-     margin-bottom: 5px; 
-    }
-    .deactivate{
-       width:120px;
-       height:30px;
-       background-color :#2c578f;
-       font-weight:bold; 
-       margin-left:60%;
-       color:white;
-       border-radius: 10px;
-       margin-bottom:0.5em
-     }
-    
-     .deactivate:hover{
-       color: #FFF;
-       cursor: pointer;
-     }
-  </style>
-{% endblock %}
+{% extends 'templates/layoutuser.html' %} {% load mathfilters %} {% block head
+%}
+<title>Wishlist</title>
+<style>
+  #items {
+    margin-left: 40px;
+    overflow: auto;
+  }
 
-{% block name %}Wishlist{% endblock %}
+  .item {
+    float: left;
+    width: 700px;
+    background-color: white;
+    border: 5px solid #2c578f;
+    background-color: #bdd5f1;
+    margin: 3px;
+    padding-bottom: 1em;
+  }
+  .item a {
+    color: black;
+    text-decoration: none;
+  }
+  .item a:hover {
+    color: #2c578f;
+  }
+  .itemscontainer {
+    border: navy;
+  }
 
-{% block body %}
-  {% if products %}
-  <div id="items">
-    <div class="itemscontainer">
-        {% for product in products %}
-        <div class="item" title="{{ product.name }}">
-          <div style="overflow: auto;">
-            <img src="{{ product.image.url }}" height="135" width="135"> 
-            <p style="font-size:25px; font-weight:bold; position:relative; top:5px;"><a href="{% url 'productpage' product.id %}">Product name : {{ product.name }}</a></p>
-            <p><span style="font-weight:bold;">Sold By: </span>{{ product.shop.name }}</p>
-            <p><span style="font-weight:bold;">Price : </span> {{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</p>
-          </div>
-          <div style="margin:auto 5em">
-            <button class="deactivate" onclick="location.href='{% url 'removefromwishlist' product.id %}'">Remove</button>
-          </div>
-        </div>
-        {% endfor %} 
+  .item p {
+    color: #232732;
+    font-size: 17px;
+    position: relative;
+    top: 17px;
+    margin: 1px;
+  }
+  .item img {
+    float: left;
+    height: 135px;
+    margin-right: 5px;
+  }
+  .total {
+    font-size: 30px;
+    font-weight: bold;
+    color: #232732;
+    width: 680px;
+    background-color: white;
+    border: 5px solid #2c578f;
+    margin: 23px 43px;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+
+  .count {
+    display: inline;
+    bottom: -17px;
+    position: relative;
+    margin-left: 2px;
+    width: 25px;
+    margin-bottom: 5px;
+  }
+  .deactivate {
+    width: 120px;
+    height: 30px;
+    background-color: #2c578f;
+    font-weight: bold;
+    margin-left: 60%;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 0.5em;
+  }
+
+  .deactivate:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+{% endblock %} {% block name %}Wishlist{% endblock %} {% block body %} {% if
+products %}
+<div id="items">
+  <div class="itemscontainer">
+    {% for product in products %}
+    <div class="item" title="{{ product.name }}">
+      <div style="overflow: auto">
+        <img src="{{ product.image.url }}" height="135" width="135" />
+        <p
+          style="
+            font-size: 25px;
+            font-weight: bold;
+            position: relative;
+            top: 5px;
+          "
+        >
+          <a href="{% url 'productpage' product.id %}"
+            >Product name : {{ product.name }}</a
+          >
+        </p>
+        <p>
+          <span style="font-weight: bold">Sold By: </span>{{ product.shop.name
+          }}
+        </p>
+        <p>
+          <span style="font-weight: bold">Price : </span>
+          {{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}
+        </p>
+      </div>
+      <div style="margin: auto 5em">
+        <button
+          class="deactivate"
+          onclick="location.href='{% url 'removefromwishlist' product.id %}'"
+        >
+          Remove
+        </button>
+      </div>
     </div>
+    {% endfor %}
   </div>
-  {% else %}
-  <div>
-    <p style="font-size:2.5rem; text-align:center">You don't have any products in your wishlist</p>
-  </div>
-  {% endif %}
-{% endblock %}
+</div>
+{% else %}
+<div>
+  <p style="font-size: 2.5rem; text-align: center">
+    You don't have any products in your wishlist
+  </p>
+</div>
+{% endif %} {% endblock %}
