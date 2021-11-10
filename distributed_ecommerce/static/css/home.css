@@ -4,145 +4,6 @@ html {
 body {
   margin: 0px;
 }
-.Container {
-  overflow: hidden;
-}
-
-header {
-  background-color: #232732;
-  color: #ffffff;
-  border-bottom: #bfb367 6px solid;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  z-index: 1;
-}
-
-header #webname {
-  font-weight: bold;
-  font-size: 36pt;
-  color: white;
-  float: left;
-  margin-left: 50px;
-}
-
-header .official {
-  color: #bfb367;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-header #webname h1 {
-  margin: 0;
-}
-
-header ul {
-  margin: 0;
-  padding: 0;
-}
-
-header li {
-  display: inline;
-  padding: 0 20px 0 20px;
-}
-
-header a {
-  text-decoration: none;
-  color: #bfb367;
-  text-transform: uppercase;
-  font-size: 15pt;
-}
-
-header nav {
-  float: right;
-  padding-right: 30px;
-}
-
-header a:hover {
-  color: white;
-}
-
-#upperinfo {
-  text-align: center;
-  border-bottom: solid 8px #bfb367;
-  border-right: solid 8px #bfb367;
-}
-
-#info {
-  border-right: solid 8px #bfb367;
-  border-bottom: solid 8px #bfb367;
-  font-weight: bold;
-}
-
-#official {
-  color: #bfb367;
-  margin-top: 10%;
-  margin-bottom: 5%;
-  display: inline;
-  font-size: 1rem;
-  text-transform: none;
-}
-#BlackJack {
-  font-size: 40px;
-  color: white;
-  display: inline;
-  text-transform: none;
-}
-#header {
-  display: inline-block;
-}
-.art {
-  display: block;
-  background-color: #232732;
-  margin-bottom: 10%;
-  height: 35px;
-  width: 150px;
-  margin-left: 20%;
-  color: white;
-  font-weight: bold;
-}
-.re {
-  width: 100px;
-  height: 150px;
-  margin-left: 30%;
-}
-.v {
-  display: inline-block;
-  border: #232732 1px solid;
-  margin: 0%;
-  width: 250px;
-}
-#main {
-  margin-left: 25%;
-  margin-top: 1%;
-}
-.ar {
-  background: #232732;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  margin-top: 3%;
-}
-#current {
-  background: white;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  text-decoration: none;
-}
-#current a {
-  text-decoration: none;
-  color: #232732;
-}
-.ar a {
-  text-decoration: none;
-  color: white;
-}
-.but {
-  margin-left: 40%;
-  margin-bottom: 5%;
-}
 .search {
   display: block;
   margin-top: 50px;
@@ -178,12 +39,12 @@ h5 {
   color: #232732;
   text-align: center;
 }
-h1 {
-  color: #232732;
-  text-align: center;
-  margin-bottom: 0%;
-  margin-top: 2%;
-}
+/* h1 {
+color: #232732;
+text-align: center;
+margin-bottom: 0%;
+margin-top: 2%;
+} */
 h4 {
   display: inline;
   margin-right: 5%;
@@ -362,7 +223,9 @@ footer {
   font-weight: 800;
   color: red;
 }
-
+.collection {
+  margin-left: 8%;
+}
 .collection p {
   font-size: 16px;
   font-weight: 800;
@@ -370,8 +233,13 @@ footer {
 }
 .card {
   border: none;
+  display: inline-block;
+  width: 25%;
+  margin-left: 5%;
 }
-
+.img-fluid {
+  height: 300px;
+}
 .cart {
   position: relative;
   height: 48px !important;
@@ -414,13 +282,87 @@ footer {
 
 .card:hover {
   transform: scale(1.04);
-  z-index: 2;
+  /* z-index: 2; */
   overflow: hidden;
 }
 img {
   width: 100%;
-  height: auto;
+  height: 100px;
   vertical-align: middle;
 
   display: grid;
 }
+/* #items
+{
+margin-left: 40px;
+overflow: auto;
+}
+
+.item{
+float:left;
+width:700px;
+background-color:white;
+border:5px solid #BFB367;
+margin:3px;
+padding-bottom:1em;
+}
+.item a{
+   color:black;
+   text-decoration: none;
+}
+.item a:hover{
+   color:#BFB367;
+} */
+.itemscontainer {
+  border: navy;
+}
+
+/* .item p
+{
+   color:#232732;
+   font-size:17px;
+   position:relative;
+   top:17px;
+   margin:1px;
+}
+.item img
+{
+   float:left;
+   height:135px;
+   margin-right:5px;
+} */
+/* .total
+{
+ font-size:30px;
+ font-weight:bold;
+ color:#232732;
+ width:680px;
+ background-color:white;
+ border:5px solid #BFB367;
+ margin:23px 43px;
+ padding-bottom: 10px;
+ text-align: center;
+} */
+
+/* .count{
+display:inline;
+bottom:-17px; 
+position:relative; 
+margin-left:2px;
+width:25px;
+margin-bottom: 5px; 
+} */
+/* .deactivate{
+ width:120px;
+ height:30px;
+ background-color :#232732;
+ font-weight:bold; 
+ margin-left:60%;
+ color:#BFB367;
+ margin-bottom:0.5em
+}
+
+.deactivate:hover{
+ color: #FFF;
+ cursor: pointer;
+} */

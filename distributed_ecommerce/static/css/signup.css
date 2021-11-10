@@ -1,0 +1,189 @@
+header {
+  background-color: #232732;
+  text-decoration: none;
+  margin-bottom: 0%;
+  overflow: hidden;
+}
+body {
+  margin: 0;
+  /* background:url('../static/users/signup.png') no-repeat ; */
+  background-size: 1550px 760px;
+}
+h1 {
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+  text-align: center;
+  padding-right: 0%;
+  background: #bdd5f1;
+  width: 40%;
+  margin-top: 10%;
+  border: 6px solid #2c578f;
+  border-radius: 5px;
+}
+p {
+  color: black;
+  text-align: center;
+  width: 150px;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+  margin-top: 10%;
+}
+
+#m9 .signup_btn {
+  border-radius: 10px;
+  width: 50%;
+  background: #2c578f;
+  padding: 5px;
+  color: white;
+  font-weight: bold;
+  margin-top: 8%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#m9 .signup_btn:hover {
+  color: #ffffff;
+}
+
+#m9 .signup_btn[disabled],
+#m9 .signup_btn:disabled {
+  color: rgb(255, 255, 255);
+  background: #4a525c;
+  cursor: default;
+}
+
+#m9 .login_btn {
+  border-radius: 10px;
+  background: #2c578f;
+  margin: auto;
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 30%;
+  display: inline-block;
+}
+#m9 .login_btn a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+#m9 .login_btn:hover a {
+  color: #ffffff;
+}
+#m9 button:hover {
+  cursor: pointer;
+}
+.correct {
+  border: 2px green solid;
+}
+.wrong {
+  border: 2px red solid;
+}
+input {
+  outline: none;
+  padding: 5px;
+  border-radius: 10px;
+  border-color: white;
+  margin-top: 5%;
+}
+div {
+  margin-right: 0%;
+}
+h2 {
+  display: inline;
+  font-size: 15px;
+}
+
+.phone_code,
+.phone_num {
+  display: inline-block;
+}
+.phone_code {
+  width: 12%;
+}
+.phone_num {
+  width: 35%;
+}
+.Container {
+  overflow: hidden;
+}
+
+header {
+  background-color: #2c578f;
+  color: #ffffff;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1;
+}
+
+header #webname {
+  font-weight: bold;
+  font-size: 36pt;
+  color: white;
+  float: left;
+  margin-left: 50px;
+}
+
+header .official {
+  color: #bdd5f1;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+header #webname h1 {
+  margin: 0;
+}
+
+header ul {
+  margin: 0;
+  padding: 0;
+}
+
+header li {
+  display: inline;
+  padding: 0 20px 0 20px;
+}
+
+header a {
+  text-decoration: none;
+  color: #bdd5f1;
+  text-transform: uppercase;
+  font-size: 15pt;
+}
+
+header nav {
+  float: right;
+  padding-right: 30px;
+}
+
+header a:hover {
+  color: white;
+}
+#official {
+  color: #bdd5f1;
+  margin-top: 10%;
+  margin-bottom: 5%;
+  display: inline;
+  font-size: 1rem;
+  text-transform: none;
+}
+#BlackJack {
+  font-size: 40px;
+  color: white;
+  display: inline;
+  text-transform: none;
+  padding-left: 10px;
+}
+#header {
+  display: inline-block;
+}
+#first_name {
+  display: inline-block;
+}
+#last_name {
+  display: inline-block;
+}
