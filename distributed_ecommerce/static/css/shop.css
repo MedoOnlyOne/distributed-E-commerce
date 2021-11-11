@@ -1,0 +1,172 @@
+body {
+margin: 0px;
+padding: 0.7%;
+}
+.Container {
+overflow: hidden;
+}
+header {
+background-color: #2c578f;
+color: #ffffff;
+position: fixed;
+top: 0px;
+left: 0px;
+right: 0px;
+z-index: 1;
+}
+#header {
+display: inline-block;
+}
+header #webname {
+font-weight: bold;
+font-size: 36pt;
+color: white;
+float: left;
+margin-left: 50px;
+}
+
+header .official {
+color: #bfb367;
+font-size: 12pt;
+font-weight: bold;
+}
+
+header #webname h1 {
+margin: 0;
+}
+
+header ul {
+margin: 0;
+padding: 0;
+}
+
+header li {
+display: inline;
+padding: 0 20px 0 20px;
+}
+
+header a {
+text-decoration: none;
+color: #bdd5f1;
+text-transform: uppercase;
+font-size: 15pt;
+}
+
+header nav {
+float: right;
+padding-right: 30px;
+}
+
+header a:hover {
+color: white;
+}
+.items {
+/* margin-top:100px; */
+width: 730px;
+/* padding:0px; */
+margin: auto;
+overflow: hidden;
+}
+#official {
+color: white;
+margin-top: 10%;
+margin-bottom: 5%;
+display: inline;
+font-size: 1rem;
+text-transform: none;
+}
+#vividly {
+font-size: 40px;
+color: white;
+display: inline;
+text-transform: none;
+}
+.item {
+float: left;
+width: 70%;
+background-color: white;
+border: 5px solid #2c578f;
+margin-left: 13%;
+margin-top: 3%;
+padding: 2%;
+padding-bottom: 2%;
+border-radius: 5px;
+}
+.item a {
+color: black;
+text-decoration: none;
+}
+.item a:hover {
+color: #2c578f;
+}
+
+.item p {
+color: #232732;
+font-size: 17px;
+position: relative;
+top: 17px;
+margin-left: 30%;
+width: 70%;
+}
+.item img {
+float: left;
+height: 135px;
+margin-right: 5px;
+}
+.total {
+font-size: 30px;
+font-weight: bold;
+color: #232732;
+width: 680px;
+background-color: white;
+border: 5px solid #bfb367;
+margin: 23px 43px;
+padding-bottom: 10px;
+text-align: center;
+}
+.count {
+display: inline;
+bottom: -17px;
+position: relative;
+margin-left: 2px;
+width: 25px;
+margin-bottom: 5px;
+}
+.shop_info {
+width: 100%;
+margin: 60px auto;
+margin-bottom: 10px;
+padding-left: 10px;
+text-align: center;
+color: #2c578f;
+}
+.info {
+height: 100px;
+border-top: 3px solid #2c578f;
+width: 100%;
+margin-bottom: 2%;
+}
+.seller {
+margin-left: 40%;
+}
+.add {
+border-radius: 10px;
+background: #2c578f;
+margin-bottom: 10px;
+width: 150px;
+font-size: larger;
+height: 40px;
+padding: 7px;
+display: block;
+margin-left: 45%;
+color: white;
+cursor: pointer;
+border: none;
+}
+.addpage {
+text-decoration: none;
+color: white;
+font-weight: bold;
+text-align: center;
+margin-top: 0px;
+}
