@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from db import db
 from flask_login import UserMixin
 import uuid 
@@ -11,6 +12,9 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(length=255), nullable=False, unique=True)
     password = db.Column(db.String(length=255), nullable=False)
     balance = db.Column(db.Integer(), default=0)
+    
+    stores = db.relationship('Store', backref='owner_user', uselist=False) #One-To-One Relationship
+    orders = db.relationship('Order', backref='owner_user') #One-To-Many Relationship
     
     def get_id(self):
         return self.user_id
