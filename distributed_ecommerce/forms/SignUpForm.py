@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Length, Email, ValidationError
 from wtforms import StringField, PasswordField, SubmitField
 
-from distributed_ecommerce.models.User import User
+from distributed_ecommerce.models import User
 
 def validate_username(form, username):
     existing_user = User.query.filter_by(username=username.data).first()

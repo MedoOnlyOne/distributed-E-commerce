@@ -4,7 +4,7 @@ from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
 from db import db
 from app_bcrypt import bcrypt
-from distributed_ecommerce.models.User import User
+from distributed_ecommerce.models import User, Order, Product, Store 
 
 template_dir = os.path.join('.', 'distributed_ecommerce', 'templates')
 static_dir = os.path.join('.', 'distributed_ecommerce', 'static')
@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b5
 bcrypt.init_app(app)
 db.init_app(app)
 
-def setup_database():
+def create_all():
     with app.app_context():
         db.create_all()
 
@@ -42,6 +42,7 @@ def home():
 @app.get('/contactus')
 def contactus():
     return render_template('contactus.html')
+
 @login_required
 @app.route('/userdashboard', methods=['GET', 'POST'])
 def userdashboard():
@@ -58,5 +59,6 @@ def userdashboard():
         db.session.commit()
         return redirect(url_for("userdashboard"))
     return render_template('userdashboard.html')
+    
 if __name__ == '__main__':
     app.run(debug=True)
