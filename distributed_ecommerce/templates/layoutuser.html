@@ -105,9 +105,9 @@
           <li>
             <a href="{{ url_for('userdashboard') }}"> My Account </a>
           </li>
+          
+          <li><a href="{{ url_for('shop.dashboard') }}"> My shop </a> </li>
           {#
-          <li><a href="{% url 'shopdashboard' %}"> My shop </a> {% endif %}</li>
-
           <li><a href="{% url 'orders' %}"> Orders </a></li>
           <li><a href="{% url 'wishlist' %}"> Wishlist </a></li>
           <li><a href="{% url 'cart' %}"> Cart </a></li>
@@ -127,11 +127,11 @@
     </main>
     <script>
       var menu_open = false;
-      const sidemenu = document.getElementsByClassName('sidemenu')[0];
-      const header = document.getElementsByTagName('header')[0];
-      const burgers = document.getElementsByClassName('burgers')[0];
-      const main = document.getElementsByTagName('main')[0];
-      const wrapper = document.getElementsByClassName('wrapper')[0];
+      const sidemenu = document.querySelector('.sidemenu');
+      const header = document.querySelector('header');
+      const burgers = document.querySelector('.burgers');
+      const main = document.querySelector('main');
+      const wrapper = document.querySelector('.wrapper');
       const mobile = document.querySelector('.mobile-nav');
       const search_input = document.querySelector('.search-field');
       const search_bar = document.querySelector('.search-bar');

@@ -5,6 +5,7 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'Users'
+    __bind_key__ = 'users'
     user_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     first_name = db.Column(db.String(length=255), nullable=False)
     last_name = db.Column(db.String(length=255), nullable=False)
@@ -13,7 +14,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(length=255), nullable=False)
     balance = db.Column(db.Integer(), default=0)
     
-    store = db.relationship('Store', backref='owner_user', uselist=False) #One-To-One Relationship
+    shop = db.relationship('Shop', backref='owner_user', uselist=False) #One-To-One Relationship
     orders = db.relationship('Order', backref='owner_user') #One-To-Many Relationship
     
     def get_id(self):
@@ -57,7 +58,7 @@ class Product(db.Model):
     discount = db.Column(db.Integer(), default=0)
     image = db.Column(db.LargeBinary())
     
-    store_id = db.Column(db.String(length=36), db.ForeignKey('Stores.store_id'))
+    shop_id = db.Column(db.String(length=36), db.ForeignKey('Shops.shop_id'))
 
     def get_id(self):
         return self.product_id
@@ -66,19 +67,19 @@ class Product(db.Model):
         return f"Product('{self.product_id}, {self.product_name}, {self.category}, {self.color}, {self.price}, {self.discount}')"
         
 
-class Store(db.Model):
-    __tablename__ = 'Stores'
-    store_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
-    store_name = db.Column(db.String(length=255), nullable=False, unique=True)
+class Shop(db.Model):
+    __tablename__ = 'Shops'
+    shop_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    shop_name = db.Column(db.String(length=255), nullable=False, unique=True)
     remaining_prods_num = db.Column(db.Integer(), default=0)
     sold_prods_num = db.Column(db.Integer(), default=0)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users.user_id'))
-    products = db.relationship('Product', backref='store') #One-To-Many Relationship
+    products = db.relationship('Product', backref='shop') #One-To-Many Relationship
     
     def get_id(self):
-        return self.store_id
+        return self.shop_id
 
     def __repr__(self):
-        return f"Store('{self.store_id}, {self.store_name}')"
+        return f"Shop('{self.shop_id}, {self.shop_name}')"
         

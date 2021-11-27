@@ -19,6 +19,7 @@ class SignUpForm(FlaskForm):
     last_name = StringField(u'Last Name', [InputRequired(), Length(min=3, max=255)])
     email = StringField(u'Email', [InputRequired(), Email('Please enter a proper email'), Length(max=255), validate_email])
     username = StringField(u'Username', [InputRequired(), Length(min=3, max=255), validate_username])
+    shop_name = StringField(u'shop name', [InputRequired(), Length(min=3, max=255)])
     password = PasswordField(u'Password', [InputRequired(), Length(min=8, max=255)])
     confirm_password = PasswordField(u'Confirm password', [InputRequired(), Length(min=8, max=255), ])
     submit = SubmitField('Sign Up')  

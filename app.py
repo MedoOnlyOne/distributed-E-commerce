@@ -2,30 +2,38 @@ import os
 from flask import Flask, request, render_template, redirect, url_for
 from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
+from distributed_ecommerce.blueprints.shop import shop
 from db import db
 from app_bcrypt import bcrypt
-from distributed_ecommerce.models import User, Order, Product, Store 
+from distributed_ecommerce.models import User, Order, Product, Shop 
+
+UPLOAD_PATH = os.path.join('.', 'images')
 
 template_dir = os.path.join('.', 'distributed_ecommerce', 'templates')
 static_dir = os.path.join('.', 'distributed_ecommerce', 'static')
 
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.register_blueprint(auth)
+app.register_blueprint(shop)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
 app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b57309aa43a058ac731f40163443d1653e8bb8b8bf5431dbd075ee2cf351250c971d516037d6ce'
+app.config['SQLALCHEMY_BINDS'] = {
+    'users': 'sqlite:///database2.db',
+}
+
 
 bcrypt.init_app(app)
 db.init_app(app)
 
-def create_all():
+def create_all(*args, **kwargs):
     with app.app_context():
-        db.create_all()
+        db.create_all(*args, **kwargs)
 
-def drop_all():
+def drop_all(*args, **kwargs):
     with app.app_context():
-        db.drop_all()
+        db.drop_all(*args, **kwargs)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -59,6 +67,13 @@ def userdashboard():
         db.session.commit()
         return redirect(url_for("userdashboard"))
     return render_template('userdashboard.html')
-    
+
+@app.route('/product/<product_id>')
+def productpage(product_id):
+    product = Product.get(product_id)
+    if product:
+        return render_template(product=product)
+    return '<h1> Error 404 <br> Product Not Found'
+
 if __name__ == '__main__':
     app.run(debug=True)
