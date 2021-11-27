@@ -5,7 +5,7 @@ from flask_login import UserMixin
 
 class User(db.Model, UserMixin):
     __tablename__ = 'Users'
-    user_id = db.Column('id', db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    user_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     first_name = db.Column(db.String(length=255), nullable=False)
     last_name = db.Column(db.String(length=255), nullable=False)
     email = db.Column(db.String(length=255), nullable=False, unique=True)
@@ -30,7 +30,7 @@ order_product = db.Table('order_product',
 
 class Order(db.Model):
     __tablename__ = 'Orders'
-    order_id = db.Column('id', db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    order_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     total_price = db.Column(db.Integer(), default=1)
     order_date = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
     shipping_address = db.Column(db.String(length=255), nullable=False)
@@ -47,7 +47,7 @@ class Order(db.Model):
         
 class Product(db.Model):
     __tablename__ = 'Products'
-    product_id = db.Column('id', db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    product_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     product_name = db.Column(db.String(length=255), nullable=False)
     category = db.Column(db.String(length=255), nullable=False)
     color = db.Column(db.String(length=255), nullable=False)
@@ -68,7 +68,7 @@ class Product(db.Model):
 
 class Store(db.Model):
     __tablename__ = 'Stores'
-    store_id = db.Column('id', db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    store_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     store_name = db.Column(db.String(length=255), nullable=False, unique=True)
     remaining_prods_num = db.Column(db.Integer(), default=0)
     sold_prods_num = db.Column(db.Integer(), default=0)
