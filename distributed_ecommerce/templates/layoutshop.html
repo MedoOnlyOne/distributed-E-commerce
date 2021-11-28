@@ -13,7 +13,10 @@
       href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/layoutshop.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/layoutshop.css') }}"
+    />
   </head>
 
   <body>
@@ -29,18 +32,22 @@
             current_user.is_seller %}
           </li>
 
-          <li><a href="{{ url_for('shopdashboard') }}"> My shop </a> {% endif %}</li>
+          <li>
+            <a href="{{ url_for('shopdashboard') }}"> My shop </a> {% endif %}
+          </li>
 
           <li><a href="{{ url_for('shop.dashboard') }}"> My Products </a></li>
-          {# <li><a href="{{ url_for('addproduct') }}"> Add Product </a></li>
+          {#
+          <li><a href="{{ url_for('addproduct') }}"> Add Product </a></li>
           <li><a href="{{ url_for('addcoupon') }}"> Add coupon </a></li>
-          <li><a href="{{ url_for('activecoupons') }}"> Active Coupons</a></li> #}
-          <li><a href="{{ url_for('shop.orders') }}"> Orders </a></li> 
+          <li><a href="{{ url_for('activecoupons') }}"> Active Coupons</a></li>
+          #}
+          <li><a href="{{ url_for('shop.orders') }}"> Orders </a></li>
           <li><a href="{{ url_for('auth.logout') }}"> Logout </a></li>
           {% else %}
           <li><a href="{{ url_for('home') }}"> Home </a></li>
-          <li><a href="{{ url_for('signup') }}">SignUp</a></li>
-          <li><a href="{{ url_for('login') }}"> Login </a></li>
+          <li><a href="{{ url_for('auth.signup') }}">SignUp</a></li>
+          <li><a href="{{ url_for('auth.login') }}"> Login </a></li>
           {% endif %}
         </ul>
       </nav>
@@ -86,8 +93,10 @@
         <ul>
           <li><a href="{{ url_for('shop.dashboard') }}"> My Products </a></li>
           <li><a href="{{ url_for('shop.addproduct') }}"> Add Product </a></li>
-          {# <li><a href="{{ url_for('addcoupon') }}"> Add coupon </a></li>
-          <li><a href="{{ url_for('activecoupons') }}"> Active Coupons</a></li> #}
+          {#
+          <li><a href="{{ url_for('addcoupon') }}"> Add coupon </a></li>
+          <li><a href="{{ url_for('activecoupons') }}"> Active Coupons</a></li>
+          #}
           <li><a href="{{ url_for('shop.orders') }}"> Orders </a></li>
         </ul>
       </nav>

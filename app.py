@@ -70,9 +70,9 @@ def userdashboard():
 
 @app.route('/product/<product_id>')
 def productpage(product_id):
-    product = Product.get(product_id)
+    product = Product.query.filter_by(product_id=product_id).first()
     if product:
-        return render_template(product=product)
+        return render_template('productPage.html', product=product)
     return '<h1> Error 404 <br> Product Not Found'
 
 if __name__ == '__main__':

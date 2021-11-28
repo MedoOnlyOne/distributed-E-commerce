@@ -57,7 +57,8 @@ class Product(db.Model):
     description = db.Column(db.String(length=3000), nullable=False)
     # status = db.Column(db.Boolean(), default=True)
     # discount = db.Column(db.Integer(), default=0)
-    image = db.Column(db.LargeBinary())
+    # image = db.Column(db.LargeBinary())
+    image = db.Column(db.String(length=1000), nullable=False)
     
     shop_id = db.Column(db.String(length=36), db.ForeignKey('Shops.shop_id'))
 
