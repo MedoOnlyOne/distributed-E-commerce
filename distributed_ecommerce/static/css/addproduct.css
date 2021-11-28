@@ -13,7 +13,6 @@ input[type='number'] {
 }
 
 form {
-margin-left: 20%;
 /* text-align:center; */
 padding-left: 15px;
 padding-right: 10px;
@@ -42,7 +41,7 @@ margin-top: 20px;
 #submit_btn {
 display: block;
 margin: 20px;
-margin-left: 200px;
+margin-left: 0;
 width: 120px;
 height: 30px;
 border-radius: 10px;

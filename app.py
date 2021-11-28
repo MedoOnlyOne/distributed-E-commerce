@@ -1,5 +1,5 @@
 import os 
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, send_from_directory
 from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
 from distributed_ecommerce.blueprints.shop import shop
@@ -7,7 +7,7 @@ from db import db
 from app_bcrypt import bcrypt
 from distributed_ecommerce.models import User, Order, Product, Shop 
 
-UPLOAD_PATH = os.path.join('.', 'images')
+UPLOAD_FOLDER = os.path.join('.', 'images')
 
 template_dir = os.path.join('.', 'distributed_ecommerce', 'templates')
 static_dir = os.path.join('.', 'distributed_ecommerce', 'static')
@@ -22,7 +22,7 @@ app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b5
 app.config['SQLALCHEMY_BINDS'] = {
     'users': 'sqlite:///database2.db',
 }
-
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 bcrypt.init_app(app)
 db.init_app(app)
@@ -42,6 +42,10 @@ login_manager.login_view = 'auth.login'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
+
+@app.get('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.get('/')
 def home():

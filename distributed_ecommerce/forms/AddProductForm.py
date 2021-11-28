@@ -13,3 +13,4 @@ class AddProductForm(FlaskForm):
     description = TextAreaField(u'Description', [InputRequired()])
     image = FileField(u'Product image', validators=[FileRequired(), FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')])
     submit = SubmitField('Add product')
+    

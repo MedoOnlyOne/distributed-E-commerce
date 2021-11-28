@@ -14,7 +14,7 @@
   >
     {{ form.hidden_tag() }}
     <div style="display: flex; flex-wrap: wrap">
-      <h3>Product Name:</h3>
+      <h3>Product Name</h3>
       <!-- <input
         type="text"
         id="product_name"
@@ -26,7 +26,7 @@
       style="margin-left: 65px") }}
     </div>
     <div style="display: flex; flex-wrap: wrap">
-      <h3>Category:</h3>
+      <h3>Category</h3>
       <!-- <select name="cat" style="margin-left: 120px">
         <option value="other">Other</option>
         <option value="clothing">Clothing</option>
@@ -39,7 +39,7 @@
       style="margin-left: 120px") }}
     </div>
     <div style="display: flex; flex-wrap: wrap">
-      <h3>Quantity:</h3>
+      <h3>Quantity</h3>
       <!-- <input
         type="number"
         id="stock"
@@ -60,13 +60,11 @@
         name="price"
         style="margin-left: 150px"
       /> -->
-      {{ form.price(id="price", placeholder="Product price in
-      {{currency_name}}", style="margin-left: 150px") }}
+      {{ form.price(id="price", placeholder="Product price in EGP", style="margin-left: 150px") }}
       <br />
-      <h3>in {{currency_name}}:</h3>
     </div>
     <div style="padding: 0px; display: flex; flex-wrap: wrap; margin-top: 1em">
-      <h3 style="display: inline; margin: 1px; padding: 0px">Description:</h3>
+      <h3 style="display: inline; margin: 1px; padding: 0px">Description</h3>
       <!-- <textarea
         placeholder="Description"
         id="description"
@@ -77,18 +75,18 @@
       style="margin: 10px 90px") }}
     </div>
     <div>
-      <h3>Image:</h3>
+      <h3>Image</h3>
       <br />
       <!-- <input type="file" id="fileToUpload" name="image" /> -->
       {{ form.image(id="fileToUpload") }}
     </div>
     <!-- <input id="submit_btn" type="submit" value="Add product" disabled /> -->
-    {{ form.submit() }}
+    {{ form.submit(id="submit_btn") }}
   </form>
 </div>
 <script src="{{ url_for('static', filename='shop/addproduct.js') }}"></script>
 {% if message %}
 <script>
-  alert('{{message}}');
+  alert('{{ message }}');
 </script>
 {% endif %} {% endblock %}

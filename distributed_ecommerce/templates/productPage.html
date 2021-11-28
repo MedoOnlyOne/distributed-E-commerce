@@ -2,326 +2,12 @@
 {% block head %}
 <link
   rel="stylesheet"
-  href="url_for('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
-<style>
-  body {
-    margin: 0px;
-  }
-  p {
-    padding-left: 10px;
-  }
-  body {
-    padding: 0px;
-    margin: 0px;
-  }
-  /* #header{
-        display:inline-block;
-      } */
-  .product {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-  }
-  .product-container {
-    margin: 10px 5px;
-    margin-top: 20px;
-    border-radius: 5px;
-    padding: 10px;
-    overflow: hidden;
-  }
-
-  .product .info {
-    /* width: 50%; */
-    float: right;
-  }
-  .product .info .info-text {
-    text-align: center;
-  }
-  /* .product .image{
-        width: 30%; 
-        float: left;
-        margin-left: 20%;
-      } */
-  #x {
-    display: inline;
-  }
-
-  #productimage {
-    width: 300px;
-    height: 300px;
-    border-radius: 10px;
-  }
-  h1 {
-    font-weight: bold;
-    display: inline;
-    margin-top: 0;
-    /* margin-right: 10%; */
-  }
-  h4 {
-    display: inline-block;
-    margin-bottom: 0px;
-  }
-  #CO {
-    margin-left: 9%;
-    background-color: #232732;
-    color: white;
-  }
-  .cart,
-  .wishlist {
-    display: block;
-    margin: 20px auto;
-    background-color: #2c578f;
-    height: 35px;
-    width: 250px;
-    color: #bdd5f1;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 24px;
-  }
-  .cart:hover,
-  .wishlist:hover {
-    cursor: pointer;
-    color: #fff;
-  }
-  .wl {
-    display: block;
-    background-color: #f3a04a;
-  }
-  #i {
-    color: red;
-    display: inline;
-    background-color: #232732;
-  }
-  .relate-product {
-    display: block;
-    border: #2c578f 3px solid;
-    border-radius: 5px;
-    padding: 0.5em;
-    margin: 10px;
-    width: 250px;
-  }
-  .Related {
-    border-top: rgb(221, 221, 221) solid 2px;
-    text-align: center;
-    padding: 10px;
-  }
-  .re {
-    width: 250px;
-    height: 250px;
-  }
-  h3 {
-    margin-left: 38%;
-  }
-  h5 {
-    text-align: center;
-    font-weight: bold;
-  }
-  .art {
-    display: block;
-    background-color: #232732;
-    margin-bottom: 10%;
-    height: 35px;
-    width: 150px;
-    margin-left: 20%;
-    color: white;
-    font-weight: bold;
-  }
-  .rating {
-    margin-left: 45%;
-    display: inline-block;
-    flex-direction: row-reverse;
-    justify-content: center;
-    width: 160px;
-  }
-
-  .rating > input {
-    display: none;
-  }
-
-  .rating > label {
-    position: relative;
-    width: 1em;
-    font-size: 2vw;
-    color: #232732;
-    cursor: pointer;
-  }
-
-  .rating > label::before {
-    content: '\2605';
-    position: absolute;
-    opacity: 0;
-  }
-
-  .rating > label:hover:before,
-  .rating > label:hover ~ label:before {
-    opacity: 1 !important;
-  }
-
-  .rating > input:checked ~ label:before {
-    opacity: 1;
-  }
-
-  .rating:hover > input:checked ~ label:before {
-    opacity: 0.4;
-  }
-  h2 {
-    margin-bottom: 0px;
-  }
-  h6 {
-    text-align: center;
-    font-size: 25px;
-    margin: 0;
-  }
-  .Dis {
-    display: inline-block;
-    text-align: center;
-    padding: 10px;
-    width: 50%;
-    border-top: rgb(221, 221, 221) solid 2px;
-    margin-left: 35rem;
-  }
-
-  .Rev {
-    text-align: center;
-    display: block;
-    margin: 10px 5px;
-    border-top: rgb(221, 221, 221) solid 2px;
-    padding: 10px;
-  }
-  .user-reviews {
-    display: block;
-    margin: 10px 5px;
-    border-top: rgb(221, 221, 221) solid 2px;
-    padding: 10px;
-  }
-  .single-review {
-    display: block;
-    border-bottom: rgb(221, 221, 221) solid 2px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-  textarea {
-    display: inline-block;
-    margin-top: 10px;
-    width: 80%;
-    height: 150px;
-    margin-bottom: 5px;
-  }
-  span {
-    font-size: 30px;
-    color: red;
-    display: inline-block;
-  }
-
-  .review_btn {
-    display: block;
-    background-color: #2c578f;
-    margin: 10px auto;
-    height: 35px;
-    width: 150px;
-    font-size: large;
-    color: white;
-    font-weight: bold;
-    border-radius: 15px;
-  }
-  .review_btn:hover {
-    cursor: pointer;
-    color: #bdd5f1;
-  }
-  .review_btn:disabled,
-  .review_btn[disabled] {
-    color: #ccc;
-    cursor: default;
-  }
-  #ii {
-    display: inline-block;
-  }
-  .rate {
-    display: block;
-    margin-right: 44.5%;
-    height: 46px;
-  }
-  .rate:not(:checked) > input {
-    position: absolute;
-    top: -9999px;
-    visibility: hidden;
-  }
-  .rate:not(:checked) > label {
-    float: right;
-    width: 1em;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 30px;
-    color: #ccc;
-  }
-  .rate:not(:checked) > label:before {
-    content: '★ ';
-  }
-  .rate > input:checked ~ label {
-    color: #ffc700;
-  }
-  .rate:not(:checked) > label:hover,
-  .rate:not(:checked) > label:hover ~ label {
-    color: #deb217;
-  }
-  .rate > input:checked + label:hover,
-  .rate > input:checked + label:hover ~ label,
-  .rate > input:checked ~ label:hover,
-  .rate > input:checked ~ label:hover ~ label,
-  .rate > label:hover ~ input:checked ~ label {
-    color: #c59b08;
-  }
-
-  .p_name {
-    text-decoration: none;
-    color: #000;
-    font-size: 20px;
-  }
-
-  .p_name:hover {
-    color: #bdd5f1;
-  }
-
-  .shoplink {
-    color: black;
-    text-decoration: none;
-  }
-
-  .shoplink:hover {
-    color: #2c578f;
-  }
-  .product-name {
-    color: #2c578f;
-    font-size: 30px;
-    padding-bottom: 2px;
-  }
-  .product-name-container {
-    border-bottom: rgb(221, 221, 221) solid 2px;
-    width: 100%;
-  }
-  #productimage {
-    width: 300px;
-    height: 300px;
-    margin-left: 5%;
-    margin-top: 5%;
-  }
-  input[type='text'] {
-    background-color: #232732;
-    color: white;
-  }
-  #description {
-    font-weight: lighter;
-  }
-  .related-price {
-    color: red;
-  }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/productpage.css') }}" />
 {% endblock %} {% block body%}
 
-<!-- <header>
+<header>
   <div class="Container">
       <div id="header">
         <span><a id="BlackJack" href="{{ url_for('home') }}">BlackJack</a></span>
@@ -329,18 +15,18 @@
  </div>
 
 <nav> <ul style="margin-top:12px;"> 
-  {% if user.is_authenticated %}
+  {% if current_user.is_authenticated %}
     <li> <a href="{{ url_for('home') }}"> Home </a> </li>
     <li> <a href="{{ url_for('userdashboard') }}"> Profile </a></li>
     <li> <a href="{{ url_for('contactus') }}"> Contact Us </a></li>
-    <li> <a href="{{ url_for('logout') }}">  Logout  </a> </li>
+    <li> <a href="{{ url_for('auth.logout') }}">  Logout  </a> </li>
     {% else %}
     <li> <a href="{{ url_for('home') }}"> Home </a> </li>
-    <li> <a href="{{ url_for('signup') }}">SignUp</a></li>
-    <li> <a href="{{ url_for('login') }}">  Login  </a> </li>
+    <li> <a href="{{ url_for('auth.signup') }}">SignUp</a></li>
+    <li> <a href="{{ url_for('auth.login') }}">  Login  </a> </li>
     {% endif %}
 </ul> </nav>
-</header> -->
+</header> 
 
 
     <div class="product-container">
@@ -351,11 +37,11 @@
             <h1 class="product-name">{{ product.name }}</h1>
           </div>
           
-          <h2>Shop: <a class="shoplink" href="{{ url_for('shop', shop_name = product.shop.name) }}">{{product.shop.name}}</a> <h2>
-          <h2>Price: <span>{# product.price|mul:currency_ratio|floatformat:2 #} {{currency_symbol}}</span></h2>
+          <h2>Shop <a class="shoplink" href="#">{{product.shop.name}}</a> <h2>
+          <h2>Price: <span>{{ product.price }} EGP</span></h2>
           <h2>Category: {{product.get_category_display}}</h2>
           <h2>Quantity: {{ product.remaininginstock }}</h2>
-          <h2>Rating: {{ rating }}</h2>
+          <h2>Rating: 5 </h2>
         </div>
         <form action="{{ url_for('productpage', product_id=product.id) }}" method="POST">
           
@@ -379,7 +65,7 @@
         </form>
       </div>
       <div class="image">
-        <img src="{{ product.image }}" alt="{{ product.name }}" id="productimage">
+        <img src="{{ url_for('uploaded_file', filename=product.image) }}" alt="{{ product.name }}" id="productimage">
       </div>
       <div class="Dis">
         <h6>About this item</h6>
@@ -394,18 +80,18 @@
     {% endif %}  
      
     </div>
-    <div class="Related">
+    {# <div class="Related">
       <h6>Related to this item</h6>
       <div style="display:flex; justify-content:center">
       {% for p in related %}
       <div class="relate-product">
         <img src="{{ p.image}}" alt="{{p.name}}" class="re">
         <h5><a class="p_name" href="{{ url_for('productpage', product_id=p.id) }}">{{p.name}}</a></h5>
-        <h5 class="related-price">{#p.price|mul:currency_ratio|floatformat:2#} {{currency_name}}</h5>
+        <h5 class="related-price">{#p.price|mul:currency_ratio|floatformat:2 {{currency_name}}</h5>
        </div>
        {% endfor %}
       </div>
-        </div>
+    </div> #}
 <div class="Rev">
 <form action="{{ url_for('productpage', product_id=product.product_id) }}" method="POST">
   
@@ -426,7 +112,7 @@
 <input type="submit" name="add_review" id="review_btn" class="review_btn" disabled>
 </form>
 </div>
-<div class="user-reviews">
+{# <div class="user-reviews">
   <h6>User Reviews</h6>
   {% if reviews %}
   {% for review in reviews%}
@@ -439,11 +125,11 @@
   {% else %}
     <p style="font-size: 1.5rem; text-align: center;">There are no reviews for this product.</p>
   {% endif %}
-</div>
-
+</div> #}
+{# 
 {% if related_len > 0 %}
 
-{% endif %}
+{% endif %} #}
 
     {% if not is_user_product and not user_has_review%}
       <script>

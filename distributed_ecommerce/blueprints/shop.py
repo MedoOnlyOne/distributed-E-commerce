@@ -29,16 +29,14 @@ def addproduct():
         # get the image
         image = form.image.data
         image_name = secure_filename(image.filename)
-        dist = os.getcwd() + '/images'
-        print(dist)
 
         # craete product
-        created_product = Product(product_name=form.product_name.data, category=form.category.data, quantity=form.quantity.data, price=form.price.data, description=form.description.data, image=dist+'/'+image_name, shop_id=shop.shop_id)
+        created_product = Product(product_name=form.product_name.data, category=form.category.data, quantity=form.quantity.data, price=form.price.data, description=form.description.data, image=image_name, shop_id=shop.shop_id)
         db.session.add(created_product)
         db.session.commit()
 
         # save the image
-        image.save(os.path.join(dist, image_name))
+        image.save(os.path.join(os.getcwd(), 'images', image_name))
 
         return redirect(url_for('productpage', product_id=created_product.product_id))
     return render_template('addproduct.html', form=form)
