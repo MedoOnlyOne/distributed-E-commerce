@@ -1,11 +1,11 @@
-{% extends 'layoutshop.html' %} 
-{% block head %}
+{% extends 'layoutshop.html' %} {% block head %}
 
 <title>Add Product</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/addproduct.css') }}" />
-{% endblock %}
-
-{% block body %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/addproduct.css') }}"
+/>
+{% endblock %} {% block body %}
 <div class="add_product">
   <form
     action="{{ url_for('shop.addproduct') }}"
@@ -22,7 +22,8 @@
         name="product"
         style="margin-left: 65px"
       /> -->
-      {{ form.product_name(id="product_name", placeholder="Product name", style="margin-left: 65px") }}
+      {{ form.product_name(id="product_name", placeholder="Product name",
+      style="margin-left: 65px") }}
     </div>
     <div style="display: flex; flex-wrap: wrap">
       <h3>Category:</h3>
@@ -34,10 +35,11 @@
         <option value="home_applicanes">Home Applicanes</option>
         <option value="furniture">Furniture</option>
       </select> -->
-      {{ form.category(id="category", placeholder="Category", style="margin-left: 120px") }}
+      {{ form.category(id="category", placeholder="Category",
+      style="margin-left: 120px") }}
     </div>
     <div style="display: flex; flex-wrap: wrap">
-      <h3>Remaining in Stock:</h3>
+      <h3>Quantity:</h3>
       <!-- <input
         type="number"
         id="stock"
@@ -45,7 +47,8 @@
         name="remaining_in_stock"
         style="margin-left: 18px"
       /> -->
-      {{ form.remaining_in_stock(id="remaining_in_stock", placeholder="Remaining in stock", style="margin-left: 18px") }}
+      {{ form.quantity(id="quantity", placeholder="Quantity",
+      style="margin-left: 120px") }}
     </div>
     <div>
       <h3>Price</h3>
@@ -57,7 +60,8 @@
         name="price"
         style="margin-left: 150px"
       /> -->
-      {{ form.price(id="price", placeholder="Product price in {{currency_name}}", style="margin-left: 150px") }}
+      {{ form.price(id="price", placeholder="Product price in
+      {{currency_name}}", style="margin-left: 150px") }}
       <br />
       <h3>in {{currency_name}}:</h3>
     </div>
@@ -69,7 +73,8 @@
         name="discription"
         style="margin: 10px 90px"
       ></textarea> -->
-      {{ form.description(id="description", placeholder="Description", style="margin: 10px 90px") }}
+      {{ form.description(id="description", placeholder="Description",
+      style="margin: 10px 90px") }}
     </div>
     <div>
       <h3>Image:</h3>
