@@ -1,68 +1,10 @@
-{% extends 'templates/layoutshop.html' %}
-{% load mathfilters %}
+{% extends 'layoutshop.html' %}
 {% block head %}
   <title>Edit Product</title>
-
-  <style>
-        #info_edit{margin: auto;}
-        #product_image{
-            padding-top: 20px;
-            margin: auto;
-            width: 300px;
-            height: 300px;
-            border-radius: 20px;
-        }
-        .edit_product{
-        margin-left: 25%;
-        }
-        form {
-        /* margin-left: 20%; */
-        /* text-align:center; */
-        padding-left:15px;
-        padding-right:10px;
-        font-size:14pt;
-        }
-        h3{display: inline;}
-        input[type="text"],
-        input[type="number"],
-        select{
-        width :300px;
-        height: 25px;
-        margin-top: 20px;
-        margin-bottom: 5px;
-        }
-        textarea{
-          width :300px;
-          height: 300px;
-          margin-top: 20px;
-          margin-bottom: 5px;
-        }
-        input[type="file"]{
-        margin-top: 20px;
-        } 
-        #submit_btn
-        {
-        display: block;
-        margin:15px;
-        margin-left: 200px;
-        width:120px;
-        height:30px;
-        background-color :#2c578f;
-        color: white ;
-        border-radius: 10px;
-        font-weight:bold;
-        }
-        #submit_btn:hover{
-        cursor: pointer;
-        color: #FFF;
-        }
-        #submit_btn:disabled,
-        #submit_btn[disabled]
-        {
-          color:#ccc;
-          cursor:default;
-        }
-  </style>
+  <link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/editproduct.css') }}"
+/>
 {% endblock %}
 
 {% block name %}Edit product{% endblock %}
@@ -70,53 +12,51 @@
 {% block body %}
   <div id="info_edit">
     <div id="product_image">
-        <img src="{{ product.image.url}}" alt="{{product.name}}" height="300" width="300" style="border-radius: 20px;">
+        <img src="{{ url_for('uploaded_file', filename=product.image) }}" alt="{{product.name}}" height="300" width="300" style="border-radius: 20px;">
     </div>
     <div class="edit_product">
-        <form action="{% url 'editproduct' product.id %}" method="POST">
-          {% csrf_token %}
+        <form action="{{ url_for('editproduct', product_id=product.product_id) }}" method="POST">
           <div>
             <h3>Product Name:</h3>
-            <input type="text" id="product_name" value="{{product.name}}" name="product" style="margin-left: 65px;">
+            <input type="text" id="product_name" value="{{product.product_name}}" name="product" style="margin-left: 65px;">
           </div>
           <div style="display:flex; flex-wrap:wrap;">
             <h3>Category:</h3>
             <select name="cat" style="margin-left: 120px;">
-              <option value="other" 
-              {% if product.category == 'other' %}
+              <option value="Other" 
+              {% if product.category == 'Other' %}
                 selected
               {% endif %}>Other</option>
-              <option value="clothing"
-              {% if product.category == 'clothing' %}
+              <option value="Clothing"
+              {% if product.category == 'Clothing' %}
                 selected
               {% endif %}>Clothing</option>
-              <option value="tvs"
-              {% if product.category == 'tvs' %}
+              <option value="TVs"
+              {% if product.category == 'TVs' %}
                 selected
               {% endif %}>TVs</option>
-              <option value="electronics"
-              {% if product.category == 'electronics' %}
+              <option value="Electronics"
+              {% if product.category == 'Electronics' %}
                 selected
               {% endif %}>Electronics</option>
-              <option value="home_applicanes"
-              {% if product.category == 'home_applicanes' %}
+              <option value="Home Applicanes"
+              {% if product.category == 'Home Applicanes' %}
                 selected
               {% endif %}>Home Applicanes</option>
-              <option value="furniture"
-              {% if product.category == 'furniture' %}
+              <option value="Furniture"
+              {% if product.category == 'Furniture' %}
                 selected
               {% endif %}>Furniture</option>
             </select>
           </div>
           <div>
-            <h3>Remaining in stock:</h3>
-            <input type="number" id="stock" value="{{product.remaininginstock}}" name="remaining_in_stock" style="margin-left: 18px;">
+            <h3>Quantity:</h3>
+            <input type="number" id="stock" value="{{product.quantity}}" name="quantity" style="margin-left: 117px;">
           </div>
           <div>
             <h3>Price</h3>
-            <input type="number" id="price" step="0.01" value="{{product.price|mul:currency_ratio|floatformat:2}}" name="price" style="margin-left: 150px;">
+            <input type="number" id="price" step="0.01" value="{{product.price}}" name="price" style="margin-left: 150px;">
             <br>
-            <h3>in {{currency_name}}:</h3>
           </div>
           <div style="display:flex; flex-wrap:wrap; margin-top: 1em;">
             <h3 style="display: inline-block; margin: 0px;padding: 0px;">Description:</h3>

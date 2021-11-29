@@ -15,7 +15,9 @@ shop = Blueprint('shop', __name__, template_folder='templates')
 @shop.get('/shop')
 def dashboard():
     shop = current_user.shop
-    return render_template('shopdashboard.html', shop=shop)
+    products = Product.query.filter_by(shop_id=shop.shop_id).all()
+    
+    return render_template('shopdashboard.html',shop=shop, products=products)
 
 @login_required
 @shop.route('/shop/addproduct', methods=['GET', 'POST'])
@@ -45,4 +47,3 @@ def addproduct():
 @shop.get('/shop/orders')
 def orders():
     return render_template('shoporders.html')
-    

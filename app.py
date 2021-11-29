@@ -88,5 +88,39 @@ def productpage(product_id):
         return render_template('productPage.html', product=product, shop=product_shop)
     return '<h1> Error 404 <br> Product Not Found'
 
+@login_required
+@app.route('/product/edit/<product_id>', methods=['GET', 'POST'])
+def editproduct(product_id):
+    product = Product.query.filter_by(product_id=product_id).first()
+    if request.method == "POST":
+        product_name = request.form.get("product","")
+        category = request.form.get("cat","")
+        quantity = request.form.get("quantity","")
+        price = request.form.get("price","")
+        description = request.form.get("description","")
+
+        product.product_name = product_name if product_name != '' else product.product_name
+        product.category = category if category != '' else product.category
+        product.quantity = quantity if quantity != '' else product.quantity
+        product.price = price if price != '' else product.price
+        product.description = description if description != '' else product.description
+
+        db.session.commit()
+        return redirect(url_for("shop.dashboard"))
+    
+    else:
+        if product:
+            return render_template('editproduct.html', product=product)
+        return '<h1> Error 404 <br> Product Not Found'
+
+
+@login_required
+@app.route('/product/remove/<product_id>')
+def removeproduct(product_id):
+    product = Product.query.filter_by(product_id=product_id).delete()
+    db.session.commit()
+    return redirect(url_for("shop.dashboard"))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

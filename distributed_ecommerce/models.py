@@ -69,7 +69,7 @@ class Product(db.Model):
         return self.product_id
 
     def __repr__(self):
-        return f"Product('{self.product_id}, {self.product_name}, {self.category}, {self.color}, {self.price}, {self.discount}')"
+        return f"Product('{self.product_id}, {self.product_name}, {self.category}, {self.price}, {self.quantity}, {self.description}')"
         
 
 class Shop(db.Model):

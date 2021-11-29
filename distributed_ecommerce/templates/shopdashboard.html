@@ -1,18 +1,21 @@
 {% extends 'layoutshop.html' %} {% block head %}
-  <title>My Products</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/shopdashboard.css') }}" />
-{% endblock %}
-{% block name %}
-  My Products
-{% endblock %}
-{% block body %} 
-{% if products %}
+<title>My Products</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/shopdashboard.css') }}"
+/>
+{% endblock %} {% block name %} My Products {% endblock %} {% block body %} {%
+if products %}
 <div id="items">
   <div class="itemscontainer">
     {% for product in products %}
     <div class="item" title="{{ product.name }}">
       <div style="overflow: auto">
-        <img src="{{ product.image.url }}" height="135" width="135" />
+        <img
+          src="{{ url_for('uploaded_file', filename=product.image) }}"
+          height="135"
+          width="135"
+        />
         <p
           style="
             font-size: 20px;
@@ -21,9 +24,11 @@
             top: 5px;
           "
         >
-          {# <a href="{{ url_for('productpage', product_id=product.id) product.id }}"
-            >Product name : {{ product.name }}</a
-          > #} {# comment #}
+          <a
+            href="{{ url_for('productpage', product_id=product.product_id) }}"
+            class="name"
+            >Product name : {{ product.product_name }}
+          </a>
         </p>
         <p>
           <span style="font-weight: bold">Price : </span>
@@ -38,20 +43,18 @@
       </div>
       <div style="display: flex">
         <div style="margin: auto 5em">
-          <button
-            class="deactivate"
-            onclick="#"
+          <a
+            class="edit"
+            href="{{ url_for('editproduct', product_id=product.product_id) }}"
+            >Edit</a
           >
-            Edit
-          </button>
         </div>
         <div style="margin: auto 5em">
-          <button
-            class="deactivate"
-            onclick="#"
+          <a
+            class="remove"
+            href="{{ url_for('removeproduct', product_id=product.product_id) }}"
+            >Remove</a
           >
-            Remove
-          </button>
         </div>
       </div>
     </div>
