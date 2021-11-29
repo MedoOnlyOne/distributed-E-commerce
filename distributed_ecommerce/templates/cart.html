@@ -1,0 +1,171 @@
+{% extends 'layoutuser.html' %}
+{% load mathfilters %}
+{% block head %} 
+  <title>Cart</title>
+  <style>
+    #items
+   {
+     overflow: hidden;
+     width:710px; 
+     margin:10px auto 10px auto;
+
+   }
+
+   .item
+   {
+    width:700px;
+    height:auto;
+    background-color:white;
+    border:5px solid #2C578F;
+    border-radius: 2px;
+    margin:0.5em 0em;
+
+   }
+   .item a{
+        color:black;
+        text-decoration: none;
+    }
+    .item a:hover{
+        color:#2C578F;
+    };
+   .itemscontainer
+   {
+    border:navy;
+   }
+
+   .item p
+    {
+        color:#2C578F;
+        font-size:17px;
+        position:relative;
+        top:17px;
+        margin:1px;
+    }
+    .item img
+    {
+        float:left;
+        height:135px;
+        margin-right:5px;
+    }
+    .total
+    {
+      font-size:30px;
+      font-weight:bold;
+      color:#2C578F;
+      width:700px;
+      background-color:white;
+      border:5px solid #2C578F;
+      border-radius: 2px;
+      padding-bottom: 10px;
+      text-align: center;
+      margin:10px auto 10px auto;
+
+    }
+    a [href="Cart.html"]
+   {
+    color:#BFB367;
+   }
+   .count{
+    display:inline;
+    bottom:-17px; 
+    position:relative; 
+    margin-left:2px;
+    width:25px;
+    margin-bottom: 5px; 
+   }
+   .deactivate{
+      width:120px;
+      height:30px;
+      background-color :#2C578F;
+      font-weight:bold; 
+      margin-left:60%;
+      margin-bottom:0.5em;
+      color:#BDD5F1;
+border-radius:10px;
+   }
+    .deactivate:hover{
+      color: #FFF;
+      cursor: pointer;
+    }
+    .new_price{
+      visibility: hidden;
+    }
+    #checkout_btn{
+      height:40px;
+      width:337px;
+      margin-left:5px;
+      font-weight:bold;
+      border-radius: 2px;
+      color:white;
+      background-color: #2C578F;
+      cursor: pointer;
+    }
+    #checkout_btn[disabled],
+    #checkout_btn:disabled{
+      color:#ccc;
+      cursor :default;
+    }
+  </style>
+{% endblock %}
+
+{% block name %}Cart{% endblock %}
+
+{% block body %}
+  {% if products %}
+  <div id="items">
+      <div class="itemscontainer">   
+          {% for product in products %}
+          <div class="item" title="{{ product.name }}">
+            <div>
+            <img src="{{ product.image.url }}" height="135" width="135"> 
+            <p style="font-size:22px; font-weight:bold; position:relative; top:5px;"><a href="{% url 'productpage' product.id %}">Product name : {{ product.name }}</a></p>
+            <p><span style="font-weight:bold;">Sold By: </span><span class="shopname">{{ product.shop.name }}</span></p>
+            <button type="button" name="-" class="count" onclick="dec('{{product.name}}')">-</button>
+              <p style="display:inline;"><span style="font-weight:bold; bottom:10px;">Quantity : </span> <span id="{{product.name}}" name="{{product.name}}" class="q">{% if product.remaininginstock > 0 %}1{% else %}0{% endif %}</span></p>
+              <button id="{{product.name}}" type="button" name="+" class="count" onclick="inc('{{product.name}}', {{product.remaininginstock}})"
+              {% if q == product.remaininginstock %}
+                disabled="true"
+              {% endif %}
+              >+</button>             
+              <p >Price: <span class="old_price"><span class="p">{{product.price|mul:currency_ratio|floatformat:2}}</span>{{currency_symbol}}</span>&nbsp;&nbsp;&nbsp;<span class="new_price"><span class="p">{{product.price|mul:currency_ratio|floatformat:2}}</span>{{currency_symbol}}</span></p>
+            </div>
+            <div>
+              <button class="deactivate" onclick="location.href='{% url 'removefromcart' product.id %}'">Remove</button>
+            </div>  
+          </div>
+          {% endfor %} 
+      </div>
+  </div>
+      
+  <div class="total">
+      <p title="total" style="margin-top: 10px;margin-bottom: 0px;">Total :<span id="t"></span>{{currency_symbol}}</p> 
+      <br>
+      <p style="font-size:20px;margin-left:5px; font-weight:bold;margin-bottom:4px;margin-top: 0px;">Redeem Coupon <span style="font-size:12px;">(optional)</span></p>
+      <input type="text" name="username" id="coupon_code" placeholder="Place your coupon here" style="display:inline; height:40px; width:240px; margin-left:5px; margin-top:0px;text-align:center;"> 
+      <input type="button" id="add_coupon" name="Submit" value="Submit" 
+      {% if len == 0 %}
+        disabled="true" style="cursor: no-drop; display:inline; height:45px; width:80px; position:relative; left:5px; font-weight:bold; margin-bottom:20px;"
+      {% endif %}
+      style="display:inline; height:45px; width:80px; position:relative; left:5px; font-weight:bold; margin-bottom:20px; ">
+      <form action="{% url 'create_transaction' %}" method="POST">
+        {% csrf_token %}
+      <input id="bill" type="hidden" name="total">
+      <input id="coupon" type="hidden" name="coupon_code">
+      {% for product in products %}
+      <input  type="hidden" class="quantity_of_product" name="{{product.id}}_quantity"> 
+      {% endfor %}
+      <input type="submit" id="checkout_btn" name="proceed_to_checkout" value="Proceed to checkout" disabled>
+      </form>
+  </div>
+  {% else %}
+  <div>
+    <p style="font-size:2.5rem; text-align:center">You don't have any products in your cart</p>
+  </div>
+  {% endif %}
+  {% if products %}
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="../static/users/js/cart.js"></script>
+  {% endif %}
+
+{% endblock %}
+
