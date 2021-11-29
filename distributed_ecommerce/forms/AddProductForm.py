@@ -7,7 +7,7 @@ from wtforms import StringField, IntegerField, DecimalField, TextAreaField, Sele
 
 class AddProductForm(FlaskForm):
     product_name = StringField(u'Product name', [InputRequired()])
-    category = SelectField(u'Category', choices=[('others', 'Others'), ('clothing', 'Clothing'), ('tvs', 'TVs'), ('home_applicanes', 'Home Applicanes'), ('furniture', 'Furniture'), ('electronics', 'Electronics')])
+    category = SelectField(u'Category', choices=[('Others', 'Others'), ('Clothing', 'Clothing'), ('TVs', 'TVs'), ('Home Applicanes', 'Home Applicanes'), ('Furniture', 'Furniture'), ('Electronics', 'Electronics')])
     quantity = IntegerField(u'Quantity', [InputRequired()])
     price = IntegerField(u'Price', [InputRequired()])
     description = TextAreaField(u'Description', [InputRequired()])

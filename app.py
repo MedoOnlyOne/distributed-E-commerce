@@ -75,8 +75,9 @@ def userdashboard():
 @app.route('/product/<product_id>')
 def productpage(product_id):
     product = Product.query.filter_by(product_id=product_id).first()
+    product_shop = Shop.query.filter_by(shop_id=product.shop_id).first()
     if product:
-        return render_template('productPage.html', product=product)
+        return render_template('productPage.html', product=product, shop=product_shop)
     return '<h1> Error 404 <br> Product Not Found'
 
 if __name__ == '__main__':
