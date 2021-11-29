@@ -39,26 +39,36 @@
       {{ form.hidden_tag() }}
       <!-- <input type="text" id="first_name" name="first_name" placeholder="Enter your first name"> -->
       {{ form.first_name(id="first_name", placeholder="Enter your first name") }}
-    
-    
+      
       <!-- <input type="text" id="last_name" name="last_name" placeholder="Enter your last name"> -->
       {{ form.last_name(id="last_name", placeholder="Enter your last name") }}
-  
+      <br>
+      
       <!-- <input type="email"  id="email" name="email" placeholder="Enter Email"> -->
       {{ form.email(id="email", placeholder="Enter Email") }}
-    
+      
       <!-- <input type="text" id="username" name="username" placeholder="Username"> -->
       {{ form.username(id="username", placeholder="Username") }}
-
+      <br>
+      
       <!-- <input type="password" id="password" name="password" placeholder="Enter Password"> -->
       <!-- <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password"> -->
       {{ form.password(id="password", placeholder="Enter password") }}
-      {{ form.confirm_password(id="confirm_password", placeholder="Confirm password") }}
       
+      {{ form.confirm_password(id="confirm_password", placeholder="Confirm password") }}
+      <br>
+
       {{ form.shop_name(id="shop_name", placeholder="Enter your shop name") }}
- 
-      <!-- <input type="text" id="address" name="address" placeholder="Address">
-      <div>
+      <br>
+
+      <!-- <input type="text" id="address" name="address" placeholder="Address"> -->
+      {{ form.address(id="address", placeholder="Enter your address") }}
+      <br>
+
+      {{ form.phone_code(id="phone_code", placeholder="Enter your phone code") }}
+      {{ form.phone_number(id="phone_number", placeholder="Enter your phone number") }}
+      
+      <!--<div>
       <input type="text" id="code" name="code" class="phone_code" value="+">
       <input type="number" id="phone_num" name="phone_num" class="phone_num" placeholder="Phone number">
       </div>

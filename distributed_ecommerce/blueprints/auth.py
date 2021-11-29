@@ -35,7 +35,7 @@ def signup():
     form = forms.SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        created_user = User(user_id=str(uuid.uuid4()), first_name=form.first_name.data, last_name=form.last_name.data, username=form.username.data, email=form.email.data, password=hashed_password, )
+        created_user = User(user_id=str(uuid.uuid4()), first_name=form.first_name.data, last_name=form.last_name.data, username=form.username.data, email=form.email.data, password=hashed_password, address=form.address.data, phone_code=form.phone_code.data, phone_number=form.phone_number.data)
         created_shop = Shop(shop_name=form.shop_name.data, user_id=created_user.user_id)
         db.session.add(created_user)
         db.session.add(created_shop)

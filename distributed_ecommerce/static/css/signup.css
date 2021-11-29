@@ -17,7 +17,7 @@ h1 {
   padding-right: 0%;
   background: #bdd5f1;
   width: 40%;
-  margin-top: 10%;
+  margin-top: 7%;
   border: 6px solid #2c578f;
   border-radius: 5px;
 }
@@ -25,23 +25,17 @@ p {
   color: black;
   text-align: center;
   width: 150px;
-  margin-left: auto;
-  margin-bottom: auto;
-  margin-right: auto;
-  margin-top: 10%;
+  margin: 10px auto;
 }
 
 #m9 .signup_btn {
   border-radius: 10px;
-  width: 50%;
+  width: 100px;
   background: #2c578f;
   padding: 5px;
   color: white;
   font-weight: bold;
-  margin-top: 8%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #m9 .signup_btn:hover {
@@ -61,7 +55,7 @@ p {
   margin: auto;
   margin-bottom: 10px;
   padding: 5px;
-  width: 30%;
+  width: 100px;
   display: inline-block;
 }
 #m9 .login_btn a {
@@ -86,7 +80,14 @@ input {
   padding: 5px;
   border-radius: 10px;
   border-color: white;
-  margin-top: 5%;
+  margin: 10px auto;
+}
+textarea {
+  margin: 0 auto;
+  border-radius: 10px;
+  width: 80%;
+  height: 150px;
+  padding: 8px;
 }
 div {
   margin-right: 0%;
@@ -179,11 +180,5 @@ header a:hover {
   padding-left: 10px;
 }
 #header {
-  display: inline-block;
-}
-#first_name {
-  display: inline-block;
-}
-#last_name {
   display: inline-block;
 }

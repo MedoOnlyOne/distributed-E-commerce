@@ -42,7 +42,7 @@
         class="form-input"
         id="code"
         name="code"
-        value="{{current_user.phonecode}}"
+        value="{{current_user.phone_code}}"
         disabled="true"
       />
       <input
@@ -50,7 +50,7 @@
         class="form-input"
         id="number"
         name="num"
-        value="{{num}}"
+        value="{{current_user.phone_number}}"
         disabled="true"
       />
       <button
@@ -82,7 +82,7 @@
         class="form-input"
         id="address"
         name="address"
-        value="{{address}}"
+        value="{{current_user.address}}"
         disabled="true"
       />
       <button type="button" class="form-button" onclick="enable('address')">
@@ -90,8 +90,18 @@
       </button>
     </div>
     <div class="info-field">
-      <div class="info-field-name">Event Promo Code:</div>
-      <input type="text" class="form-input" value="iOpKe" disabled="true" />
+      <div class="info-field-name">Balance:</div>
+      <input
+        type="text"
+        class="form-input"
+        name="balance"
+        id="balance"
+        value="{{ current_user.balance }}"
+        disabled="true"
+      />
+      <button type="button" class="form-button" onclick="enable('balance')">
+        Charge
+      </button>
     </div>
     <div class="buttonsContainer">
       <!-- <div style="display:inline; float: right;"> -->

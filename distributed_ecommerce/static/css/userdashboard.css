@@ -23,6 +23,22 @@
   top: 15px;
 }
 
+#info #code {
+  width: 65px;
+  position: absolute;
+  margin: 0;
+  left: 300px;
+  top: 15px;
+}
+
+#info #number {
+  width: 180px;
+  position: absolute;
+  margin: 0;
+  left: 420px;
+  top: 15px;
+}
+
 .info-button {
   font-weight: bold;
   padding: 5px;
@@ -177,6 +193,15 @@ select {
   #info input,
   #info select {
     width: 150px;
+  }
+  #info #code {
+    width: 35px;
+    left: 300px;
+  }
+
+  #info #number {
+    width: 100px;
+    left: 350px;
   }
 }
 .m {

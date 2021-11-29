@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Length, Email, ValidationError
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, TextAreaField, SubmitField
 
 from distributed_ecommerce.models import User, Shop
 
@@ -25,6 +25,9 @@ class SignUpForm(FlaskForm):
     email = StringField(u'Email', [InputRequired(), Email('Please enter a proper email'), Length(max=255), validate_email])
     username = StringField(u'Username', [InputRequired(), Length(min=3, max=255), validate_username])
     shop_name = StringField(u'shop name', [InputRequired(), Length(min=3, max=255), validate_shop_name])
+    phone_code = StringField(u'Phone code', [InputRequired(), Length(min=2, max=5)])
+    phone_number = StringField(u'Phone number', [InputRequired(), Length(min=7, max=25)])
+    address = TextAreaField(u'Address', [InputRequired(), Length(min=3, max=3000)])
     password = PasswordField(u'Password', [InputRequired(), Length(min=8, max=255)])
-    confirm_password = PasswordField(u'Confirm password', [InputRequired(), Length(min=8, max=255), ])
+    confirm_password = PasswordField(u'Confirm password', [InputRequired(), Length(min=8, max=255)])
     submit = SubmitField('Sign Up')  
