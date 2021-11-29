@@ -61,12 +61,20 @@ def userdashboard():
     if request.method == "POST":
         first_name = request.form.get("first_name","")
         last_name = request.form.get("last_name", "")
-        email = request.form.get("email", "")        
+        email = request.form.get("email", "")
+        phone_code = request.form.get("code", "")
+        phone_number = request.form.get("num", "")
+        address = request.form.get("address", "")
+        balance = float(request.form.get("balance", ""))
 
         user = User.query.filter_by(username=current_user.username).first()
         user.first_name = first_name if first_name != '' else user.first_name
         user.last_name = last_name if last_name != '' else user.last_name
         user.email = email if email != '' else user.email
+        user.phone_code = phone_code if phone_code != '' else user.phone_code
+        user.phone_number = phone_number if phone_number != '' else user.phone_number
+        user.address = address if address != '' else user.address
+        user.balance = balance if balance != '' else user.balance
 
         db.session.commit()
         return redirect(url_for("userdashboard"))

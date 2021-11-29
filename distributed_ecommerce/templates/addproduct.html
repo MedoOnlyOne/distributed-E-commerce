@@ -60,7 +60,8 @@
         name="price"
         style="margin-left: 150px"
       /> -->
-      {{ form.price(id="price", placeholder="Product price in EGP", style="margin-left: 150px") }}
+      {{ form.price(id="price", placeholder="Product price in EGP",
+      style="margin-left: 150px") }}
       <br />
     </div>
     <div style="padding: 0px; display: flex; flex-wrap: wrap; margin-top: 1em">
@@ -72,13 +73,13 @@
         style="margin: 10px 90px"
       ></textarea> -->
       {{ form.description(id="description", placeholder="Description",
-      style="margin: 10px 90px") }}
+      style="margin: 10px 90px; height:220px") }}
     </div>
-    <div>
-      <h3>Image</h3>
+    <div style="padding: 0px; display: flex; flex-wrap: wrap; margin-top: 1em">
+      <h3 style="display: inline; margin: 1px; padding: 0px">Image</h3>
       <br />
       <!-- <input type="file" id="fileToUpload" name="image" /> -->
-      {{ form.image(id="fileToUpload") }}
+      {{ form.image(id="fileToUpload", style="margin: 3px 140px;") }}
     </div>
     <!-- <input id="submit_btn" type="submit" value="Add product" disabled /> -->
     {{ form.submit(id="submit_btn") }}
