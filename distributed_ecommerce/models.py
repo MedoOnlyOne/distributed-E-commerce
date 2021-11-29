@@ -35,10 +35,12 @@ order_product = db.Table('order_product',
 class Order(db.Model):
     __tablename__ = 'Orders'
     order_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
-    total_price = db.Column(db.Integer(), default=1)
+    total_price = db.Column(db.Integer(), default=0)
     order_date = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
     shipping_address = db.Column(db.String(length=255), nullable=False)
-    delivered = db.Column(db.Boolean(), default=True)
+    buyer_phone_number = db.Column(db.String(length=11), nullable=False)
+    is_ordered = db.Column(db.Boolean(), default=False)
+    is_delivered = db.Column(db.Boolean(), default=False)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users.user_id'))
     products = db.relationship('Product', secondary=order_product, backref=db.backref('orders', lazy='dynamic')) 
@@ -49,14 +51,20 @@ class Order(db.Model):
     def __repr__(self):
         return f"Order('{self.order_id}, {self.total_price}, {self.order_date}')"
         
+#class Cart(db.Model):
+#    __tablename__ = 'Cart'
+#    product_id = db.Column(db.String(length=36), db.ForeignKey('Product.product_id'))
+#    quantity = db.Column(db.Integer() , default=1)
+
+
 class Product(db.Model):
     __tablename__ = 'Products'
     product_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
     product_name = db.Column(db.String(length=255), nullable=False)
     category = db.Column(db.String(length=255), nullable=False)
     # color = db.Column(db.String(length=255), nullable=False)
-    price = db.Column(db.Integer() , default=1)
-    quantity = db.Column(db.Integer(), default=1)
+    price = db.Column(db.Integer() , default=0)
+    quantity = db.Column(db.Integer(), default=0)
     description = db.Column(db.String(length=3000), nullable=False)
     # status = db.Column(db.Boolean(), default=True)
     # discount = db.Column(db.Integer(), default=0)
