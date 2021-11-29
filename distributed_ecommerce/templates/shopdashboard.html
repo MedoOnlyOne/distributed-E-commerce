@@ -39,6 +39,22 @@ if products %}
             <span style="font-weight: bold">Description : </span>
             {{product.description}}
           </p>
+          <br />
+          {% if product.quantity == 0 %}
+          <span
+            style="
+              background-color: red;
+              color: white;
+              display: inline-block;
+              width: 60px;
+              height: 25px;
+              text-align: center;
+              padding-top: 5px;
+              border-radius: 15px;
+            "
+            >Sold</span
+          >
+          {% endif%}
         </div>
       </div>
       <div style="display: flex">
