@@ -51,10 +51,7 @@ class Order(db.Model):
     def __repr__(self):
         return f"Order('{self.order_id}, {self.total_price}, {self.order_date}')"
         
-#class Cart(db.Model):
-#    __tablename__ = 'Cart'
-#    product_id = db.Column(db.String(length=36), db.ForeignKey('Product.product_id'))
-#    quantity = db.Column(db.Integer() , default=1)
+
 
 
 class Product(db.Model):

@@ -31,8 +31,5 @@ def confirm():
     return render_template('ConfirmOrder.html', total_price=100)
 
 
-@order.route('/cart')
-def cart():
-    cart = current_user.cart
-    return render_template('cart.html', cart=cart)
+
 
