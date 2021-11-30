@@ -83,7 +83,7 @@ class Product(db.Model):
     # color = db.Column(db.String(length=255), nullable=False)
     price = db.Column(db.Integer() , default=0)
     quantity = db.Column(db.Integer(), default=0)
-    quantity_in_cart = db.Column(db.Integer(), default=0)
+    quantity_incart = db.Column(db.Integer(), default=0)
     description = db.Column(db.String(length=3000), nullable=False)
     # status = db.Column(db.Boolean(), default=True)
     # discount = db.Column(db.Integer(), default=0)
