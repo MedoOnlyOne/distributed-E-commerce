@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     balance = db.Column(db.Integer(), default=0)
     
     shop = db.relationship('Shop', backref='owner_user', uselist=False) #One-To-One Relationship
+    cart = db.relationship('Cart', backref='owner_user', uselist=False) #One-To-One Relationship
     orders = db.relationship('Order', backref='owner_user') #One-To-Many Relationship
     
     def get_id(self):
@@ -29,6 +30,12 @@ class User(db.Model, UserMixin):
 #Many-To-Many Relationship
 order_product = db.Table('order_product',
     db.Column('order_id', db.String(length=36), db.ForeignKey('Orders.order_id')),
+    db.Column('product_id', db.String(length=36), db.ForeignKey('Products.product_id')),
+)
+
+#Many-To-Many Relationship
+cart_product = db.Table('cart_product',
+    db.Column('cart_id', db.String(length=36), db.ForeignKey('Carts.cart_id')),
     db.Column('product_id', db.String(length=36), db.ForeignKey('Products.product_id')),
 )
 
@@ -49,8 +56,22 @@ class Order(db.Model):
         return self.order_id
 
     def __repr__(self):
-        return f"Order('{self.order_id}, {self.total_price}, {self.order_date}')"
+        return f"Order('{self.order_id}, {self.total_price}, {self.order_date}, {self.is_delivered}')"
         
+
+
+class Cart(db.Model):
+    __tablename__ = 'Carts'
+    cart_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+
+    user_id = db.Column(db.String(length=36), db.ForeignKey('Users.user_id'))
+    products = db.relationship('Product', secondary=cart_product, backref=db.backref('cart', lazy='dynamic')) 
+
+    def get_id(self):
+        return self.cart_id
+
+    def __repr__(self):
+        return f"Cart('{self.cart_id}')"
 
 
 
@@ -62,6 +83,7 @@ class Product(db.Model):
     # color = db.Column(db.String(length=255), nullable=False)
     price = db.Column(db.Integer() , default=0)
     quantity = db.Column(db.Integer(), default=0)
+    quantity_in_cart = db.Column(db.Integer(), default=0)
     description = db.Column(db.String(length=3000), nullable=False)
     # status = db.Column(db.Boolean(), default=True)
     # discount = db.Column(db.Integer(), default=0)
@@ -75,7 +97,8 @@ class Product(db.Model):
 
     def __repr__(self):
         return f"Product('{self.product_id}, {self.product_name}, {self.category}, {self.price}, {self.quantity}, {self.description}')"
-        
+
+
 
 class Shop(db.Model):
     __tablename__ = 'Shops'
@@ -92,4 +115,3 @@ class Shop(db.Model):
 
     def __repr__(self):
         return f"Shop('{self.shop_id}, {self.shop_name}')"
-        

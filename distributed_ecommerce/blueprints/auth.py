@@ -3,7 +3,7 @@ import uuid
 import distributed_ecommerce.forms as forms
 from db import db
 from app_bcrypt import bcrypt
-from distributed_ecommerce.models import User, Shop
+from distributed_ecommerce.models import User, Shop, Cart
 from flask_login import login_required, login_user, logout_user
 
 auth = Blueprint('auth', __name__, template_folder='templates')
@@ -37,8 +37,10 @@ def signup():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
         created_user = User(user_id=str(uuid.uuid4()), first_name=form.first_name.data, last_name=form.last_name.data, username=form.username.data, email=form.email.data, password=hashed_password, address=form.address.data, phone_code=form.phone_code.data, phone_number=form.phone_number.data)
         created_shop = Shop(shop_name=form.shop_name.data, user_id=created_user.user_id)
+        created_cart = Cart(cart_id=str(uuid.uuid4()), user_id=created_user.user_id)
         db.session.add(created_user)
         db.session.add(created_shop)
+        db.session.add(created_cart)
         db.session.commit()
         login_user(created_user)
         return redirect(url_for('userdashboard'))

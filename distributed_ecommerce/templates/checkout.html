@@ -1,161 +1,63 @@
-{% extends 'layoutuser.html' %} {% load mathfilters %} {% block head %}
-<title>Checkout</title>
-<style>
-  .text {
-    text-align: center;
-    margin: 10px;
-    padding: 5px;
-    font-size: 400px;
-    font-style: italic;
-    font-weight: bold;
-  }
-  .Checkout {
-    text-align: center;
-    padding: 10px;
-    margin: 20px 20px 50px 20px;
-    height: 500px;
-  }
-  .product {
-    text-align: left;
-  }
-  .productimage {
-    text-align: left;
-    display: inline-block;
-    margin: 10px;
-  }
-  /* .order
-        {
-            margin:1px;
-            padding:1px;
-        } */
-  .price {
-    font-size: 120%;
-    text-align: right;
-  }
-  .Shipping Info {
-    margin-left: 0px;
-  }
-  .Shipping {
-    display: inline-block;
-    width: 20%;
-  }
-  .address {
-    height: 50px;
-    width: 70%;
-    margin: 4px;
-  }
-  .Card {
-    height: 50px;
-    width: 70%;
-    margin: 4px;
-  }
-  .date {
-    height: 50px;
-    width: 60.5%;
-  }
-  .submit {
-    height: 70px;
-    width: 400px;
-    font-weight: bold;
-    font-size: xx-large;
-    margin: 5px 0px 20px 5px;
-    text-align: center;
-    display: inline-block;
-    border-radius: 5px;
-    background-color: #2c578f;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  .Summery {
-    width: 30%;
-    border-radius: 10px;
-    margin-right: 7%;
-    float: right;
-  }
-  .total {
-    text-align: right;
-    font-weight: bold;
-    font-size: 20px;
-    text-decoration: underline;
-    margin-right: 142px;
-  }
-  .information {
-    width: 50%;
-    margin-left: 10%;
-    margin-top: 10%;
-    float: left;
-  }
-</style>
+{% extends 'layoutuser.html' %}
+{% block head %} 
+    <title> Checkout </title>        
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}"/>
+{% endblock %}
 
-{% endblock %} {% block name %}Checkout{% endblock %} {% block body %}
-<p class="text" style="font-size: 25px">
-  Thank you for shopping in <span style="color: #2c578f">Vividly</span>
-</p>
-<div>
-  <form action="{% url 'finalcheck' %}" method="POST" class="information">
-    {% csrf_token %}
-    <legend class="paymenttitle">Address</legend>
+{% block name %}Checkout{% endblock %}
+
+{% block body %}
+    
+    <p class="text" style="font-size:25px">Thank you for shopping in <span style="color:#2C578F;">Vividly</span></p>
     <div>
-      <input
-        type="text"
-        name="Billing"
-        placeholder="Billing Address"
-        class="address"
-      />
-      <br />
-      <input
-        type="text"
-        name="Shipping"
-        placeholder="Shipping Address"
-        class="address"
-      />
+        <form method="POST" action="{{ url_for('order.checkout') }}">
+            <h3>Order Information:</h3>
+            {{ form.hidden_tag() }}
+            <div style="display: flex; flex-wrap: wrap">
+              <!-- <input type="text" id="adress" placeholder="Address" name="adress" style="margin-left: 65px"/> -->
+              {{ form.address(id="adress", placeholder="Address") }}
+            </div>
+            <div style="display: flex; flex-wrap: wrap">
+                <!-- <input type="text" id="phone_number" placeholder="Phone Number" name="phone"/> -->
+                {{ form.phone_number(id="phone_number", placeholder="Phone Number") }}
+            </div>
+            <!-- <input id="submit_btn" type="submit" value="Continue" disabled /> -->
+            {{ form.submit(class="submit_btn") }}
+            
+            <!--
+            <legend class="paymenttitle">Address</legend>
+            <div>
+            <input type="text" name="Billing" placeholder="Billing Address" class="address" >
+            <br>
+            <input type="text" name="Shipping" placeholder="Shipping Address" class="address"> 
+            </div>
+            <legend class="paymenttitle">PAYMENT INFORMATION</legend>
+            <input type="text" class="Card" name="Card Number" placeholder="Card Number"> <br>
+            <label for="date">Expiry Date</label>
+            <input type="date" class="date" name="date" placeholder="Month" > <br>
+            <input type="text" class="Card" name="Security Code" placeholder="Security Code"> 
+            <input type="hidden" name="order_id" value="{{order.id}}"> -->
+        </form>
+            <fieldset class="Summery" >
+                <legend class="Order legend">ORDER SUMMARY</legend>
+                {% for product in cart.products %}
+                <div class="product" style="border-bottom:0.5px solid #232732;">
+                    <div class="productimage">
+                        <!--#######################-->
+                        <!--link needs to be edited?-->                       
+                        <img src="{{ product_image.url }}" style="text-align : left;" width="70" height = "80" >
+                    </div> <br>
+                    <p class="order" >{{product.product_name}}</p>
+                    <p class="quantity" >Quantity: {{product.quantity_incart}}</p>
+                    <p class="price" >Price: {{product.price * product.quantity_incart}} L.E</p>                    
+                </div>
+                {% endfor %}
+                <br>
+                <p class="total">TOTAL = {{total_price}} L.E</p>
+            </fieldset>
     </div>
-    <legend class="paymenttitle">PAYMENT INFORMATION</legend>
-    <input
-      type="text"
-      class="Card"
-      name="Card Number"
-      placeholder="Card Number"
-    />
-    <br />
-    <label for="date">Expiry Date</label>
-    <input type="date" class="date" name="date" placeholder="Month" /> <br />
-    <input
-      type="text"
-      class="Card"
-      name="Security Code"
-      placeholder="Security Code"
-    />
-    <input type="hidden" name="order_id" value="{{order.id}}" />
-  </form>
-  <fieldset class="Summery">
-    <legend class="Order legend">ORDER SUMMARY</legend>
-    {% for product,price in products_prices %}
-    <div class="product" style="border-bottom: 0.5px solid #232732">
-      <div class="productimage">
-        <img
-          src="{{ product.product.image.url }}"
-          style="text-align: left"
-          width="70"
-          height="80"
-        />
-      </div>
-      <br />
-      <p class="order">{{product.product.name}}</p>
-      <p class="quantity">Quantity : {{product.quantity}}</p>
-      <p class="price">
-        Price : {{price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}
-      </p>
-    </div>
-    {% endfor %}
-    <br />
-    <p class="total">
-      TOTAL = {{order.bill|mul:currency_ratio|floatformat:2}}
-      {{currency_symbol}}
-    </p>
-    <input class="submit" type="submit" value="Complete Payment" />
-  </fieldset>
-</div>
+       
+    
 
 {% endblock %}
+
