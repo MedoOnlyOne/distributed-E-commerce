@@ -115,3 +115,4 @@ class Shop(db.Model):
 
     def __repr__(self):
         return f"Shop('{self.shop_id}, {self.shop_name}')"
+        
