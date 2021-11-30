@@ -17,7 +17,7 @@ order = Blueprint('order', __name__, template_folder='templates')
 def cart():
     # get cart's products
     cart = current_user.cart
-    products = Product.query.filter_by(cart_id=cart.cart_id).all()
+    products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
     products_list = []
@@ -33,7 +33,7 @@ def cart():
 def checkout():
     # get cart's products
     cart = current_user.cart
-    products = Product.query.filter_by(cart_id=cart.cart_id).all()
+    products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
     products_list = []
@@ -82,7 +82,7 @@ def dec_product():
     
     # get cart's products
     cart = current_user.cart
-    products = Product.query.filter_by(cart_id=cart.cart_id).all()
+    products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
 
     for product in products:
         if product.product_id == product_id:
@@ -101,7 +101,7 @@ def inc_product():
     
     # get cart's products
     cart = current_user.cart
-    products = Product.query.filter_by(cart_id=cart.cart_id).all()
+    products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
 
     for product in products:
         if product.product_id == product_id:
