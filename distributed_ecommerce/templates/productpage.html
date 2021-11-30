@@ -46,25 +46,15 @@
           <h2>Category: {{product.category}}</h2>
           <h2>Quantity: {{ product.quantity }}</h2>
         </div>
-        <form action="{{ url_for('productpage', product_id=product.id) }}" method="POST">
-          
-          <input type="hidden" name="productid" value="{{ product.product_id }}">
-          <button type="submit" name="add_to_wishlist" class="wishlist" 
-          {% if in_wishlist or is_user_product%}
-            disabled 
-          {% endif %}
-          >
-          <i class="fa fa-heart"></i> Add to wishlist</button>
-        </form>
-        <form action="{{ url_for('productpage', product_id=product.product_id) }}" method="POST">
+        <form id="add-to-cart-form" action="{{ url_for('order.addtocart') }}" method="PUT">
           
           <input type="hidden" name="productid" value="{{ product.id }}">
           <button type="submit" name="add_to_cart" class="cart"
-          {% if in_cart or product.remaininginstock == 0 or is_user_product %}
-            disabled 
-          {% endif %}
+          {{ cart_disabled }}
           >
           <i class="fa fa-shopping-cart"></i> Add to Cart</button>
+          <div class="alert-message">
+          </div>
         </form>
       </div>
       <div class="image">
@@ -75,7 +65,7 @@
         <p id="description">{{product.description}}</p>
       </div>   
     </div>
-    {% if product.remaininginstock == 0 %}
+    {% if product.quantity == 0 %}
       <div style="color:red; font-size: 1.5rem; text-align: center;">
           <br>
           Product is out of stock!
@@ -133,7 +123,7 @@
 {% if related_len > 0 %}
 
 {% endif %} #}
-
+  <script src="{{ url_for('static', filename='js/addproduct.js') }}"></script>
     {% if not is_user_product and not user_has_review%}
       <script>
         var review=document.getElementById('review_text');

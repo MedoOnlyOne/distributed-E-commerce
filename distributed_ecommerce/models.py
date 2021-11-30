@@ -59,7 +59,6 @@ class Order(db.Model):
         return f"Order('{self.order_id}, {self.total_price}, {self.order_date}, {self.is_delivered}')"
         
 
-
 class Cart(db.Model):
     __tablename__ = 'Carts'
     cart_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
@@ -115,4 +114,3 @@ class Shop(db.Model):
 
     def __repr__(self):
         return f"Shop('{self.shop_id}, {self.shop_name}')"
-        

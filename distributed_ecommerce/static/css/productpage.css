@@ -72,6 +72,14 @@ h4 {
   font-weight: bold;
   font-size: 24px;
 }
+
+.cart[disablled],
+.cart:disabled{
+  background-color: gray;
+  color: white;
+  cursor: default;
+}
+
 .cart:hover,
 .wishlist:hover {
   cursor: pointer;
@@ -307,5 +315,16 @@ input[type='text'] {
   font-weight: lighter;
 }
 .related-price {
+  color: red;
+}
+.alert-message{
+  text-align: center;
+}
+
+.green{
+  color: green;
+}
+
+.red{
   color: red;
 }

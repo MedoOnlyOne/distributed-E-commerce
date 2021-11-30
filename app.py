@@ -82,12 +82,16 @@ def userdashboard():
         return redirect(url_for("userdashboard"))
     return render_template('userdashboard.html')
 
-@app.route('/product/<product_id>')
+@app.get('/product/<product_id>')
 def productpage(product_id):
     product = Product.query.filter_by(product_id=product_id).first()
     product_shop = Shop.query.filter_by(shop_id=product.shop_id).first()
+    product_owner = product_shop.owner_user
+    in_cart = product in current_user.cart.products
+    cart_disabled = in_cart or product.quantity == 0 or product_owner == current_user
+    cart_disabled = 'disabled' if cart_disabled else ''
     if product:
-        return render_template('productpage.html', product=product, shop=product_shop)
+        return render_template('productpage.html', product=product, shop=product_shop, cart_disabled=cart_disabled)
     return '<h1> Error 404 <br> Product Not Found'
 
 @login_required

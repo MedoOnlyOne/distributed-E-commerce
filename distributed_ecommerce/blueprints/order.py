@@ -10,8 +10,6 @@ import json
 
 order = Blueprint('order', __name__, template_folder='templates')
 
-
-
 @login_required
 @order.route('/cart')
 def cart():
@@ -27,6 +25,23 @@ def cart():
         total_price += (product.price * quantity)
     return render_template('cart.html', cart=cart, total_price=total_price)
 
+@login_required
+@order.put('/product/addtocart')
+def addtocart():
+    try:
+        print(request.json['product_id'])
+        product = Product.query.get(request.json['product_id'])
+        cart = current_user.cart
+        cart.products.append(product)
+        db.session.commit()
+        return jsonify({
+            'status': 'success'
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({
+            'status': 'failed'
+        }), 500
 
 @login_required
 @order.route('/checkout', methods=['GET', 'POST'])
