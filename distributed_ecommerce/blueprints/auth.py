@@ -40,6 +40,7 @@ def signup():
         db.session.add(created_user)
         db.session.add(created_shop)
         db.session.commit()
-        return redirect(url_for('auth.login'))
+        login_user(created_user)
+        return redirect(url_for('userdashboard'))
     
     return render_template('signup.html', form=form)

@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ current_user.shopname }}</title>
-    <link href="{{ url_for('static', filename='css/shop.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div>
@@ -39,17 +43,17 @@
       </header>
     </div>
 
-    <!-- <div class="shop_info" title="{{ shop.name }}"> 
+    {# <div class="shop_info" title="{{ shop.name }}"> 
     <p><span style="font-weight:bold;">Shop name : </span> {{shop.name}}</p>
     <p><span style="font-weight:bold;">Shop address : </span> {{shop.address}}</p>
     <p><span style="font-weight:bold;">Shop description : </span> {{shop.description}}</p>
-  </div> -->
+  </div> #}
 
     <h1 class="shop_info">{{ current_user.shop.name }}</h1>
     <div class="items" style="margin-bottom: 50px">
-      <!-- {% for product in products %} -->
+      {% for product in products %}
       <div class="item" title="{{ product.name }}">
-        <img src="{{ product.image.url }}" height="135" width="135" />
+        <img src="{{ url_for('uploaded_file', filename=product.image) }}" height="135" width="135" />
         <p
           style="
             font-size: 25px;
@@ -58,29 +62,21 @@
             top: 5px;
           "
         >
-          <a href="{% url 'productpage' product.id %}" class="product-name"
-            >Product name : {{ product.name }}</a
+          <a href="{{ url_for('productpage',product_id=product.product_id) }}" class="product-name"
+            >Product name: {{ product.product_name }}</a
           >
         </p>
         <p>
           <span style="font-weight: bold">Price : </span>
-          {{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}
+          {{ product.price }} EGP
         </p>
-        <!-- {% if product.description|length > 120 %} -->
-        <p>
-          <span style="font-weight: bold">Description : </span>
-          {{product.description|slice:"0:120"}}...
-        </p>
-        <!-- {% else %} -->
         <p>
           <span style="font-weight: bold">Description : </span>
           {{product.description}}
         </p>
-        <!-- {% endif %} -->
       </div>
-      <!-- {% endfor %} -->
+      {% endfor %}
     </div>
-    <button class="add">Add Product</button>
     <footer class="info">
       <p class="seller">
         <span style="font-weight: bold">Address:</span> {{shop.address}}
@@ -90,7 +86,7 @@
       </p>
       <p class="seller">
         <span style="font-weight: bold">Email:</span>
-        {{shop.user_shop.all.0.email}}
+        {{ shop_owner.email }}
       </p>
     </footer>
   </body>

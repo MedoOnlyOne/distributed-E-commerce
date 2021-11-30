@@ -4,17 +4,21 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
+<link
+  href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+  rel="stylesheet"
+/>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/productpage.css') }}" />
 {% endblock %} {% block body%}
 
 <header>
   <div class="Container">
       <div id="header">
-        <span><a id="BlackJack" href="{{ url_for('home') }}">BlackJack</a></span>
+        <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
         <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
  </div>
 
-<nav> <ul style="margin-top:12px;"> 
+<nav> <ul> 
   {% if current_user.is_authenticated %}
     <li> <a href="{{ url_for('home') }}"> Home </a> </li>
     <li> <a href="{{ url_for('userdashboard') }}"> Profile </a></li>
@@ -37,11 +41,10 @@
             <h1 class="product-name">{{ product.name }}</h1>
           </div>
           
-          <h2>Shop: <a class="shoplink" href="#">{{shop.shop_name}}</a> <h2>
+          <h2 style="margin-top: 8px;">Shop: <a class="shoplink" href="{{ url_for('shop.shop_view',shop_id=product.shop_id) }}">{{shop.shop_name}}</a> <h2>
           <h2>Price: <span>{{ product.price }} EGP</span></h2>
           <h2>Category: {{product.category}}</h2>
           <h2>Quantity: {{ product.quantity }}</h2>
-          <h2>Rating: 5 </h2>
         </div>
         <form action="{{ url_for('productpage', product_id=product.id) }}" method="POST">
           

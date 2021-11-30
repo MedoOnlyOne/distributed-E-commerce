@@ -1,9 +1,10 @@
 {% extends 'layoutuser.html' %} {% block head %}
-  <title>Contact us</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/contactus.css') }}" />
-{% endblock %}
-
-{% block body %}
+<title>Contact us</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/contactus.css') }}"
+/>
+{% endblock %} {% block body %}
 <div class="m">
   <form action="{{ url_for('contactus') }}" method="POST">
     <input type="text" class="in" name="subject" placeholder="Subject" />

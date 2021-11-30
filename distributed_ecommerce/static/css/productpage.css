@@ -1,36 +1,35 @@
-body {
-margin: 0px;
+*{
+    font-family: 'Ubuntu', sans-serif;
 }
+
+body {
+  padding: 0px;
+  margin: 0px;
+  overflow-x: hidden;
+}
+
 p {
-padding-left: 10px;
-}
-body {
-padding: 0px;
-margin: 0px;
+  padding-left: 10px;
 }
 /* #header{
     display:inline-block;
     } */
 .product {
-display: flex;
-flex-direction: row-reverse;
-justify-content: space-evenly;
-flex-wrap: wrap;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 .product-container {
-margin: 10px 5px;
-margin-top: 20px;
-border-radius: 5px;
-padding: 10px;
-overflow: hidden;
+  margin: 10px 5px;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  overflow: hidden;
 }
 
-.product .info {
-/* width: 50%; */
-float: right;
-}
 .product .info .info-text {
-text-align: center;
+  text-align: center;
 }
 /* .product .image{
     width: 30%; 
@@ -38,276 +37,275 @@ text-align: center;
     margin-left: 20%;
     } */
 #x {
-display: inline;
+  display: inline;
 }
 
 #productimage {
-width: 300px;
-height: 300px;
-border-radius: 10px;
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
 }
 h1 {
-font-weight: bold;
-display: inline;
-margin-top: 0;
-/* margin-right: 10%; */
+  font-weight: bold;
+  display: inline;
+  margin-top: 0;
+  /* margin-right: 10%; */
 }
 h4 {
-display: inline-block;
-margin-bottom: 0px;
+  display: inline-block;
+  margin-bottom: 0px;
 }
 #CO {
-margin-left: 9%;
-background-color: #232732;
-color: white;
+  margin-left: 9%;
+  background-color: #232732;
+  color: white;
 }
 .cart,
 .wishlist {
-display: block;
-margin: 20px auto;
-background-color: #2c578f;
-height: 35px;
-width: 250px;
-color: #bdd5f1;
-border-radius: 20px;
-font-weight: bold;
-font-size: 24px;
+  display: block;
+  margin: 20px auto;
+  background-color: #2c578f;
+  height: 35px;
+  width: 250px;
+  color: #bdd5f1;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 24px;
 }
 .cart:hover,
 .wishlist:hover {
-cursor: pointer;
-color: #fff;
+  cursor: pointer;
+  color: #fff;
 }
 .wl {
-display: block;
-background-color: #f3a04a;
+  display: block;
+  background-color: #f3a04a;
 }
 #i {
-color: red;
-display: inline;
-background-color: #232732;
+  color: red;
+  display: inline;
+  background-color: #232732;
 }
 .relate-product {
-display: block;
-border: #2c578f 3px solid;
-border-radius: 5px;
-padding: 0.5em;
-margin: 10px;
-width: 250px;
+  display: block;
+  border: #2c578f 3px solid;
+  border-radius: 5px;
+  padding: 0.5em;
+  margin: 10px;
+  width: 250px;
 }
 .Related {
-border-top: rgb(221, 221, 221) solid 2px;
-text-align: center;
-padding: 10px;
+  border-top: rgb(221, 221, 221) solid 2px;
+  text-align: center;
+  padding: 10px;
 }
 .re {
-width: 250px;
-height: 250px;
+  width: 250px;
+  height: 250px;
 }
 h3 {
-margin-left: 38%;
+  margin-left: 38%;
 }
 h5 {
-text-align: center;
-font-weight: bold;
+  text-align: center;
+  font-weight: bold;
 }
 .art {
-display: block;
-background-color: #232732;
-margin-bottom: 10%;
-height: 35px;
-width: 150px;
-margin-left: 20%;
-color: white;
-font-weight: bold;
+  display: block;
+  background-color: #232732;
+  margin-bottom: 10%;
+  height: 35px;
+  width: 150px;
+  margin-left: 20%;
+  color: white;
+  font-weight: bold;
 }
 .rating {
-margin-left: 45%;
-display: inline-block;
-flex-direction: row-reverse;
-justify-content: center;
-width: 160px;
+  margin-left: 45%;
+  display: inline-block;
+  flex-direction: row-reverse;
+  justify-content: center;
+  width: 160px;
 }
 
 .rating > input {
-display: none;
+  display: none;
 }
 
 .rating > label {
-position: relative;
-width: 1em;
-font-size: 2vw;
-color: #232732;
-cursor: pointer;
+  position: relative;
+  width: 1em;
+  font-size: 2vw;
+  color: #232732;
+  cursor: pointer;
 }
 
 .rating > label::before {
-content: '\2605';
-position: absolute;
-opacity: 0;
+  content: '\2605';
+  position: absolute;
+  opacity: 0;
 }
 
 .rating > label:hover:before,
 .rating > label:hover ~ label:before {
-opacity: 1 !important;
+  opacity: 1 !important;
 }
 
 .rating > input:checked ~ label:before {
-opacity: 1;
+  opacity: 1;
 }
 
 .rating:hover > input:checked ~ label:before {
-opacity: 0.4;
+  opacity: 0.4;
 }
 h2 {
-margin-bottom: 0px;
+  margin-bottom: 0px;
 }
 h6 {
-text-align: center;
-font-size: 25px;
-margin: 0;
+  text-align: center;
+  font-size: 25px;
+  margin: 0;
 }
 .Dis {
-display: inline-block;
-text-align: center;
-padding: 10px;
-width: 50%;
-border-top: rgb(221, 221, 221) solid 2px;
-margin-left: 35rem;
+  margin-top: 20px;
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 10px;
+  width: 100%;
+  border-top: rgb(221, 221, 221) solid 2px;
 }
 
 .Rev {
-text-align: center;
-display: block;
-margin: 10px 5px;
-border-top: rgb(221, 221, 221) solid 2px;
-padding: 10px;
+  text-align: center;
+  display: block;
+  margin: 10px 5px;
+  border-top: rgb(221, 221, 221) solid 2px;
+  padding: 10px;
 }
 .user-reviews {
-display: block;
-margin: 10px 5px;
-border-top: rgb(221, 221, 221) solid 2px;
-padding: 10px;
+  display: block;
+  margin: 10px 5px;
+  border-top: rgb(221, 221, 221) solid 2px;
+  padding: 10px;
 }
 .single-review {
-display: block;
-border-bottom: rgb(221, 221, 221) solid 2px;
-padding: 10px;
-margin-bottom: 10px;
+  display: block;
+  border-bottom: rgb(221, 221, 221) solid 2px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 textarea {
-display: inline-block;
-margin-top: 10px;
-width: 80%;
-height: 150px;
-margin-bottom: 5px;
+  display: inline-block;
+  margin-top: 10px;
+  width: 80%;
+  height: 150px;
+  margin-bottom: 5px;
 }
 span {
-font-size: 30px;
-color: red;
-display: inline-block;
+  font-size: 30px;
+  color: red;
+  display: inline-block;
 }
 
 .review_btn {
-display: block;
-background-color: #2c578f;
-margin: 10px auto;
-height: 35px;
-width: 150px;
-font-size: large;
-color: white;
-font-weight: bold;
-border-radius: 15px;
+  display: block;
+  background-color: #2c578f;
+  margin: 10px auto;
+  height: 35px;
+  width: 150px;
+  font-size: large;
+  color: white;
+  font-weight: bold;
+  border-radius: 15px;
 }
 .review_btn:hover {
-cursor: pointer;
-color: #bdd5f1;
+  cursor: pointer;
+  color: #bdd5f1;
 }
 .review_btn:disabled,
 .review_btn[disabled] {
-color: #ccc;
-cursor: default;
+  color: #ccc;
+  cursor: default;
 }
 #ii {
-display: inline-block;
+  display: inline-block;
 }
 .rate {
-display: block;
-margin-right: 44.5%;
-height: 46px;
+  display: block;
+  margin-right: 44.5%;
+  height: 46px;
 }
 .rate:not(:checked) > input {
-position: absolute;
-top: -9999px;
-visibility: hidden;
+  position: absolute;
+  top: -9999px;
+  visibility: hidden;
 }
 .rate:not(:checked) > label {
-float: right;
-width: 1em;
-overflow: hidden;
-white-space: nowrap;
-cursor: pointer;
-font-size: 30px;
-color: #ccc;
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+  color: #ccc;
 }
 .rate:not(:checked) > label:before {
-content: '★ ';
+  content: '★ ';
 }
 .rate > input:checked ~ label {
-color: #ffc700;
+  color: #ffc700;
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-color: #deb217;
+  color: #deb217;
 }
 .rate > input:checked + label:hover,
 .rate > input:checked + label:hover ~ label,
 .rate > input:checked ~ label:hover,
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
-color: #c59b08;
+  color: #c59b08;
 }
 
 .p_name {
-text-decoration: none;
-color: #000;
-font-size: 20px;
+  text-decoration: none;
+  color: #000;
+  font-size: 20px;
 }
 
 .p_name:hover {
-color: #bdd5f1;
+  color: #bdd5f1;
 }
 
 .shoplink {
-color: black;
-text-decoration: none;
+  color: black;
+  text-decoration: none;
 }
 
 .shoplink:hover {
-color: #2c578f;
+  color: #2c578f;
 }
 .product-name {
-color: #2c578f;
-font-size: 30px;
-padding-bottom: 2px;
+  color: #2c578f;
+  font-size: 30px;
+  padding-bottom: 2px;
 }
 .product-name-container {
-border-bottom: rgb(221, 221, 221) solid 2px;
-width: 100%;
+  width: 100%;
 }
 #productimage {
-width: 300px;
-height: 300px;
-margin-left: 5%;
-margin-top: 5%;
+  width: 300px;
+  height: 300px;
+  margin-left: 5%;
+  margin-top: 5%;
 }
 input[type='text'] {
-background-color: #232732;
-color: white;
+  background-color: #232732;
+  color: white;
 }
 #description {
-font-weight: lighter;
+  font-weight: lighter;
 }
 .related-price {
-color: red;
+  color: red;
 }

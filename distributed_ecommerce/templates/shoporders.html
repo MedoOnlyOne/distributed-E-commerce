@@ -1,6 +1,9 @@
 {% extends 'layoutshop.html' %} {% block head %}
 <title>Orders</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/shoporders.css') }}"  />
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/shoporders.css') }}"
+/>
 {% endblock %} {% block body %} {% if orders %}
 <div id="items">
   <div class="itemscontainer">
@@ -31,7 +34,8 @@
       <ul class="order_product_info">
         {% if product.product.shop.name == shop.name %}
         <li>
-          <a href="{{ url_for('productpage', product_id = product.product.id) }}"
+          <a
+            href="{{ url_for('productpage', product_id = product.product.id) }}"
             ><span style="font-size: 1.5rem">Product: </span
             ><span style="font-size: 20px">{{product.product.name}}</span></a
           >
