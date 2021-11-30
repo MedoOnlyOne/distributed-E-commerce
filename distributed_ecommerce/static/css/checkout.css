@@ -2,18 +2,101 @@ body {
     margin: 0px;
 }
 
-h1 {
-    margin-left: auto;
-    margin-right: auto;
-    color: black;
-    text-align: center;
-    padding-right: 0%;
-    background: #bdd5f1;
-    width: 30%;
-    margin-top: 10%;
-    border: 6px solid #2c578f;
+.text{
+    text-align : center; 
+    margin : 10px;
+    padding: 5px;
+    font-size:400px;
+    font-style: italic;
+    font-weight: bold ;
+}
+.Checkout
+{
+    text-align : center; 
+    padding :10px;
+    margin : 20px 20px 50px 20px;
+    height : 500px;
+}
+.product
+{
+    text-align:left;
+}
+.productimage
+{
+    text-align:left;
+    display : inline-block;
+    margin:10px;
+}
+/* .order
+{
+    margin:1px;
+    padding:1px;
+} */
+.price
+{
+    font-size : 120%;
+    text-align : right;
+}
+.Shipping Info
+{ 
+    margin-left: 0px;
+}
+.Shipping {
+    display: inline-block;
+    width: 20%;
+}
+.address
+{
+    height: 50px;
+    width:70%;
+    margin : 4px;
+}
+/*.Card
+{
+    height: 50px;
+    width:70%;
+    margin : 4px;
+}
+.date
+{
+    height: 50px;
+    width:60.5%;
+}*/
+.submit
+{
+    height: 70px;
+    width : 400px;
+    font-weight: bold;
+    font-size:xx-large;
+    margin:5px 0px 20px 5px;
+    text-align : center; 
+    display: inline-block;
     border-radius: 5px;
-  }
+    background-color: #2C578F;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.Summery 
+{
+    width: 30%;
+    border-radius: 10px;
+    margin-right: 7%;
+    float:right;
+}
+.total {
+    text-align:right;
+    font-weight:bold; 
+    font-size:20px ;
+    text-decoration : underline;
+    margin-right: 142px;
+}
+.information {
+    width: 50%;
+    margin-left: 10%;
+    margin-top: 10%;
+    float: left;
+}
 
 h3 {
     margin: 0.65em;
@@ -25,15 +108,14 @@ input {
     border-radius: 10px;
     border-color: white;
     margin-top: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+    width: 40%;
 }
 
 .submit_btn {
     border-radius: 10px;
     background: #2c578f;
     margin: auto;
+    margin-top: 40px;
     margin-bottom: 10px;
     /* display: inline-block; */
     text-decoration: none;

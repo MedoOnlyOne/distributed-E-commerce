@@ -6,7 +6,7 @@ from distributed_ecommerce.blueprints.shop import shop
 from distributed_ecommerce.blueprints.order import order
 from db import db
 from app_bcrypt import bcrypt
-from distributed_ecommerce.models import User, Order, Product, Shop 
+from distributed_ecommerce.models import User, Order, Cart, Product, Shop 
 
 UPLOAD_FOLDER = os.path.join('.', 'images')
 

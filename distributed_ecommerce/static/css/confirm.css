@@ -15,29 +15,6 @@ h1 {
     border-radius: 5px;
   }
 
-h2 {
+h3 {
     margin: 0.65em;
 }
-
-button {
-    border-radius: 10px;
-    background: #2c578f;
-    margin: auto;
-    margin-bottom: 10px;
-    /* display: inline-block; */
-    text-decoration: none;
-    color: white;
-    /* font-weight: bold; */
-    width: 120px;
-    height: 35px;
-  }
-
-  a {
-    text-decoration: none;
-    font-weight: inherit;
-    font-size: 1rem;
-  }
-  
-  a:visited {
-    color: inherit;
-  }
