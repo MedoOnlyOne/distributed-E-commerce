@@ -16,15 +16,14 @@
             <!--#######################-->
             <!--link needs to be edited?-->                       
             <img src="{{ product.image.url }}" height="135" width="135"> 
-            <!--still need to add link ref to the product-->
-            <p style="font-size:22px; font-weight:bold; position:relative; top:5px;">Product name : {{ product.name }}</a></p>
+            <p style="font-size:22px; font-weight:bold; position:relative; top:5px;"><a href="{% url 'productpage' product.id %}">Product name : {{ product.name }}</a></p>
             
             <button type="button" name="-" class="count" onclick="dec('{{product.product_id}}')">-</button>
               <p style="display:inline;">
                 <span style="font-weight:bold; bottom:10px;">Quantity: {{product.quantity_incart}}</span>
               </p>
               <button id="{{product.product_name}}" type="button" name="+" class="count" onclick="inc('{{product.product_id}}')"
-              {% if product.quantity_incart == product.quantity %}
+              {% if product.quantity_incart = product.quantity %}
                 disabled="true"
               {% endif %} >+</button>             
               <p >Price: {{product.price * product.quantity_incart}} L.E</p>
@@ -52,3 +51,4 @@
   {% endif %}
 
 {% endblock %}
+

@@ -99,8 +99,8 @@ def dec_product():
     cart = current_user.cart
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
 
-    for product in products:
-        if product.product_id == product_id:
+    for productt in products:
+        if productt.product_id == product_id:
             product.quantity_incart = product.quantity_incart - 1
             product.quantity = product.quantity + 1
             db.session.commit()
@@ -118,8 +118,8 @@ def inc_product():
     cart = current_user.cart
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
 
-    for product in products:
-        if product.product_id == product_id:
+    for productt in products:
+        if productt.product_id == product_id:
             if product.quantity >= 1:
                 product.quantity_incart = product.quantity_incart + 1
                 product.quantity = product.quantity - 1
