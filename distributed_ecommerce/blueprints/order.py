@@ -21,7 +21,7 @@ def cart():
     products_list = []
     for product in products:
         products_list.append(product) 
-        quantity = product.quantity_incart
+        quantity = product.quantity_in_cart
         total_price += (product.price * quantity)
     return render_template('cart.html', cart=cart, total_price=total_price)
 
@@ -57,7 +57,7 @@ def checkout():
     products_list = []
     for product in products:
         products_list.append(product) 
-        quantity = product.quantity_incart
+        quantity = product.quantity_in_cart
         total_price += (product.price * quantity)
     
     form = CheckoutForm(request.form)
@@ -74,8 +74,8 @@ def checkout():
             products.remove(product)
             shop = Shop.query.filter_by(shop_id=product_temp.shop_id).first()
             user = User.query.filter_by(user_id=shop.user_id)
-            user.balance += (product_temp.price * product_temp.quantity_incart)
-            product_temp.quantity_incart = 0
+            user.balance += (product_temp.price * product_temp.quantity_in_cart)
+            product_temp.quantity_in_cart = 0
 
             if product_temp.quantity == 0:
                 db.session.delete(product_temp)    
@@ -104,7 +104,7 @@ def dec_product():
 
     for productt in products:
         if productt.product_id == product_id:
-            product.quantity_incart = product.quantity_incart - 1
+            product.quantity_in_cart = product.quantity_in_cart - 1
             product.quantity = product.quantity + 1
             db.session.commit()
     
@@ -124,7 +124,7 @@ def inc_product():
     for productt in products:
         if productt.product_id == product_id:
             if product.quantity >= 1:
-                product.quantity_incart = product.quantity_incart + 1
+                product.quantity_in_cart = product.quantity_in_cart + 1
                 product.quantity = product.quantity - 1
                 db.session.commit()
     

@@ -20,11 +20,11 @@
             
             <button type="button" name="-" class="count" onclick="dec('{{product.product_id}}')">-</button>
               <p style="display:inline;">
-                <span style="font-weight:bold; bottom:10px;">Quantity: {{product.quantity_incart}}</span>
+                <span style="font-weight:bold; bottom:10px;">Quantity: {{product.quantity_in_cart}}</span>
               </p>
               <button id="{{product.product_name}}" type="button" name="+" class="count" onclick="inc('{{product.product_id}}')"
-              {% if product.quantity_incart == product.quantity %} disabled="true"{% endif %} >+</button>             
-              <p >Price: {{product.price * product.quantity_incart}} L.E</p>
+              {% if product.quantity_in_cart == product.quantity %} disabled="true"{% endif %} >+</button>             
+              <p >Price: {{product.price * product.quantity_in_cart}} L.E</p>
             </div>  
           </div>
           {% endfor %} 

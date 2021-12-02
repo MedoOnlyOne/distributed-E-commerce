@@ -30,4 +30,4 @@ addToCartForm.addEventListener('submit', async e => {
         alertMessage.classList.add('red');
         alertMessage.innerHTML = `Error. Try again later`;
     }
-})
+});
