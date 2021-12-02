@@ -14,7 +14,7 @@ order = Blueprint('order', __name__, template_folder='templates')
 @order.route('/cart')
 def cart():
     # get cart's products
-    cart = current_user.cart
+    cart = current_user.cart    
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
@@ -23,6 +23,7 @@ def cart():
         products_list.append(product) 
         quantity = product.quantity_incart
         total_price += (product.price * quantity)
+
     return render_template('cart.html', cart=cart, total_price=total_price)
 
 @login_required

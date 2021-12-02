@@ -25,7 +25,7 @@ def shop_view(shop_id):
     shop = Shop.query.get(shop_id)
     if shop:
         user = User.query.get(shop.user_id)
-        products = shop.products
+        products = shop.products        
         return render_template('shop.html', shop=shop, shop_owner=user, products=products)
     return 'Error 404.<br> Shop not found'
 
@@ -36,7 +36,6 @@ def addproduct():
     if form.validate_on_submit():
         # get the user's shop.
         shop = Shop.query.filter_by(user_id=current_user.user_id).first()
-
         # get the image
         image = form.image.data
         image_name = secure_filename(image.filename)
