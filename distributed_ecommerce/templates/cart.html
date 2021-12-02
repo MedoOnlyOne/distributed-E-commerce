@@ -15,8 +15,8 @@
             <div>
             <!--#######################-->
             <!--link needs to be edited?-->                       
-            <img src="{{ product.image.url }}" height="135" width="135"> 
-            <p style="font-size:22px; font-weight:bold; position:relative; top:5px;">Product name: {{ product.name }}</a></p>
+            <img src="{{ url_for('uploaded_file', filename=product.image) }}" height="135" width="135"> 
+            <p style="font-size:22px; font-weight:bold; position:relative; top:5px;"><a href="{{ url_for('productpage',product_id=product.product_id) }}">Product name: {{ product.name }}</a></p>
             
             <button type="button" name="-" class="count" onclick="dec('{{product.product_id}}')">-</button>
               <p style="display:inline;">

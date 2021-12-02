@@ -17,11 +17,14 @@
   <button type="submit" id="b" disabled><i class="fa fa-search"></i> Search</button>
 </div>
 </form>
+
+<!--
 <div class="event_btn_container">
-  <!-- <a href="#event"><button class="event_btn">See our event</button></a> -->
+   <a href="#event"><button class="event_btn">See our event</button></a> 
   <button class="event_btn" disbaled="fasle">See our event</button>
 </div>
-{#
+ -->
+
 <div class="head">
     <div class="cathead"><h4 id="cur">Clothing</h4></div>
     <div class="cathead"><h4>TVs</h4></div>
@@ -39,33 +42,33 @@
                            <!----------------Clothing Category---------------->
               <div class="cat" id="cur_cat">
                 <!-- <div class="col-4 text-center"> -->
-                        {% for product in displayed.clothing %} 
-                    <div class="card mb-3 border-0 ">
-                        <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                        <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                        <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
-                        <div class="buttons d-flex flex-row">
-                            <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
-                        </div>
-                    </div>
-
-                        {% endfor %} 
-                <!-- </div> -->
-              </div>
-                                   <!----------------TV Category---------------->
-               <div class="cat">
-                <!-- <div class="col-4 text-center"> -->
-                  {% for product in displayed.tvs %} 
+                  {% for product in clothing %} 
                   <div class="card mb-3 border-0 ">
-                      <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                      <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                      <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
                       <div class="buttons d-flex flex-row">
                           <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
                       </div>
                   </div>
 
-                      {% endfor %} 
+                  {% endfor %} 
+                <!-- </div> -->
+              </div>
+                                   <!----------------TV Category---------------->
+               <div class="cat">
+                <!-- <div class="col-4 text-center"> -->
+                  {% for product in tvs %} 
+                  <div class="card mb-3 border-0 ">
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
+                      <div class="buttons d-flex flex-row">
+                          <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
+                      </div>
+                  </div>
+
+                  {% endfor %} 
                 <!-- </div> -->
               </div>
                 
@@ -73,17 +76,17 @@
                                 <!----------------Electronics Category---------------->
               <div class="cat">
                 <!-- <div class="col-4 text-center "> -->
-                  {% for product in displayed.electronics %} 
+                  {% for product in electronics %} 
                   <div class="card mb-3 border-0 ">
-                      <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                      <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                      <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
                       <div class="buttons d-flex flex-row">
                           <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
                       </div>
                   </div>
 
-                      {% endfor %} 
+                  {% endfor %} 
                 <!-- </div> -->
               </div>
                
@@ -92,17 +95,17 @@
             <div class="cat">
               <div class="row py-5 ">
                 <!-- <div class="col-md-3 "> -->
-                        {% for product in displayed.home_appliances %} 
-                    <div class="card mb-3 border-0 ">
-                        <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                        <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                        <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
-                        <div class="buttons d-flex flex-row">
-                            <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
-                        </div>
-                    </div>
+                  {% for product in homeappliances %} 
+                  <div class="card mb-3 border-0 ">
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
+                      <div class="buttons d-flex flex-row">
+                          <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
+                      </div>
+                  </div>
 
-                        {% endfor %} 
+                  {% endfor %} 
               <!-- </div> -->
             </div>
             </div>
@@ -114,11 +117,11 @@
                         <!----------------Furniture Category---------------->
               <div class="cat">
                 <!-- <div class="col-md-3"> -->
-                  {% for product in displayed.furniture %} 
+                  {% for product in furniture %} 
                   <div class="card mb-3 border-0 ">
-                      <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                      <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                      <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
                       <div class="buttons d-flex flex-row">
                           <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
                       </div>
@@ -131,84 +134,26 @@
                                 <!----------------Other Category---------------->
               <div class="cat">
                 <!-- <div class="col-md-3 "> -->
-                  {% for product in displayed.other %} 
+                  {% for product in others %} 
                   <div class="card mb-3 border-0 ">
-                      <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-                      <h5><a href="{% url 'productpage' product.id %}">{{ product.name }}</a></h5>
-                      <p><small><span>{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span> </small> </p>
+                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
                       <div class="buttons d-flex flex-row">
                           <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
                       </div>
                   </div>
 
-                 {% endfor %} 
+                  {% endfor %} 
                 <!-- </div> -->
               </div>
                 
-
-            {% endfor %}
           </div>
-
-          <!----New Row------>
-
-          <!----------------Furniture Category---------------->
-
-          <div class="col-md-3">
-            {% for product in displayed.furniture %}
-            <div class="card mb-3 border-0">
-              <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-              <h5>{{ product.name }}</h5>
-              <p>
-                <small
-                  ><del>$ 256.26</del
-                  ><span
-                    >{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span
-                  >
-                </small>
-              </p>
-              <div class="buttons d-flex flex-row">
-                <div class="cart"><i class="fa fa-shopping-cart"></i></div>
-                <button class="btn btn-dark cart-button btn-block">
-                  <span class="dot"></span>Add to cart
-                </button>
-              </div>
-            </div>
-
-            {% endfor %}
-          </div>
-          <!----------------Other Category---------------->
-
-          <div class="col-md-3">
-            {% for product in displayed.other %}
-            <div class="card mb-3 border-0">
-              <img src="{{ product.image.url }}" class="img-fluid mb-3" />
-              <h5>{{ product.name }}</h5>
-              <p>
-                <small
-                  ><del>$ 256.26</del
-                  ><span
-                    >{{product.price|mul:currency_ratio|floatformat:2}}{{currency_symbol}}</span
-                  >
-                </small>
-              </p>
-              <div class="buttons d-flex flex-row">
-                <div class="cart"><i class="fa fa-shopping-cart"></i></div>
-                <button class="btn btn-dark cart-button btn-block">
-                  <span class="dot"></span>Add to cart
-                </button>
-              </div>
-            </div>
-
-            {% endfor %}
-          </div>
-        </div>
-
     </section>
-
-
-
+    </div>
     <!----------------------------------------------End of Best sellers -------------> 
 
+<!--
 <div id="event" style="padding-top:50px">
 <div class="event">
   <h3>Opening Event!</h3>
@@ -218,10 +163,7 @@
     <img style="width:85%; height:600px" src="../../static/users/event.jpg">
   </div>
 </div>
-</div>
-
-{#     <!----------------------------------------------End of Best sellers -------------> #}
-
+</div> -->
     
 {#    <!---------------------Footer-----------------> #}
 
@@ -354,7 +296,7 @@
           {#
           <div class="col-md-3">
             <div class="footer-widget categories-widget">
-              <h2 class="widget-title">Category</h2>
+              <h2 class="widget-title">Products Categories</h2>
               <ul>
                 <li>
                   <a href="a">Clothing</a>
@@ -383,10 +325,7 @@
               <h2 class="widget-title">Information</h2>
               <ul>
                 <li>
-                  <a href="a">About Us</a>
-                </li>
-                <li>
-                  <a href="a">Contact Us</a>
+                  <a href="{{ url_for('contactus') }}">Contact Us</a>
                 </li>
                 <li>
                   <a href="a">Terms & Conditions</a>
@@ -414,7 +353,7 @@
                 <i class="fas fa-phone-square-alt"></i>Phone:+92665541547
               </div>
               <div class="contact-email">
-                <i class="fas fa-envelope"></i>Email:contact@blackjack.com
+                <i class="fas fa-envelope"></i>Email:contact@vividly.com
               </div>
               <div class="social-widget">
                 <a href="a"><i class="fab fa-facebook"></i></a>

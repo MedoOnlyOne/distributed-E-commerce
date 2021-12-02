@@ -4,6 +4,7 @@ from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
 from distributed_ecommerce.blueprints.shop import shop
 from distributed_ecommerce.blueprints.order import order
+from distributed_ecommerce.blueprints.home import home
 from db import db
 from app_bcrypt import bcrypt
 from distributed_ecommerce.models import User, Order, Cart, Product, Shop 
@@ -17,6 +18,7 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.register_blueprint(auth)
 app.register_blueprint(shop)
 app.register_blueprint(order)
+app.register_blueprint(home)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
