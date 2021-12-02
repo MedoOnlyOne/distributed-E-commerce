@@ -45,7 +45,7 @@ class Order(db.Model):
     total_price = db.Column(db.Integer(), default=0)
     order_date = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
     shipping_address = db.Column(db.String(length=255), nullable=False)
-    buyer_phone_number = db.Column(db.String(length=11), nullable=False)
+    buyer_phone_number = db.Column(db.String(length=25), nullable=False)
     is_ordered = db.Column(db.Boolean(), default=False)
     is_delivered = db.Column(db.Boolean(), default=False)
     

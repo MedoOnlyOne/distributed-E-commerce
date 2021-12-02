@@ -24,28 +24,13 @@
             <!-- <input id="submit_btn" type="submit" value="Continue" disabled /> -->
             {{ form.submit(class="submit_btn") }}
             
-            <!--
-            <legend class="paymenttitle">Address</legend>
-            <div>
-            <input type="text" name="Billing" placeholder="Billing Address" class="address" >
-            <br>
-            <input type="text" name="Shipping" placeholder="Shipping Address" class="address"> 
-            </div>
-            <legend class="paymenttitle">PAYMENT INFORMATION</legend>
-            <input type="text" class="Card" name="Card Number" placeholder="Card Number"> <br>
-            <label for="date">Expiry Date</label>
-            <input type="date" class="date" name="date" placeholder="Month" > <br>
-            <input type="text" class="Card" name="Security Code" placeholder="Security Code"> 
-             -->
         </form>
             <fieldset class="Summery" >
                 <legend class="Order legend">ORDER SUMMARY</legend>
                 {% for product in cart.products %}
                 <div class="product" style="border-bottom:0.5px solid #232732;">
-                    <div class="productimage">
-                        <!--#######################-->
-                        <!--link needs to be edited?-->                       
-                        <img src="{{ product_image.url }}" style="text-align : left;" width="70" height = "80" >
+                    <div class="productimage">                   
+                        <img src="{{ url_for('uploaded_file', filename=product.image) }}" style="text-align : left;" width="70" height = "80" >
                     </div> <br>
                     <p class="order" >{{product.product_name}}</p>
                     <p class="quantity" >Quantity: {{product.quantity_in_cart}}</p>

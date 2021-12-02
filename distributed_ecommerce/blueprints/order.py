@@ -18,9 +18,7 @@ def cart():
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
-    products_list = []
     for product in products:
-        products_list.append(product) 
         quantity = product.quantity_in_cart
         total_price += (product.price * quantity)
     return render_template('cart.html', cart=cart, total_price=total_price)
@@ -32,6 +30,7 @@ def addtocart():
         product = Product.query.get(request.json['product_id'])
         if current_user.is_authenticated:
             cart = current_user.cart
+            product.quantity_in_cart += 1
             cart.products.append(product)
             db.session.commit()
             return jsonify({
@@ -51,6 +50,7 @@ def addtocart():
 def checkout():
     # get cart's products
     cart = current_user.cart
+    new_shop = current_user.shop
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
@@ -63,25 +63,38 @@ def checkout():
     form = CheckoutForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
         # create order
-        created_order = Order(order_id=order.order_id, shipping_address = form.address.data, buyer_phone_number = form.phone_number, is_ordered = True, is_delivered = True, total_price = total_price, products=products_list)
+        created_order = Order(order_id=str(uuid.uuid4()), shipping_address = form.address.data, buyer_phone_number = form.phone_number.data, is_ordered = True, is_delivered = True, total_price = total_price, products=products_list, user_id = current_user.user_id)
         current_user.balance -= total_price
         db.session.add(created_order)
         db.session.commit()
 
         #empty cart
         for product in products:
-            product_temp = Product.query.get(product.product_id)
-            products.remove(product)
-            shop = Shop.query.filter_by(shop_id=product_temp.shop_id).first()
-            user = User.query.filter_by(user_id=shop.user_id)
-            user.balance += (product_temp.price * product_temp.quantity_in_cart)
-            product_temp.quantity_in_cart = 0
+            temp_product = product
+            cart.products.remove(product)
+            
+            shop = Shop.query.filter_by(shop_id=product.shop_id).first()
+            user = User.query.filter_by(user_id=shop.user_id).first()
+            user.balance = user.balance + (product.price * product.quantity_in_cart)            
+            #add product to current user's shop
+            temp_product.quantity = product.quantity_in_cart
+            temp_product.quantity_in_cart = 0 
+            
+            shop.products.remove(product)    
+            product.quantity -= product.quantity_in_cart
+            product.quantity_in_cart = 0 
 
-            if product_temp.quantity == 0:
-                db.session.delete(product_temp)    
+            shop.products.append(product)
+            new_shop.products.append(temp_product)              
+
+            if product.quantity == 0:
+                db.session.delete(product)                
+            
             db.session.commit()
+            print(shop.products)
+            print(new_shop.products)
 
-        return redirect(url_for('ConfirmOrder', order_id=created_order.order_id))
+        return redirect(url_for('order.confirm'))
     return render_template('checkout.html', form=form, cart=cart, total_price=total_price)
 
 
