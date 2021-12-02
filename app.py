@@ -89,7 +89,7 @@ def productpage(product_id):
     product = Product.query.filter_by(product_id=product_id).first()
     product_shop = Shop.query.filter_by(shop_id=product.shop_id).first()
     product_owner = product_shop.owner_user
-    in_cart = product in current_user.cart.products
+    in_cart = current_user.is_authenticated and product in current_user.cart.products
     cart_disabled = in_cart or product.quantity == 0 or product_owner == current_user
     cart_disabled = 'disabled' if cart_disabled else ''
     if product:

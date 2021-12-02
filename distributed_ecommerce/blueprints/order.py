@@ -29,13 +29,16 @@ def cart():
 @order.put('/product/addtocart')
 def addtocart():
     try:
-        print(request.json['product_id'])
         product = Product.query.get(request.json['product_id'])
-        cart = current_user.cart
-        cart.products.append(product)
-        db.session.commit()
+        if current_user.is_authenticated:
+            cart = current_user.cart
+            cart.products.append(product)
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+            })
         return jsonify({
-            'status': 'success'
+            'status': 'redirect',
         })
     except Exception as e:
         print(e)
