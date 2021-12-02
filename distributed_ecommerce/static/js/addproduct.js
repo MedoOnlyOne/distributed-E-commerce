@@ -2,8 +2,7 @@ const addToCartForm = document.querySelector('#add-to-cart-form');
 
 addToCartForm.addEventListener('submit', async e => {
     e.preventDefault();
-    const url = e.originalTarget.action;
-    console.log(window.location.href.split('/').at(-1));
+    const url = e.target.action;
     const response = await fetch(url, {
         method: 'PUT',
         headers: {
