@@ -16,17 +16,21 @@
             <img src="{{ url_for('uploaded_file', filename=product.image) }}" height="135" width="135"> 
             <p style="font-size:22px; font-weight:bold; position:relative; top:5px;"><a href="{{ url_for('productpage',product_id=product.product_id) }}">Product name: {{ product.name }}</a></p>
             
-            <button id="minus" type="button" name="-" class="count" onclick="dec('{{product.product_id}}')">-</button>
+
+            <button id="minus" type="button" name="-" class="count">
+              <a href="{{ url_for('order.dec_product', product_id=product.product_id) }}">-</a>
+            </button>
               <p style="display:inline;">
                 <span style="font-weight:bold; bottom:10px;">Quantity: {{product.quantity_in_cart}}</span>
               </p>
-              <button id="plus" type="button" name="+" class="count" onclick="inc('{{product.product_id}}')"
-              {% if product.quantity_in_cart == product.quantity %} disabled="true"{% endif %} >+</button>
-              
-              <p >Price: {{product.price * product.quantity_in_cart}} L.E</p>
-            </div>  
-          </div>
-          {% endfor %} 
+            <button id="plus" type="button" name="+" class="count" {% if product.quantity_in_cart == product.quantity %} disabled="true"{% endif %}>
+              <a href="{{ url_for('order.inc_product', product_id=product.product_id) }}">+</a>
+            </button>
+
+            <p >Price: {{product.price * product.quantity_in_cart}} L.E</p>
+          </div>  
+        </div>
+        {% endfor %} 
       </div>
   </div>    
   
@@ -44,7 +48,6 @@
   {% endif %}
   {% if products %}
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='cart.js') }}"></script>
   {% endif %}
 
 {% endblock %}

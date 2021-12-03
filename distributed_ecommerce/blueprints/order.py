@@ -31,6 +31,7 @@ def addtocart():
         if current_user.is_authenticated:
             cart = current_user.cart
             product.quantity_in_cart += 1
+            product.quantity -= 1
             cart.products.append(product)
             db.session.commit()
             return jsonify({
@@ -105,31 +106,27 @@ def confirm():
 
 
 @login_required
-@order.route('/dec_product', methods=['POST'])
-def dec_product():
-    product = json.loads(request.data)
-    product_id = product['product_id']
-    product = Product.query.get(product.product_id)
-    
+@order.route('/cart/dec_product/<product_id>')
+def dec_product(product_id):
+    product = Product.query.filter_by(product_id=product_id).first()
     # get cart's products
     cart = current_user.cart
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
 
     for productt in products:
         if productt.product_id == product_id:
-            product.quantity_in_cart = product.quantity_in_cart - 1
-            product.quantity = product.quantity + 1
+            product.quantity_in_cart -= 1
+            product.quantity += 1
+            if product.quantity_in_cart == 0:
+                cart.products.remove(product)
             db.session.commit()
     
-    return jsonify ({})
+    return redirect(url_for('order.cart'))
 
 @login_required
-@order.route('/inc_product', methods=['POST'])
-def inc_product():
-    product = json.loads(request.data)
-    product_id = product['product_id']
-    product = Product.query.get(product.product_id)
-    
+@order.route('/cart/inc_product/<product_id>')
+def inc_product(product_id):
+    product = Product.query.filter_by(product_id=product_id).first()
     # get cart's products
     cart = current_user.cart
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
@@ -137,8 +134,8 @@ def inc_product():
     for productt in products:
         if productt.product_id == product_id:
             if product.quantity >= 1:
-                product.quantity_in_cart = product.quantity_in_cart + 1
-                product.quantity = product.quantity - 1
+                product.quantity_in_cart += 1
+                product.quantity -= 1
                 db.session.commit()
     
-    return jsonify ({})
+    return redirect(url_for('order.cart'))

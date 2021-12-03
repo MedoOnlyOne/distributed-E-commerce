@@ -9,7 +9,7 @@ margin:10px auto 10px auto;
 .item
 {
 width:700px;
-height:auto;
+height:150px;
 background-color:white;
 border:5px solid #2C578F;
 border-radius: 2px;
@@ -29,6 +29,8 @@ margin:0.5em 0em;
 .itemscontainer
 {
     border:navy;
+    height:100px;
+    width:337px;
 }
 
 .item p
@@ -50,6 +52,7 @@ margin:0.5em 0em;
     font-size:30px;
     font-weight:bold;
     color:#2C578F;
+    height:180px;
     width:700px;
     background-color:white;
     border:5px solid #2C578F;
