@@ -4,7 +4,6 @@ from flask_login import LoginManager, current_user, login_required
 from distributed_ecommerce.blueprints.auth import auth
 from distributed_ecommerce.blueprints.shop import shop
 from distributed_ecommerce.blueprints.order import order
-from distributed_ecommerce.blueprints.home import home
 from db import db
 from app_bcrypt import bcrypt
 from distributed_ecommerce.models import User1, User2, Order1, Order2, Cart1, Cart2, Product1, Product2, Shop1, Shop2 
