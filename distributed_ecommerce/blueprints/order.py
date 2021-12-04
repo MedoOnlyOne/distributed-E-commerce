@@ -62,6 +62,8 @@ def checkout():
     
     form = CheckoutForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
+        if total_price > current_user.balance:
+            return redirect(url_for('order.reject'))
         # create order
         created_order = Order(order_id=str(uuid.uuid4()), shipping_address = form.address.data, buyer_phone_number = form.phone_number.data, is_ordered = True, is_delivered = True, total_price = total_price, products=products_list, user_id = current_user.user_id)
         current_user.balance -= total_price
@@ -92,6 +94,11 @@ def checkout():
 @order.get('/confirm')
 def confirm():
     return render_template('ConfirmOrder.html')
+
+@login_required
+@order.get('/reject')
+def reject():
+    return render_template('RejectOrder.html')
 
 
 @login_required

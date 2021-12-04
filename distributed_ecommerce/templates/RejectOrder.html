@@ -1,0 +1,14 @@
+{% extends 'layoutuser.html' %} {% block head %}
+<title>Confirm Order</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/confirm.css') }}"
+/>
+{% endblock %} {% block body %}
+<h1>
+    <div class="container">
+        <h3>Order Couldn't Be Completed, Please Charge Your Wallet First</h3>
+    </div>
+  </div>
+</h1>
+{% endblock %}
