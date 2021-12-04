@@ -51,7 +51,6 @@ def addtocart():
 def checkout():
     # get cart's products
     cart = current_user.cart
-    new_shop = current_user.shop
     products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
     # calculate order total price and add its products
     total_price = 0
@@ -71,29 +70,19 @@ def checkout():
 
         #empty cart
         for product in products:
-            temp_product = product
             cart.products.remove(product)
-            
             shop = Shop.query.filter_by(shop_id=product.shop_id).first()
             user = User.query.filter_by(user_id=shop.user_id).first()
             user.balance = user.balance + (product.price * product.quantity_in_cart)            
-            #add product to current user's shop
-            temp_product.quantity = product.quantity_in_cart
-            temp_product.quantity_in_cart = 0 
-            
             shop.products.remove(product)    
             product.quantity -= product.quantity_in_cart
             product.quantity_in_cart = 0 
-
-            shop.products.append(product)
-            new_shop.products.append(temp_product)              
+            shop.products.append(product)          
 
             if product.quantity == 0:
                 db.session.delete(product)                
             
             db.session.commit()
-            print(shop.products)
-            print(new_shop.products)
 
         return redirect(url_for('order.confirm'))
     return render_template('checkout.html', form=form, cart=cart, total_price=total_price)

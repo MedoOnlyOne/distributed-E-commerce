@@ -125,7 +125,8 @@ def editproduct(product_id):
 @login_required
 @app.route('/product/remove/<product_id>')
 def removeproduct(product_id):
-    product = Product.query.filter_by(product_id=product_id).delete()
+    product = Product.query.filter_by(product_id=product_id).first()
+    db.session.delete(product)
     db.session.commit()
     return redirect(url_for("shop.dashboard"))
 

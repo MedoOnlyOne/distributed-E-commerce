@@ -12,12 +12,7 @@ home = Blueprint('home', __name__, template_folder='templates')
 @login_required
 @home.route('/')
 def browse_products():
-    # get all products of all users
-    clothing = Product.query.filter(Product.category == "Clothing").all()
-    tvs = Product.query.filter(Product.category == "TVs").all()
-    electronics = Product.query.filter(Product.category == "Electronics").all()
-    homeappliances = Product.query.filter(Product.category == "Home Appliances").all()
-    furniture = Product.query.filter(Product.category == "Furniture").all()
-    others = Product.query.filter(Product.category == "Others").all()
+    # get all shops of all users
+    shops = Shop.query.all()
     
-    return render_template('Mainpage.html', clothing=clothing, tvs=tvs, electronics=electronics, homeappliances=homeappliances, furniture=furniture, others=others)
+    return render_template('Mainpage.html', shops=shops)

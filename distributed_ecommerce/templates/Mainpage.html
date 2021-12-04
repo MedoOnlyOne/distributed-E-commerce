@@ -9,7 +9,7 @@
     <title> Vividly Official Page </title>
 {% endblock %}
 {% block body %}
-<form method="GET" action="/search">
+{#<form method="GET" action="/search">
 <div class="search">
   <input type="text" name="search_name" id="s" placeholder="What are you looking for ?">
   <input type="hidden" name="sort_by" value="name">
@@ -17,13 +17,14 @@
   <button type="submit" id="b" disabled><i class="fa fa-search"></i> Search</button>
 </div>
 </form>
+#}
 
 <!--
 <div class="event_btn_container">
    <a href="#event"><button class="event_btn">See our event</button></a> 
   <button class="event_btn" disbaled="fasle">See our event</button>
 </div>
- -->
+ 
 
 <div class="head">
     <div class="cathead"><h4 id="cur">Clothing</h4></div>
@@ -32,8 +33,8 @@
     <div class="cathead"><h4>Home Appliances</h4></div>
     <div class="cathead"><h4>Furniture</h4></div>
     <div class="cathead"><h4>Other</h4></div>
-    </div>  
-    <h1 class="text-center">Best Sellers</h1>
+  </div>
+    <h1 class="text-center">Best Sellers</h1> -->
 <!-----------------------Best Sellers--------------------------------->
     <section class="collection">
         <div class="container py-5">
@@ -42,22 +43,32 @@
                            <!----------------Clothing Category---------------->
               <div class="cat" id="cur_cat">
                 <!-- <div class="col-4 text-center"> -->
-                  {% for product in clothing %} 
-                  <div class="card mb-3 border-0 ">
-                      <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
-                      <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
-                      <p><small><span>{{ product.price }} L.E</span> </small> </p>
+                  
+                  {% for shop in shops %} 
+                    <div class="item" title="{{ shop.shop_name }}">
+                      <h4>{{ shop.shop_name }} Products: </h4>
+                      {% if shop.products %}
+                      {% for product in shop.products %} 
+                      <div class="card mb-3 border-0 ">
+                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
+                        <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
+                        <p><small><span>{{ product.price }} L.E</span> </small> </p>
                       <div class="buttons d-flex flex-row">
                           <div class="cart"><i class="fa fa-shopping-cart"></i></div> <button class="btn btn-dark cart-button btn-block"><span class="dot"></span>Add to cart </button>
                       </div>
-                  </div>
-
+                      </div>
+                      {% endfor %} 
+                      {% endif %}
+                    </div>
                   {% endfor %} 
                 <!-- </div> -->
+                    
               </div>
-                                   <!----------------TV Category---------------->
+
+              <!--
+                                   --------------TV Category---------------
                <div class="cat">
-                <!-- <div class="col-4 text-center"> -->
+                 <div class="col-4 text-center"> -
                   {% for product in tvs %} 
                   <div class="card mb-3 border-0 ">
                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
@@ -69,13 +80,13 @@
                   </div>
 
                   {% endfor %} 
-                <!-- </div> -->
+                 </div> --
               </div>
                 
             
-                                <!----------------Electronics Category---------------->
+                                --------------Electronics Category----------------
               <div class="cat">
-                <!-- <div class="col-4 text-center "> -->
+                 <div class="col-4 text-center "> --
                   {% for product in electronics %} 
                   <div class="card mb-3 border-0 ">
                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
@@ -87,14 +98,14 @@
                   </div>
 
                   {% endfor %} 
-                <!-- </div> -->
+                </div> --
               </div>
                
-            <!-- </div> -->
-                            <!----------------Home Appliances Category---------------->
+             </div> --
+                            --------------Home Appliances Category----------------
             <div class="cat">
               <div class="row py-5 ">
-                <!-- <div class="col-md-3 "> -->
+                 <div class="col-md-3 "> --
                   {% for product in homeappliances %} 
                   <div class="card mb-3 border-0 ">
                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
@@ -106,17 +117,17 @@
                   </div>
 
                   {% endfor %} 
-              <!-- </div> -->
+               </div> --
             </div>
             </div>
               
            
-                                        <!----New Row------>
+                                       ---New Row------
             
                                 
-                        <!----------------Furniture Category---------------->
+                        ---------------Furniture Category----------------
               <div class="cat">
-                <!-- <div class="col-md-3"> -->
+                 <div class="col-md-3"> --
                   {% for product in furniture %} 
                   <div class="card mb-3 border-0 ">
                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
@@ -128,12 +139,12 @@
                   </div>
 
                   {% endfor %} 
-                <!-- </div> -->
+                 </div> --
               </div>
                
-                                <!----------------Other Category---------------->
+                               ---------------Other Category----------------
               <div class="cat">
-                <!-- <div class="col-md-3 "> -->
+                <div class="col-md-3 "> --
                   {% for product in others %} 
                   <div class="card mb-3 border-0 ">
                       <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
@@ -145,13 +156,13 @@
                   </div>
 
                   {% endfor %} 
-                <!-- </div> -->
+                 </div> --
               </div>
                 
           </div>
     </section>
-    </div>
-    <!----------------------------------------------End of Best sellers -------------> 
+    </div> --
+    --------------------------------------------End of Best sellers -------------> 
 
 <!--
 <div id="event" style="padding-top:50px">
