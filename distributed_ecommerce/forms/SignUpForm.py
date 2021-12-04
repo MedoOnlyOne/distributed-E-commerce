@@ -2,20 +2,20 @@ from flask_wtf import FlaskForm
 from wtforms.validators import InputRequired, Length, Email, ValidationError
 from wtforms import StringField, PasswordField, TextAreaField, SubmitField
 
-from distributed_ecommerce.models import User, Shop
+from distributed_ecommerce.models import User2, Shop1
 
 def validate_username(form, username):
-    existing_user = User.query.filter_by(username=username.data).first()
+    existing_user = User2.query.filter_by(username=username.data).first()
     if existing_user:
         raise ValidationError('This username already exists')
 
 def validate_shop_name(form, shop_name):
-    existing_shop = Shop.query.filter_by(shop_name=shop_name.data).first()
+    existing_shop = Shop1.query.filter_by(shop_name=shop_name.data).first()
     if existing_shop:
         raise ValidationError('This shop already exists')
 
 def validate_email(form, email):
-    existing_user = User.query.filter_by(email=email.data).first()
+    existing_user = User2.query.filter_by(email=email.data).first()
     if existing_user:
         raise ValidationError('This email already exists')
 

@@ -1,45 +1,52 @@
-{% extends 'layoutuser.html' %}
-{% block head %} 
-    <title> Checkout </title>        
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}"/>
-{% endblock %}
+{% extends 'layoutuser.html' %} {% block head %}
+<title>Checkout</title>
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/checkout.css') }}"
+/>
+{% endblock %} {% block name %}Checkout{% endblock %} {% block body %}
 
-{% block name %}Checkout{% endblock %}
-
-{% block body %}
-    
-    <p class="text" style="font-size:25px">Thank you for shopping in <span style="color:#2C578F;">Vividly</span></p>
-    <div>
-        <form method="POST" action="{{ url_for('order.checkout') }}">
-            <h3>Order Information:</h3>
-            {{ form.hidden_tag() }}
-            <div style="display: flex; flex-wrap: wrap">
-              <!-- <input type="text" id="adress" placeholder="Address" name="adress" style="margin-left: 65px"/> -->
-              {{ form.address(id="adress", placeholder="Address") }}
-            </div>
-            <div style="display: flex; flex-wrap: wrap">
-                <!-- <input type="text" id="phone_number" placeholder="Phone Number" name="phone"/> -->
-                {{ form.phone_number(id="phone_number", placeholder="Phone Number") }}
-            </div>
-            <!-- <input id="submit_btn" type="submit" value="Continue" disabled /> -->
-            {{ form.submit(class="submit_btn") }}
-            
-        </form>
-            <fieldset class="Summery" >
-                <legend class="Order legend">ORDER SUMMARY</legend>
-                {% for product in cart.products %}
-                <div class="product" style="border-bottom:0.5px solid #232732;">
-                    <div class="productimage">                   
-                        <img src="{{ url_for('uploaded_file', filename=product.image) }}" style="text-align : left;" width="70" height = "80" >
-                    </div> <br>
-                    <p class="order" >{{product.product_name}}</p>
-                    <p class="quantity" >Quantity: {{product.quantity_in_cart}}</p>
-                    <p class="price" >Price: {{product.price * product.quantity_in_cart}} L.E</p>                    
-                </div>
-                {% endfor %}
-                <br>
-                <p class="total">TOTAL = {{total_price}} L.E</p>
-            </fieldset>
-    </div>       
+<p class="text" style="font-size: 25px">
+  Thank you for shopping in <span style="color: #2c578f">Vividly</span>
+</p>
+<div>
+  <form method="POST" action="{{ url_for('order.checkout') }}">
+    <h3>Order Information:</h3>
+    {{ form.hidden_tag() }}
+    <div style="display: flex; flex-wrap: wrap">
+      <!-- <input type="text" id="adress" placeholder="Address" name="adress" style="margin-left: 65px"/> -->
+      {{ form.address(id="adress", placeholder="Address") }}
+    </div>
+    <div style="display: flex; flex-wrap: wrap">
+      <!-- <input type="text" id="phone_number" placeholder="Phone Number" name="phone"/> -->
+      {{ form.phone_number(id="phone_number", placeholder="Phone Number") }}
+    </div>
+    <!-- <input id="submit_btn" type="submit" value="Continue" disabled /> -->
+    {{ form.submit(class="submit_btn") }}
+  </form>
+  <fieldset class="Summery">
+    <legend class="Order legend">ORDER SUMMARY</legend>
+    {% for product in products %}
+    <div class="product" style="border-bottom: 0.5px solid #232732">
+      <div class="productimage">
+        <img
+          src="{{ url_for('uploaded_file', filename=product.image) }}"
+          style="text-align: left"
+          width="70"
+          height="80"
+        />
+      </div>
+      <br />
+      <p class="order">{{product.product_name}}</p>
+      <p class="quantity">Quantity: {{product.quantiy_purchased}}</p>
+      <p class="price">
+        Price: {{product.price * product.quantiy_purchased}} L.E
+      </p>
+    </div>
+    {% endfor %}
+    <br />
+    <p class="total">TOTAL = {{total_price}} L.E</p>
+  </fieldset>
+</div>
 
 {% endblock %}
