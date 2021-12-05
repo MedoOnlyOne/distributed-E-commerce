@@ -71,6 +71,7 @@ h4 {
   border-radius: 20px;
   font-weight: bold;
   font-size: 24px;
+  cursor: pointer;
 }
 
 .cart[disablled],
@@ -82,9 +83,9 @@ h4 {
 
 .cart:hover,
 .wishlist:hover {
-  cursor: pointer;
   color: #fff;
 }
+
 .wl {
   display: block;
   background-color: #f3a04a;

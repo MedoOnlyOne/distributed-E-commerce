@@ -111,15 +111,19 @@ def userdashboard():
 def productpage(product_id):
     product1 = Product1.query.filter_by(product_id=product_id).first()
     product2 = Product2.query.filter_by(product_id=product_id).first()
-    product_shop = Shop2.query.filter_by(shop_id=product2.shop_id).first()
+    if not product1 or not product2:
+        return '<h1> Error 404 <br> Product Not Found'
+    shops = product2.shops
+    product_shop = shops[0]
     shop = Shop1.query.get(product_shop.shop_id)
     product_owner = product_shop.owner_user
     in_cart = current_user.is_authenticated and product2 in current_user.cart.products
-    cart_disabled = in_cart or product1.quantity == 0 or product_owner == current_user
+    in_shop = current_user.is_authenticated and product2 in current_user.shop.products
+    cart_disabled = in_cart or product1.quantity == 0 or product_owner.user_id == current_user.user_id
     cart_disabled = 'disabled' if cart_disabled else ''
-    if product1:
-        return render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled)
-    return '<h1> Error 404 <br> Product Not Found'
+    add_to_shop_disabled = in_shop or product_owner.user_id == current_user.user_id
+    add_to_shop_disabled = 'disabled' if add_to_shop_disabled else ''
+    return render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled, add_to_shop_disabled=add_to_shop_disabled)
 
 @login_required
 @app.route('/product/edit/<product_id>', methods=['GET', 'POST'])

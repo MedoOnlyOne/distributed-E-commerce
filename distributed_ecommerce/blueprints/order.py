@@ -60,11 +60,31 @@ def cart():
 @order.put('/product/addtocart')
 def addtocart():
     try:
-        product1 = Product1.query.get(request.json['product_id'])
         if current_user.is_authenticated:
             cart = current_user.cart
             product2 = Product2.query.get(request.json['product_id'])
             cart.products.append(product2)
+            db.session.commit()
+            return jsonify({
+                'status': 'success',
+            })
+        return jsonify({
+            'status': 'redirect',
+        })
+    except Exception as e:
+        print(e)
+        return jsonify({
+            'status': 'failed'
+        }), 500
+
+@login_required
+@order.put('/addtoshop')
+def addtoshop():
+    try:
+        if current_user.is_authenticated:
+            shop = current_user.shop
+            product2 = Product2.query.get(request.json['product_id'])
+            shop.products.append(product2)
             db.session.commit()
             return jsonify({
                 'status': 'success',
@@ -113,7 +133,7 @@ def checkout():
             for product in products:
                 quantity = db.session.query(cart_product).filter_by(product_id=product.product_id, cart_id=cart.cart_id).first().quantity
                 # cart.products.remove(product)
-                shop = Shop2.query.filter_by(shop_id=product.shop_id).first()
+                shop = product.shops[0]
                 user = User1.query.filter_by(user_id=shop.user_id).first()
                 product = Product1.query.get(product.product_id)
                 user.balance = user.balance + (product.price * quantity)            
@@ -137,7 +157,6 @@ def confirm():
 def reject():
     return render_template('RejectOrder.html')
 
-
 @login_required
 @order.route('/cart/dec_product/<product_id>')
 def dec_product(product_id):
@@ -154,23 +173,5 @@ def dec_product(product_id):
             if product.quantity_in_cart == 0:
                 cart.products.remove(product)
             db.session.commit()
-    
-    return redirect(url_for('order.cart'))
-
-@login_required
-@order.route('/cart/inc_product/<product_id>')
-def inc_product(product_id):
-    product = Product1.query.filter_by(product_id=product_id).first()
-    # get cart's products
-    cart = current_user.cart
-    # products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
-    products = cart.products
-
-    for productt in products:
-        if productt.product_id == product_id:
-            if product.quantity >= 1:
-                product.quantity_in_cart += 1
-                product.quantity -= 1
-                db.session.commit()
     
     return redirect(url_for('order.cart'))

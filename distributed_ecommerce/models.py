@@ -53,6 +53,13 @@ cart_product = db.Table('cart_product',
     info={'bind_key': 'db2'}
 )
 
+#Many-To-Many Relationship
+shop_product = db.Table('shop_product',
+    db.Column('shop_id', db.String(length=36), db.ForeignKey('Shops2.shop_id')),
+    db.Column('product_id', db.String(length=36), db.ForeignKey('Products2.product_id')),
+    info={'bind_key': 'db2'}
+)
+
 class Order1(db.Model):
     __tablename__ = 'Orders1'
     order_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
@@ -100,7 +107,7 @@ class Cart2(db.Model):
     cart_id = db.Column(db.String(length=36), db.ForeignKey('Carts1.cart_id'), primary_key=True)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'))
-    products = db.relationship('Product2', secondary=cart_product, backref=db.backref('cart', lazy='dynamic')) 
+    products = db.relationship('Product2', secondary=cart_product, backref=db.backref('carts', lazy='dynamic')) 
 
     def get_id(self):
         return self.cart_id
@@ -132,8 +139,6 @@ class Product2(db.Model):
     __bind_key__ = 'db2'
     product_id = db.Column(db.String(length=36), db.ForeignKey('Products1.product_id'), primary_key=True)
     
-    shop_id = db.Column(db.String(length=36), db.ForeignKey('Shops2.shop_id'))
-
     def get_id(self):
         return self.product_id
 
@@ -159,7 +164,7 @@ class Shop2(db.Model):
     shop_id = db.Column(db.String(length=36), db.ForeignKey('Shops1.shop_id'), primary_key=True)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'))
-    products = db.relationship('Product2', backref='shop') #One-To-Many Relationship
+    products = db.relationship('Product2', secondary=shop_product, backref=db.backref('shops', lazy='dynamic')) 
     
     def get_id(self):
         return self.shop_id

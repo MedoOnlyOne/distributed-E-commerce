@@ -15,7 +15,7 @@ shop = Blueprint('shop', __name__, template_folder='templates')
 @shop.get('/shop')
 def dashboard():
     shop = current_user.shop
-    products = Product2.query.filter_by(shop_id=shop.shop_id).all()
+    products = shop.products
     
     for p in products:
         product = Product1.query.filter_by(product_id=p.product_id).first()
@@ -53,7 +53,8 @@ def addproduct():
 
         # craete product
         created_product1 = Product1(product_id=str(uuid.uuid4()),product_name=form.product_name.data, category=form.category.data, quantity=form.quantity.data, price=form.price.data, description=form.description.data, image=image_name)
-        created_product2 = Product2(product_id=created_product1.product_id , shop_id=shop.shop_id)
+        created_product2 = Product2(product_id=created_product1.product_id)
+        shop.products.append(created_product2)
         db.session.add(created_product1)
         db.session.add(created_product2)
         db.session.commit()

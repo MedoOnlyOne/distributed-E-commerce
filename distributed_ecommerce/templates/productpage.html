@@ -47,15 +47,21 @@
           <h2>Quantity: {{ product.quantity }}</h2>
         </div>
         <form id="add-to-cart-form" action="{{ url_for('order.addtocart') }}" method="PUT">
-          
-          <input type="hidden" name="productid" value="{{ product.id }}">
-          <button type="submit" name="add_to_cart" class="cart"
+          <button type="submit" name="add_to_cart" class="cart"id="add_to_cart_button"
           {{ cart_disabled }}
           >
-          <i class="fa fa-shopping-cart"></i> Add to Cart</button>
-          <div class="alert-message">
-          </div>
+            <i class="fa fa-shopping-cart"></i> Add to Cart
+          </button>
         </form>
+        <form id="add-to-shop-form" action="{{ url_for('order.addtoshop') }}" method="PUT">
+          <button type="submit" name="add_to_shop" class="cart" id="add_to_shop_button"
+            {{ add_to_shop_disabled }}
+            >
+              <i class="fa fa-shopping-cart"></i> Add to Shop
+            </button>
+        </form>
+        <div class="alert-message">
+        </div>
       </div>
       <div class="image">
         <img src="{{ url_for('uploaded_file', filename=product.image) }}" alt="{{ product.name }}" id="productimage">
