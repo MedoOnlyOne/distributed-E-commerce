@@ -17,7 +17,7 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for('userdashboard'))
+                return redirect(url_for('home'))
             return render_template('login.html', form=form, message="Incorrect password")
         return render_template('login.html', form=form, message="Incorrect username")
 
@@ -27,7 +27,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home'))
     
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -53,7 +53,7 @@ def signup():
         db.session.commit()
         
         login_user(created_user2)
-        return redirect(url_for('userdashboard'))
+        return redirect(url_for('home'))
     if current_user.is_authenticated:
-        return redirect('userdashboard')
+        return redirect(url_for('userdashboard'))
     return render_template('signup.html', form=form)

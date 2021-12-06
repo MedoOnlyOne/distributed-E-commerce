@@ -3,8 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ current_user.shopname }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/shop.css') }}" />
+    <title>{{ shop.shop_name }}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/shop.css') }}"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
       rel="stylesheet"
@@ -43,17 +46,28 @@
       </header>
     </div>
 
-    {# <div class="shop_info" title="{{ shop.name }}"> 
-    <p><span style="font-weight:bold;">Shop name : </span> {{shop.name}}</p>
-    <p><span style="font-weight:bold;">Shop address : </span> {{shop.address}}</p>
-    <p><span style="font-weight:bold;">Shop description : </span> {{shop.description}}</p>
-  </div> #}
+    {#
+    <div class="shop_info" title="{{ shop.name }}">
+      <p><span style="font-weight: bold">Shop name : </span> {{shop.name}}</p>
+      <p>
+        <span style="font-weight: bold">Shop address : </span> {{shop.address}}
+      </p>
+      <p>
+        <span style="font-weight: bold">Shop description : </span>
+        {{shop.description}}
+      </p>
+    </div>
+    #}
 
-    <h1 class="shop_info">{{ current_user.shop.name }}</h1>
+    <h1 class="shop_info">{{ shop.shop_name }}</h1>
     <div class="items" style="margin-bottom: 50px">
       {% for product in products %}
       <div class="item" title="{{ product.name }}">
-        <img src="{{ url_for('uploaded_file', filename=product.image) }}" height="135" width="135" />
+        <img
+          src="{{ url_for('uploaded_file', filename=product.image) }}"
+          height="135"
+          width="135"
+        />
         <p
           style="
             font-size: 25px;
@@ -62,7 +76,9 @@
             top: 5px;
           "
         >
-          <a href="{{ url_for('productpage',product_id=product.product_id) }}" class="product-name"
+          <a
+            href="{{ url_for('productpage',product_id=product.product_id) }}"
+            class="product-name"
             >Product name: {{ product.product_name }}</a
           >
         </p>

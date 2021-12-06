@@ -29,13 +29,23 @@ def dashboard():
     
     return render_template('shopdashboard.html',shop=shop, products=products)
 
-@login_required
 @shop.get('/shop/<shop_id>')
 def shop_view(shop_id):
     shop = Shop2.query.get(shop_id)
     if shop:
+        shop1 = Shop1.query.get(shop_id)
+        shop.shop_name = shop1.shop_name
         user = User2.query.get(shop.user_id)
         products = shop.products
+        for product in products:
+            p = Product1.query.get(product.product_id)
+            product.product_name = p.product_name
+            product.price = p.price
+            product.image = p.image
+            product.description = p.description
+            product.category = p.category
+            product.quantity = p.quantity
+
         return render_template('shop.html', shop=shop, shop_owner=user, products=products)
     return 'Error 404.<br> Shop not found'
 
@@ -53,7 +63,7 @@ def addproduct():
 
         # craete product
         created_product1 = Product1(product_id=str(uuid.uuid4()),product_name=form.product_name.data, category=form.category.data, quantity=form.quantity.data, price=form.price.data, description=form.description.data, image=image_name)
-        created_product2 = Product2(product_id=created_product1.product_id)
+        created_product2 = Product2(product_id=created_product1.product_id, user_id=current_user.user_id)
         shop.products.append(created_product2)
         db.session.add(created_product1)
         db.session.add(created_product2)
