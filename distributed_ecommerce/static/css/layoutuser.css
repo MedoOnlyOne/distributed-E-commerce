@@ -80,7 +80,7 @@ header nav ul li {
   height: 22px;
   color: white;
   font-size: 1rem;
-  font-family: 'Ubuntu', sans-serif;
+  /* font-family: 'Ubuntu', sans-serif; */
   background: transparent;
   border: none;
 }
@@ -131,9 +131,7 @@ header nav ul li {
 body {
   margin: 0;
   padding: 0;
-  width: 100vw;
-  height: 100vh;
-  font-family: 'Ubuntu', sans-serif;
+  /* font-family: 'Ubuntu', sans-serif; */
 }
 
 .sidemenu {
@@ -142,12 +140,12 @@ body {
   text-align: left;
   text-decoration: none;
   position: fixed;
-  z-index: 3;
+  z-index: 2;
   width: 200px;
-  top: 45px;
+  top: 60px;
   bottom: 0;
   left: -240px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .sidemenu.shown {
@@ -165,9 +163,10 @@ body {
 .sidemenu a {
   text-decoration: none;
   color: #bdd5f1;
-  padding: 8px 30px;
+  padding: 8px 4px;
   display: block;
   font-size: 16pt;
+  margin-left: 1em;
 }
 
 .sidemenu a:hover {
@@ -206,7 +205,7 @@ main.shrink {
 
 .wrapper {
   position: fixed;
-  top: 45px;
+  top: 60px;
   bottom: 0;
   left: 0;
   width: 100%;

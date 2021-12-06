@@ -51,12 +51,15 @@
       </nav>
     </div>
     <header>
+      
       <div class="logo-burger-search">
+        {% if current_user.is_authenticated %}
         <div class="burgers">
           <div class="burger burger-one"></div>
           <div class="burger burger-two"></div>
           <div class="burger burger-three"></div>
         </div>
+        {% endif %}
         <div class="logo">
           <div class="BlackJack">
             <a id="BlackJack" href="{{ url_for('home') }}">Vividly</a>
@@ -66,19 +69,6 @@
               >The Official online store</a
             >
           </div>
-        </div>
-        <div class="search-bar">
-          <i class="fa fa-search"></i>
-          <form method="GET" class="search-form" action="/search">
-            <input
-              class="search-field"
-              type="text"
-              name="search_name"
-              placeholder="Search"
-            />
-            <input type="hidden" name="sort_by" value="name" />
-            <input type="hidden" name="search_for" value="products" />
-          </form>
         </div>
       </div>
 
