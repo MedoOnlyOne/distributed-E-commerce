@@ -38,8 +38,13 @@
       </form>
 
         {% if message %}
-        <p style="color:red">{{ message }}</p>
+          <p style="color:red">{{ message }}</p>
         {% endif %}
+        {% for error in form.errors %}
+          <p style="color:red">
+            {{ error }}: {{ form.errors[error][0] }}
+          </p>
+        {% endfor %}
       <p> Haven't signed up yet? </p>
       <button class="button_1" > 
         <a href="{{ url_for('auth.signup') }}">Sign up now !</a>

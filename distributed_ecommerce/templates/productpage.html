@@ -12,8 +12,8 @@
   rel="stylesheet"
 />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/productpage.css') }}" />
-{% endblock %} 
-{% block body%}
+<title>{{ product.product_name }}</title>
+{% endblock %} {% block body%}
 
 <!-- <header>
   <div class="Container">
@@ -42,10 +42,10 @@
       <div class="info">
         <div class="info-text">
           <div class="product-name-container">
-            <h1 class="product-name">{{ product.name }}</h1>
+            <h1 class="product-name">{{ product.product_name }}</h1>
           </div>
           
-          <h2 style="margin-top: 8px;">Shop: <a class="shoplink" href="{{ url_for('shop.shop_view',shop_id=product.shop_id) }}">{{shop.shop_name}}</a> <h2>
+          <h2 style="margin-top: 8px;">Shop: <a class="shoplink" href="{{ url_for('shop.shop_view',shop_id=shop.shop_id) }}">{{shop.shop_name}}</a> <h2>
           <h2>Price: <span>{{ product.price }} EGP</span></h2>
           <h2>Category: {{product.category}}</h2>
           <h2>Quantity: {{ product.quantity }}</h2>
@@ -94,7 +94,7 @@
        </div>
        {% endfor %}
       </div>
-    </div> #}
+    </div> 
 <div class="Rev">
 <form action="{{ url_for('productpage', product_id=product.product_id) }}" method="POST">
   
@@ -115,7 +115,7 @@
 <input type="submit" name="add_review" id="review_btn" class="review_btn" disabled>
 </form>
 </div>
-{# <div class="user-reviews">
+<div class="user-reviews">
   <h6>User Reviews</h6>
   {% if reviews %}
   {% for review in reviews%}

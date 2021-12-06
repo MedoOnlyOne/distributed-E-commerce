@@ -1,0 +1,26 @@
+version: "3.3"
+   
+services:
+  db1:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=dsproject
+  db2:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=dsproject 
+  web:
+    build: .
+    command: python app.py
+    restart: on-failure
+    environment:
+      - mode=production
+    volumes:
+      - .:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db1
+      - db2

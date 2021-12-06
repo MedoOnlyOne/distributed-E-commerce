@@ -4,7 +4,7 @@ import distributed_ecommerce.forms as forms
 from db import db
 from app_bcrypt import bcrypt
 from distributed_ecommerce.models import User1, User2, Shop1, Shop2, Cart1, Cart2
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 auth = Blueprint('auth', __name__, template_folder='templates')
 
@@ -17,7 +17,7 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for('userdashboard'))
+                return redirect(url_for('home'))
             return render_template('login.html', form=form, message="Incorrect password")
         return render_template('login.html', form=form, message="Incorrect username")
 
@@ -27,7 +27,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home'))
     
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -53,6 +53,7 @@ def signup():
         db.session.commit()
         
         login_user(created_user2)
+        return redirect(url_for('home'))
+    if current_user.is_authenticated:
         return redirect(url_for('userdashboard'))
-    
     return render_template('signup.html', form=form)

@@ -7,6 +7,7 @@ from distributed_ecommerce.blueprints.order import order
 from db import db
 from app_bcrypt import bcrypt
 from distributed_ecommerce.models import User1, User2, Order1, Order2, Cart1, Cart2, Product1, Product2, Shop1, Shop2 
+from random import randrange
 
 UPLOAD_FOLDER = os.path.join('.', 'images')
 
@@ -17,14 +18,21 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.register_blueprint(auth)
 app.register_blueprint(shop)
 app.register_blueprint(order)
-# app.register_blueprint(home)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
 app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b57309aa43a058ac731f40163443d1653e8bb8b8bf5431dbd075ee2cf351250c971d516037d6ce'
-app.config['SQLALCHEMY_BINDS'] = {
-    'db2': 'sqlite:///database2.db',
-}
+
+if 'mode' in os.environ and os.environ['mode'] == 'production':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@db1/dsproject'
+    app.config['SQLALCHEMY_BINDS'] = {
+        'db2': 'mysql+pymysql://root:12345678@db2/dsproject',
+    }
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
+    app.config['SQLALCHEMY_BINDS'] = {
+        'db2': 'sqlite:///database2.db',
+    } 
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 bcrypt.init_app(app)
@@ -68,9 +76,19 @@ def home():
         for sh in shops1:
             if sh.shop_id == shop.shop_id:
                 prodcuts = []
-                for product in shop.products:
-                    p = Product1.query.get(product.product_id)
-                    prodcuts.append(p)
+                if len(shop.products) <= 3:
+                    for product in shop.products:
+                        p = Product1.query.get(product.product_id)
+                        prodcuts.append(p)
+                else:
+                    random_products_indexes = []
+                    for i in range(3):
+                        x = randrange(len(shop.products))
+                        while x in random_products_indexes:
+                            x = randrange(len(shop.products))
+                        random_products_indexes.append(x)
+                        p = Product1.query.get(shop.products[random_products_indexes[i]].product_id)
+                        prodcuts.append(p)
                 sh.products = prodcuts
                 break
 
@@ -119,9 +137,9 @@ def productpage(product_id):
     product_owner = product_shop.owner_user
     in_cart = current_user.is_authenticated and product2 in current_user.cart.products
     in_shop = current_user.is_authenticated and product2 in current_user.shop.products
-    cart_disabled = in_cart or product1.quantity == 0 or product_owner.user_id == current_user.user_id
+    cart_disabled = not current_user.is_authenticated or in_cart or product1.quantity == 0 or product_owner.user_id == current_user.user_id
     cart_disabled = 'disabled' if cart_disabled else ''
-    add_to_shop_disabled = in_shop or product_owner.user_id == current_user.user_id
+    add_to_shop_disabled = not current_user.is_authenticated or in_shop or product_owner.user_id == current_user.user_id
     add_to_shop_disabled = 'disabled' if add_to_shop_disabled else ''
     return render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled, add_to_shop_disabled=add_to_shop_disabled)
 
@@ -161,6 +179,7 @@ def removeproduct(product_id):
     db.session.commit()
     return redirect(url_for("shop.dashboard"))
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    if 'mode' in os.environ and os.environ['mode'] == 'production':
+        create_all()
+    app.run(host='0.0.0.0', debug=True)
