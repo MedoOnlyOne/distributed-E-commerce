@@ -22,7 +22,7 @@ class User1(db.Model, UserMixin):
 class User2(db.Model, UserMixin):
     __tablename__ = 'Users2'
     __bind_key__ = 'db2'
-    user_id = db.Column(db.String(length=36), db.ForeignKey('Users1.user_id'), primary_key=True)
+    user_id = db.Column(db.String(length=36), primary_key=True)
     email = db.Column(db.String(length=255), nullable=False, unique=True)
     username = db.Column(db.String(length=255), nullable=False, unique=True)
     password = db.Column(db.String(length=255), nullable=False)
@@ -77,7 +77,7 @@ class Order1(db.Model):
 class Order2(db.Model):
     __tablename__ = 'Orders2'
     __bind_key__ = 'db2'
-    order_id = db.Column(db.String(length=36), db.ForeignKey('Orders1.order_id'), primary_key=True)
+    order_id = db.Column(db.String(length=36), primary_key=True)
     is_ordered = db.Column(db.Boolean(), default=False)
     is_delivered = db.Column(db.Boolean(), default=False)
     
@@ -104,7 +104,7 @@ class Cart1(db.Model):
 class Cart2(db.Model):
     __tablename__ = 'Carts2'
     __bind_key__ = 'db2'
-    cart_id = db.Column(db.String(length=36), db.ForeignKey('Carts1.cart_id'), primary_key=True)
+    cart_id = db.Column(db.String(length=36), primary_key=True)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'))
     products = db.relationship('Product2', secondary=cart_product, backref=db.backref('carts', lazy='dynamic')) 
@@ -137,7 +137,7 @@ class Product1(db.Model):
 class Product2(db.Model):
     __tablename__ = 'Products2'
     __bind_key__ = 'db2'
-    product_id = db.Column(db.String(length=36), db.ForeignKey('Products1.product_id'), primary_key=True)
+    product_id = db.Column(db.String(length=36), primary_key=True)
     
     def get_id(self):
         return self.product_id
@@ -161,7 +161,7 @@ class Shop1(db.Model):
 class Shop2(db.Model):
     __tablename__ = 'Shops2'
     __bind_key__ = 'db2'
-    shop_id = db.Column(db.String(length=36), db.ForeignKey('Shops1.shop_id'), primary_key=True)
+    shop_id = db.Column(db.String(length=36), primary_key=True)
     
     user_id = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'))
     products = db.relationship('Product2', secondary=shop_product, backref=db.backref('shops', lazy='dynamic')) 

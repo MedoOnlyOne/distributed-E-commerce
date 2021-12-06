@@ -20,11 +20,19 @@ app.register_blueprint(order)
 # app.register_blueprint(home)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
 app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b57309aa43a058ac731f40163443d1653e8bb8b8bf5431dbd075ee2cf351250c971d516037d6ce'
-app.config['SQLALCHEMY_BINDS'] = {
-    'db2': 'sqlite:///database2.db',
-}
+
+if 'mode' in os.environ and os.environ['mode'] == 'production':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@db1/dsproject'
+    app.config['SQLALCHEMY_BINDS'] = {
+        'db2': 'mysql+pymysql://root:12345678@db2/dsproject',
+    }
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database1.db'
+    app.config['SQLALCHEMY_BINDS'] = {
+        'db2': 'sqlite:///database2.db',
+    } 
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 bcrypt.init_app(app)
@@ -163,4 +171,6 @@ def removeproduct(product_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if 'mode' in os.environ and os.environ['mode'] == 'production':
+        create_all()
+    app.run(host='0.0.0.0', debug=True)
