@@ -17,7 +17,6 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.register_blueprint(auth)
 app.register_blueprint(shop)
 app.register_blueprint(order)
-# app.register_blueprint(home)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '26b966b57eb0cdfc098a15141fdd271aedf8cd0c66a76eb240b57309aa43a058ac731f40163443d1653e8bb8b8bf5431dbd075ee2cf351250c971d516037d6ce'
@@ -168,7 +167,6 @@ def removeproduct(product_id):
     db.session.delete(product2)
     db.session.commit()
     return redirect(url_for("shop.dashboard"))
-
 
 if __name__ == '__main__':
     if 'mode' in os.environ and os.environ['mode'] == 'production':
