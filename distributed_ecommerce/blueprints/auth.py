@@ -27,7 +27,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('auth.login'))
+    return redirect(url_for('home'))
     
 
 @auth.route('/signup', methods=['GET', 'POST'])
@@ -53,6 +53,6 @@ def signup():
         db.session.commit()
         
         login_user(created_user2)
-        return redirect(url_for('userdashboard'))
+        return redirect(url_for('home'))
     
     return render_template('signup.html', form=form)

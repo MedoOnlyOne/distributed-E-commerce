@@ -293,6 +293,15 @@ img {
 
   display: grid;
 }
+.shoplink {
+  color: black;
+  text-decoration: none;
+}
+
+.shoplink:hover {
+  color: #2c578f;
+}
+
 /* #items
 {
 margin-left: 40px;
@@ -318,13 +327,12 @@ padding-bottom:1em;
   border: navy;
 }
 
-.item p
-{
-   color:#232732;
-   font-size:17px;
-   position:relative;
-   /*top:17px;*/
-   text-align: center;
+.item p {
+  color: #232732;
+  font-size: 17px;
+  position: relative;
+  /*top:17px;*/
+  text-align: center;
 }
 /*
 .item img

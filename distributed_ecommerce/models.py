@@ -138,6 +138,7 @@ class Product2(db.Model):
     __tablename__ = 'Products2'
     __bind_key__ = 'db2'
     product_id = db.Column(db.String(length=36), primary_key=True)
+    user_id = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'))
     
     def get_id(self):
         return self.product_id
