@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
+{% extends 'layoutuser.html' %}
+{% block head %} 
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Log In</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}" />
-</head>
+{% endblock %}
+{% block body %}
 <body>
-  <header>
-    <div class="Container">
-        <div id="header">
-          <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
-          <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
-        </div>
-    </div>
-</header>
-
-
- 
    <h1 >
     <div class="container">
      <h2> Log in </h2>
@@ -55,4 +44,4 @@
  
 
 </body>
-</html>
+{% endblock %}
