@@ -1,3 +1,6 @@
+*{
+  font-family: 'Ubuntu', sans-serif;
+}
 input[type='text'],
 textarea {
   display: block;

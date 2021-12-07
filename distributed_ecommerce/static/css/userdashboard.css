@@ -1,3 +1,6 @@
+*{
+  font-family: 'Ubuntu', sans-serif;
+}
 .buttonsContainer {
   display: flex;
   width: 100%;

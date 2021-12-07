@@ -1,3 +1,6 @@
+*{
+  font-family: 'Ubuntu', sans-serif;
+}
 #items {
   margin-left: 40px;
   overflow: auto;

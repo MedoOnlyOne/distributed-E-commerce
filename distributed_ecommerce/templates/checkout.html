@@ -10,8 +10,8 @@
   Thank you for shopping in <span style="color: #2c578f">Vividly</span>
 </p>
 <div>
-  <form method="POST" action="{{ url_for('order.checkout') }}">
-    <h3>Order Information:</h3>
+  <form method="POST" action="{{ url_for('order.checkout') }}" class="info_form">
+    <h3 class="information">Order Information:</h3>
     {{ form.hidden_tag() }}
     <div style="display: flex; flex-wrap: wrap">
       <!-- <input type="text" id="adress" placeholder="Address" name="adress" style="margin-left: 65px"/> -->

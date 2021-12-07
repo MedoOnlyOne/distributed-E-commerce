@@ -1,3 +1,6 @@
+*{
+    font-family: 'Ubuntu', sans-serif;
+}
 body {
     margin: 0px;
 }
@@ -36,6 +39,7 @@ body {
 {
     font-size : 120%;
     text-align : right;
+    color: red;
 }
 .Shipping Info
 { 
@@ -62,7 +66,7 @@ body {
     height: 50px;
     width:60.5%;
 }*/
-.submit
+/* .submit
 {
     height: 70px;
     width : 400px;
@@ -76,26 +80,36 @@ body {
     color: white;
     border: none;
     cursor: pointer;
-}
+} */
 .Summery 
 {
-    width: 30%;
+    width: 45%;
     border-radius: 10px;
     margin-right: 7%;
+    margin-top: 2%;
     float:right;
+    margin-bottom: 2rem;
+}
+.info_form {
+    display: inline-block;
+    width: 40%;
+    margin-left: 1rem;
 }
 .total {
     text-align:right;
     font-weight:bold; 
     font-size:20px ;
+    width: 150px;
     text-decoration : underline;
-    margin-right: 142px;
+    margin-left: calc(50% - 75px);
 }
 .information {
-    width: 50%;
-    margin-left: 10%;
+    width: 200px;
+    margin-left: calc(50% - 100px);
+    margin-bottom: 5%;
     margin-top: 10%;
-    float: left;
+    display: block;
+    color: #2c578f;
 }
 
 h3 {
@@ -106,23 +120,20 @@ input {
     outline: none;
     padding: 5px;
     border-radius: 10px;
-    border-color: white;
-    margin-top: 5%;
-    width: 40%;
+    margin-bottom: 10%;
+    width: 100%;
 }
 
 .submit_btn {
     border-radius: 10px;
     background: #2c578f;
-    margin: auto;
-    margin-top: 40px;
-    margin-bottom: 10px;
     /* display: inline-block; */
     text-decoration: none;
     color: white;
     /* font-weight: bold; */
     width: 120px;
     height: 35px;
+    margin-left: calc(50% - 60px);
 }
 
 a {
