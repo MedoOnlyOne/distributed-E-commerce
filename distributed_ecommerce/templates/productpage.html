@@ -1,4 +1,4 @@
-{% extends 'layoutuser.html' %} {% block title%}{{ product.name }}{% endblock %}
+{% extends 'layoutuser.html' %} {% block title %}{{ product.name }}{% endblock %}
 {% block head %}
 <link
   rel="stylesheet"
@@ -10,14 +10,14 @@
 />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/productpage.css') }}" />
 <title>{{ product.product_name }}</title>
-{% endblock %} {% block body%}
+{% endblock %} {% block body %}
 
 <header>
   <div class="Container">
-      <div id="header">
-        <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
-        <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
- </div>
+    <div id="header">
+      <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
+      <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
+  </div>
 
 <nav> <ul> 
   {% if current_user.is_authenticated %}
@@ -44,7 +44,7 @@
           
           <h2 style="margin-top: 8px;">Shop: <a class="shoplink" href="{{ url_for('shop.shop_view',shop_id=shop.shop_id) }}">{{shop.shop_name}}</a> <h2>
           <h2>Price: <span>{{ product.price }} EGP</span></h2>
-          <h2>Category: {{product.category}}</h2>
+          <h2>Category: {{ product.category }}</h2>
           <h2>Quantity: {{ product.quantity }}</h2>
         </div>
         <form id="add-to-cart-form" action="{{ url_for('order.addtocart') }}" method="PUT">
@@ -80,56 +80,6 @@
     {% endif %}  
      
     </div>
-    {# <div class="Related">
-      <h6>Related to this item</h6>
-      <div style="display:flex; justify-content:center">
-      {% for p in related %}
-      <div class="relate-product">
-        <img src="{{ p.image}}" alt="{{p.name}}" class="re">
-        <h5><a class="p_name" href="{{ url_for('productpage', product_id=p.id) }}">{{p.name}}</a></h5>
-        <h5 class="related-price">{#p.price|mul:currency_ratio|floatformat:2 {{currency_name}}</h5>
-       </div>
-       {% endfor %}
-      </div>
-    </div> 
-<div class="Rev">
-<form action="{{ url_for('productpage', product_id=product.product_id) }}" method="POST">
-  
-<h6>Review about item</h6>
-<textarea name="review" id="review_text" placeholder="Write your review here (your review must be more than 30 words...)"></textarea>
-<div class="rate">
-  <input type="radio" id="star5" name="rate" value="5" />
-  <label for="star5" title="text">5 stars</label>
-  <input type="radio" id="star4" name="rate" value="4" />
-  <label for="star4" title="text">4 stars</label>
-  <input type="radio" id="star3" name="rate" value="3" />
-  <label for="star3" title="text">3 stars</label>
-  <input type="radio" id="star2" name="rate" value="2" />
-  <label for="star2" title="text">2 stars</label>
-  <input type="radio" id="star1" name="rate" value="1" />
-  <label for="star1" title="text">1 star</label>
-</div>
-<input type="submit" name="add_review" id="review_btn" class="review_btn" disabled>
-</form>
-</div>
-<div class="user-reviews">
-  <h6>User Reviews</h6>
-  {% if reviews %}
-  {% for review in reviews%}
-    <div class="single-review">
-    <p><em style="font-size: 1.1em;">{{ review.user.username }}</em></p>
-    <img src="../../static/products/{{ review.stars|floatformat:0 }}.png" alt="{{ review.stars|floatformat:0 }}">
-    <p>{{ review.text }}</p>
-    </div>
-  {% endfor %}
-  {% else %}
-    <p style="font-size: 1.5rem; text-align: center;">There are no reviews for this product.</p>
-  {% endif %}
-</div> #}
-{# 
-{% if related_len > 0 %}
-
-{% endif %} #}
   <script src="{{ url_for('static', filename='js/addproduct.js') }}"></script>
     {% if not is_user_product and not user_has_review%}
       <script>

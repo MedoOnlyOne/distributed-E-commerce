@@ -173,6 +173,8 @@ def editproduct(product_id):
 @app.route('/product/remove/<product_id>')
 def removeproduct(product_id):
     product1 = Product1.query.filter_by(product_id=product_id).first()
+    if not product1:
+        return redirect(url_for('auth.login'))
     product2 = Product2.query.filter_by(product_id=product_id).first()
     db.session.delete(product1)
     db.session.delete(product2)

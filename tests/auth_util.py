@@ -1,5 +1,5 @@
 from distributed_ecommerce.forms import LogInForm
-from distributed_ecommerce.forms.SignUpForm import SignUpForm
+from distributed_ecommerce.forms import SignUpForm
 
 def login(client, username, password):
     form = LogInForm(username=username, password=password)

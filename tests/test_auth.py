@@ -1,35 +1,12 @@
-import os
-import tempfile
-
-import pytest
-
 from app import app, create_all
 from .auth_util import signup, login, logout
 
-@pytest.fixture
-def client():
-    db1_fd, db1_path = tempfile.mkstemp()
-    db2_fd, db2_path = tempfile.mkstemp()
-    app.config['TESTING'] = True
-    app.config['WTF_CSRF_ENABLED'] = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db1_path}'
-    app.config['SQLALCHEMY_BINDS'] = {
-        'db2': f'sqlite:///{db2_path}',
-    }
-    with app.app_context():
-        with app.test_request_context():
-            with app.test_client() as client:
-                create_all()
-                yield client
-    os.close(db1_fd)
-    os.close(db2_fd)
-    os.unlink(db1_path)
-    os.unlink(db2_path)
+from . import client
 
 def test_empty_db(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert b'About'in response.data
+    assert b'About' in response.data
 
 def test_login_no_account(client):
     response = login(client, 'nabil', '12345678')
@@ -50,7 +27,7 @@ def test_signup_no_account(client):
         'phone_number': '1110269393',
     })
     assert response.status_code == 200
-    assert b'My shop' in response.data and b'My Account' in response.data and b'Mohamed' in response.data and b'Rady' in response.data
+    assert b'All rights reserved' in response.data
 
 def test_logout(client):
     response = signup(client, **{

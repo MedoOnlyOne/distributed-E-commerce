@@ -157,21 +157,3 @@ def confirm():
 def reject():
     return render_template('RejectOrder.html')
 
-@login_required
-@order.route('/cart/dec_product/<product_id>')
-def dec_product(product_id):
-    product = Product1.query.filter_by(product_id=product_id).first()
-    # get cart's products
-    cart = current_user.cart
-    # products = Product.query.filter(Product.cart.any(cart_id=cart.cart_id)).all()
-    products = cart.products
-
-    for productt in products:
-        if productt.product_id == product_id:
-            product.quantity_in_cart -= 1
-            product.quantity += 1
-            if product.quantity_in_cart == 0:
-                cart.products.remove(product)
-            db.session.commit()
-    
-    return redirect(url_for('order.cart'))
