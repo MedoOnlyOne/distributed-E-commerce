@@ -14,10 +14,12 @@
               
                   {% for shop in shops %} 
                     <div class="item">
-                      {% if shop == current_user.shop %}
+                      {% if shop == current_user.shop and shop.products %}
                         <h3>My Shop: </h3>
                       {% else %}
+                      {% if shop.products %}
                         <h3 id="shopname" ><a href="{{ url_for('shop.shop_view',shop_id=shop.shop_id) }}">{{ shop.shop_name }}'s Products: </a></h3>
+                      {% endif %}
                       {% endif %}
                       {% if shop.products %}
                         {% for product in shop.products %} 
