@@ -1,36 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css' )}}" />
-  <title>Sign Up</title>
-  
-</head>
+{% extends 'layoutuser.html' %}
+{% block head %} 
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css' )}}" />
+<title>Sign Up</title>
+{% endblock %}
+{% block body %}
 <body>
-  <div>
-    <header>
-      <div class="Container">
-          <div id="header">
-            <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
-            <span><a id="official" href="{{ url_for('home') }}">The Official online store</a> </span>
-      </div>
-      
-  <nav> <ul style="margin-top:12px;"> 
-      {% if current_user.is_authenticated %}
-        <li> <a href="{{ url_for('home') }}"> Home </a> </li>
-        <li> <a href="{{ url_for('userdashboard') }}"> Profile </a></li>
-        <li> <a href="{{ url_for('contactus') }}"> Contact Us </a></li>
-        <li> <a href="{{ url_for('auth.logout') }}">  Logout  </a> </li> 
-      {% else %}
-        <li><a href="{{ url_for('home') }}"> Home </a></li>
-        <li> <a href="{{ url_for('auth.signup') }}">SignUp</a></li>
-        <li> <a href="{{ url_for('auth.login') }}">  Login  </a> </li>
-      {% endif %}
-  </ul> </nav>
-      </div>
-  </header>
-  </div>
    <h1 id="m9">
      <div id="m99">
      <p id="signup"> Sign up </p>
@@ -67,8 +43,14 @@
 
       {{ form.phone_code(id="phone_code", placeholder="Enter your phone code") }}
       {{ form.phone_number(id="phone_number", placeholder="Enter your phone number") }}
-    
-      {% if message %}
+    {% if message %}
+    <div>
+      <p style="font-size: 0.9rem; text-align: center; color:red">
+        {{message}}
+      </p>
+    </div>
+    {% endif %}
+    {% if message %}
       <div>
         <p style="font-size: 0.9rem; text-align: center; color:red">
           {{message}}
@@ -89,5 +71,6 @@
     </div>
      </div>
    </h1>
+   
 </body>
-</html>
+{% endblock %}

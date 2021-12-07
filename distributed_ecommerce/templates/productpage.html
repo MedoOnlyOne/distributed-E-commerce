@@ -1,4 +1,7 @@
-{% extends 'layoutuser.html' %} {% block title %}{{ product.name }}{% endblock %}
+{% extends 'layoutuser.html' %} 
+{% block title%}
+{{ product.name }}
+{% endblock %}
 {% block head %}
 <link
   rel="stylesheet"
@@ -12,7 +15,7 @@
 <title>{{ product.product_name }}</title>
 {% endblock %} {% block body %}
 
-<header>
+<!-- <header>
   <div class="Container">
     <div id="header">
       <span><a id="BlackJack" href="{{ url_for('home') }}">Vividly</a></span>
@@ -31,7 +34,7 @@
     <li> <a href="{{ url_for('auth.login') }}">  Login  </a> </li>
     {% endif %}
 </ul> </nav>
-</header> 
+</header>  -->
 
 
     <div class="product-container">
