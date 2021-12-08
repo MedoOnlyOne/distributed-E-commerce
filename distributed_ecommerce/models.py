@@ -94,6 +94,7 @@ class Order2(db.Model):
 class Cart1(db.Model):
     __tablename__ = 'Carts1'
     cart_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    last_updated = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     def get_id(self):
         return self.cart_id
@@ -144,7 +145,7 @@ class Product2(db.Model):
         return self.product_id
 
     def __repr__(self):
-        return f"Product('{self.product_id}, {self.shop_id}')"
+        return f"Product('{self.product_id}, {self.user_id}')"
 
 class Shop1(db.Model):
     __tablename__ = 'Shops1'

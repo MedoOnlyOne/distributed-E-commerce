@@ -27,9 +27,23 @@
                           <img src="{{ url_for('uploaded_file', filename=product.image) }}" class="img-fluid mb-3" />
                           <h5><a href="{{ url_for('productpage',product_id=product.product_id) }}">{{ product.product_name }}</a></h5>
                           <p><small><span>{{ product.price }} L.E</span> </small> </p>
-                          <div class="buttons d-flex flex-row">
-                          <button class="btn"><i class="fa fa-shopping-cart"></i>   Add to cart</button>
-                          </div>
+                          {% if current_user.is_authenticated and product.user_id != current_user.user_id %}
+                            <div class="buttons d-flex flex-row">
+                              <!-- <button class="btn"><i class="fa fa-shopping-cart"></i>   Add to cart</button> -->
+                              <form class="add-to-cart-form" action="{{ url_for('order.addtocart') }}" method="PUT">
+                                <input type="hidden" name="p_id" class="p_id" value="{{ product.product_id }}">
+                                <button type="submit" name="add_to_cart" class="btn add_to_cart_button"
+                                {% if product.product_id in current_user_products_in_cart %}
+                                  disabled style="background-color: gray;"
+                                {% endif %}
+                                >
+                                  <i class="fa fa-shopping-cart"></i> Add to Cart
+                                </button>
+                                <div class="alert-message">
+                                </div>
+                              </form>
+                            </div>
+                          {% endif %}
                         </div>
                         {% endfor %} 
                         {#
@@ -118,6 +132,7 @@
 </div>
   
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/home.js') }}"></script>
   <script>
     let catheads = document.getElementsByClassName('cathead');
     let cur = document.getElementById('cur');

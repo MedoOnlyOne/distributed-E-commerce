@@ -72,6 +72,10 @@ def uploaded_file(filename):
 def home():
     shops1 = Shop1.query.all()
     shops2 = Shop2.query.all()
+    current_user_products_in_cart = []
+    for p in current_user.cart.products:
+        current_user_products_in_cart.append(p.product_id)
+    print(current_user_products_in_cart)
     for shop in shops2:
         for sh in shops1:
             if sh.shop_id == shop.shop_id:
@@ -79,6 +83,8 @@ def home():
                 if len(shop.products) <= 3:
                     for product in shop.products:
                         p = Product1.query.get(product.product_id)
+                        p2 = Product2.query.get(product.product_id)
+                        p.user_id = p2.user_id
                         prodcuts.append(p)
                 else:
                     random_products_indexes = []
@@ -88,11 +94,13 @@ def home():
                             x = randrange(len(shop.products))
                         random_products_indexes.append(x)
                         p = Product1.query.get(shop.products[random_products_indexes[i]].product_id)
+                        p2 = Product2.query.get(shop.products[random_products_indexes[i]].product_id)
+                        p.user_id = p2.user_id
                         prodcuts.append(p)
                 sh.products = prodcuts
                 break
 
-    return render_template('Mainpage.html', shops=shops1)
+    return render_template('Mainpage.html', shops=shops1, current_user_products_in_cart=current_user_products_in_cart)
 
 @app.get('/contactus')
 def contactus():

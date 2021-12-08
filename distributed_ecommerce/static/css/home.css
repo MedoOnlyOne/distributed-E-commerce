@@ -1,4 +1,4 @@
-*{
+* {
   font-family: 'Ubuntu', sans-serif;
 }
 html {
@@ -315,6 +315,19 @@ img {
   text-decoration: none;
   padding-left: 20px;
 }
+
+.alert-message {
+  text-align: center;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
 /*
 .item img
 {
