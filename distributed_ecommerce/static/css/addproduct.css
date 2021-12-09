@@ -49,7 +49,7 @@ input[type='file'] {
   height: 30px;
   border-radius: 10px;
   background: #2c578f;
-  color: #bfb367;
+  color: white;
   font-weight: bold;
 }
 #submit_btn:disabled,
