@@ -10,8 +10,8 @@ import json
 
 order = Blueprint('order', __name__, template_folder='templates')
 
-@login_required
 @order.patch('/savecart')
+@login_required
 def savecart():
     try:
         cart = current_user.cart
@@ -36,8 +36,8 @@ def savecart():
             'status': 'failed'
         }), 500
 
-@login_required
 @order.route('/cart')
+@login_required
 def cart():
     # get cart's products
     cart = current_user.cart
@@ -56,8 +56,8 @@ def cart():
         total_price += (p.price * quantity)
     return render_template('cart.html', cart=cart, total_price=total_price, products=returned_products, stocks = json.dumps(stocks))
 
-@login_required
 @order.put('/product/addtocart')
+@login_required
 def addtocart():
     try:
         if current_user.is_authenticated:
@@ -77,8 +77,8 @@ def addtocart():
             'status': 'failed'
         }), 500
 
+@order.put('/product/addtoshop')
 @login_required
-@order.put('/addtoshop')
 def addtoshop():
     try:
         if current_user.is_authenticated:
@@ -98,8 +98,8 @@ def addtoshop():
             'status': 'failed'
         }), 500
 
-@login_required
 @order.route('/checkout', methods=['GET', 'POST'])
+@login_required
 def checkout():
     # get cart's products
     cart = current_user.cart
@@ -147,13 +147,13 @@ def checkout():
     return render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list)
 
 
-@login_required
 @order.get('/confirm')
+@login_required
 def confirm():
     return render_template('ConfirmOrder.html')
 
-@login_required
 @order.get('/reject')
+@login_required
 def reject():
     return render_template('RejectOrder.html')
 
