@@ -50,6 +50,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login'
 
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+       return redirect('/login?next=' + request.path)
+
 @login_manager.user_loader
 def load_user(user_id):
     user1 = User1.query.filter_by(user_id=user_id).first()
@@ -107,8 +111,8 @@ def home():
 def contactus():
     return render_template('contactus.html')
 
-@login_required
 @app.route('/userdashboard', methods=['GET', 'POST'])
+@login_required
 def userdashboard():
     if request.method == "POST":
         first_name = request.form.get("first_name","")
@@ -152,8 +156,8 @@ def productpage(product_id):
     add_to_shop_disabled = 'disabled' if add_to_shop_disabled else ''
     return render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled, add_to_shop_disabled=add_to_shop_disabled)
 
-@login_required
 @app.route('/product/edit/<product_id>', methods=['GET', 'POST'])
+@login_required
 def editproduct(product_id):
     product = Product1.query.filter_by(product_id=product_id).first()
     if request.method == "POST":
@@ -178,8 +182,8 @@ def editproduct(product_id):
         return '<h1> Error 404 <br> Product Not Found'
 
 
-@login_required
 @app.route('/product/remove/<product_id>')
+@login_required
 def removeproduct(product_id):
     product1 = Product1.query.filter_by(product_id=product_id).first()
     if not product1:

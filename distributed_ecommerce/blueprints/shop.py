@@ -11,8 +11,8 @@ from werkzeug.utils import secure_filename
 
 shop = Blueprint('shop', __name__, template_folder='templates')
 
-@login_required
 @shop.get('/shop')
+@login_required
 def dashboard():
     shop = current_user.shop
     products = shop.products
@@ -49,8 +49,8 @@ def shop_view(shop_id):
         return render_template('shop.html', shop=shop, shop_owner=user, products=products)
     return 'Error 404.<br> Shop not found'
 
-@login_required
 @shop.route('/shop/addproduct', methods=['GET', 'POST'])
+@login_required
 def addproduct():
     form = AddProductForm()
     if form.validate_on_submit():
@@ -75,7 +75,7 @@ def addproduct():
         return redirect(url_for('productpage', product_id=created_product1.product_id))
     return render_template('addproduct.html', form=form)
 
-@login_required
 @shop.get('/shop/orders')
+@login_required
 def orders():
     return render_template('shoporders.html')

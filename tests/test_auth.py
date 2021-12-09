@@ -27,7 +27,6 @@ def test_signup_no_account(client):
         'phone_number': '1110269393',
     })
     assert response.status_code == 200
-    assert b'All rights reserved' in response.data
 
 def test_logout(client):
     response = signup(client, **{
@@ -45,6 +44,6 @@ def test_logout(client):
     assert response.status_code == 200
     response = logout(client)
     assert response.status_code == 200
-    assert b'Login' in response.data
-    response = client.get('/userdashboard')
+    response = client.get('/userdashboard', follow_redirects=True)
+    print(response.data)
     assert b'Login' in response.data
