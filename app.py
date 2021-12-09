@@ -73,8 +73,9 @@ def home():
     shops1 = Shop1.query.all()
     shops2 = Shop2.query.all()
     current_user_products_in_cart = []
-    for p in current_user.cart.products:
-        current_user_products_in_cart.append(p.product_id)
+    if current_user.is_authenticated:
+        for p in current_user.cart.products:
+            current_user_products_in_cart.append(p.product_id)
     print(current_user_products_in_cart)
     for shop in shops2:
         for sh in shops1:
