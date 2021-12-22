@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, jsonify
+import flask
 import uuid
 from distributed_ecommerce.blueprints.auth import login
 from distributed_ecommerce.forms.CheckoutForm import CheckoutForm
@@ -36,7 +37,7 @@ def savecart():
             'status': 'failed'
         }), 500
 
-@order.route('/cart')
+@order.get('/cart')
 @login_required
 def cart():
     # get cart's products
@@ -54,7 +55,10 @@ def cart():
         returned_products.append(p)
         stocks.append(p.quantity)
         total_price += (p.price * quantity)
-    return render_template('cart.html', cart=cart, total_price=total_price, products=returned_products, stocks = json.dumps(stocks))
+    response = flask.Response(render_template('cart.html', cart=cart, total_price=total_price, products=returned_products, stocks = json.dumps(stocks)))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 @order.put('/product/addtocart')
 @login_required
@@ -98,7 +102,7 @@ def addtoshop():
             'status': 'failed'
         }), 500
 
-@order.route('/checkout', methods=['GET', 'POST'])
+@order.get('/checkout')
 @login_required
 def checkout():
     # get cart's products
@@ -116,7 +120,29 @@ def checkout():
         total_price += (product.price * quantity)
 
     form = CheckoutForm(request.form)
-    if request.method == 'POST' and form.validate_on_submit():
+    response = flask.Response(render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+@order.post('/checkout')
+@login_required
+def postcheckout():
+    # get cart's products
+    cart = current_user.cart
+    products = cart.products
+    # calculate order total price and add its products
+    total_price = 0
+    products_list = []
+    for product in products:
+        product = Product1.query.get(product.product_id)
+        quantity = db.session.query(cart_product).filter_by(product_id=product.product_id, cart_id=cart.cart_id).first().quantity
+        product.quantiy_purchased = quantity
+        products_list.append(product)
+        total_price += (product.price * quantity)
+
+    form = CheckoutForm(request.form)
+    if form.validate_on_submit():
         if total_price > current_user.balance:
             return redirect(url_for('order.reject'))
         # create order
@@ -142,18 +168,35 @@ def checkout():
             cart.products = []
             db.session.commit()
 
-            return redirect(url_for('order.confirm'))
-        return render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list)
-    return render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list)
+            response = redirect(url_for('order.confirm'))
+            response.is_redirectrd = True
+            response.headers['Content-Type'] = 'text/html'
+            response.headers['status_code'] = 302
+            return response
+        
+        response = flask.Response(render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list))
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 200
+        return response
+    
+    response = flask.Response(render_template('checkout.html', form=form, cart=cart, total_price=total_price, products = products_list))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 
 @order.get('/confirm')
 @login_required
 def confirm():
-    return render_template('ConfirmOrder.html')
+    response = flask.Response(render_template('ConfirmOrder.html'))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 @order.get('/reject')
 @login_required
 def reject():
-    return render_template('RejectOrder.html')
-
+    response = flask.Response(render_template('RejectOrder.html'))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response

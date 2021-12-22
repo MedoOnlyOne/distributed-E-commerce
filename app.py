@@ -1,6 +1,8 @@
 import os 
 from flask import Flask, request, render_template, redirect, url_for, send_from_directory
+import flask
 from flask_login import LoginManager, current_user, login_required
+from werkzeug.wrappers import response
 from distributed_ecommerce.blueprints.auth import auth
 from distributed_ecommerce.blueprints.shop import shop
 from distributed_ecommerce.blueprints.order import order
@@ -104,39 +106,55 @@ def home():
                         prodcuts.append(p)
                 sh.products = prodcuts
                 break
-
-    return render_template('Mainpage.html', shops=shops1, current_user_products_in_cart=current_user_products_in_cart)
+    response = flask.Response(render_template('Mainpage.html', shops=shops1, current_user_products_in_cart=current_user_products_in_cart))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 @app.get('/contactus')
 def contactus():
-    return render_template('contactus.html')
+    response = flask.Response(render_template('contactus.html'))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
-@app.route('/userdashboard', methods=['GET', 'POST'])
+@app.get('/userdashboard')
 @login_required
 def userdashboard():
-    if request.method == "POST":
-        first_name = request.form.get("first_name","")
-        last_name = request.form.get("last_name", "")
-        email = request.form.get("email", "")
-        phone_code = request.form.get("code", "")
-        phone_number = request.form.get("num", "")
-        address = request.form.get("address", "")
-        balance = float(request.form.get("balance", ""))
+    response = flask.Response(render_template('userdashboard.html'))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
-        user1 = User1.query.filter_by(user_id=current_user.user_id).first()
-        user2 = User2.query.filter_by(user_id=current_user.user_id).first()
+@app.post('/userdashboard')
+@login_required
+def postuserdashboard():
+    first_name = request.form.get("first_name","")
+    last_name = request.form.get("last_name", "")
+    email = request.form.get("email", "")
+    phone_code = request.form.get("code", "")
+    phone_number = request.form.get("num", "")
+    address = request.form.get("address", "")
+    balance = float(request.form.get("balance", ""))
 
-        user1.first_name = first_name if first_name != '' else user1.first_name
-        user1.last_name = last_name if last_name != '' else user1.last_name
-        user1.phone_code = phone_code if phone_code != '' else user1.phone_code
-        user1.phone_number = phone_number if phone_number != '' else user1.phone_number
-        user1.address = address if address != '' else user1.address
-        user1.balance = balance if balance != '' else user1.balance
-        user2.email = email if email != '' else user2.email
+    user1 = User1.query.filter_by(user_id=current_user.user_id).first()
+    user2 = User2.query.filter_by(user_id=current_user.user_id).first()
 
-        db.session.commit()
-        return redirect(url_for("userdashboard"))
-    return render_template('userdashboard.html')
+    user1.first_name = first_name if first_name != '' else user1.first_name
+    user1.last_name = last_name if last_name != '' else user1.last_name
+    user1.phone_code = phone_code if phone_code != '' else user1.phone_code
+    user1.phone_number = phone_number if phone_number != '' else user1.phone_number
+    user1.address = address if address != '' else user1.address
+    user1.balance = balance if balance != '' else user1.balance
+    user2.email = email if email != '' else user2.email
+
+    db.session.commit()
+
+    response = redirect(url_for('userdashboard'))
+    response.is_redirectrd = True
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 302
+    return response
 
 @app.get('/product/<product_id>')
 def productpage(product_id):
@@ -154,45 +172,68 @@ def productpage(product_id):
     cart_disabled = 'disabled' if cart_disabled else ''
     add_to_shop_disabled = not current_user.is_authenticated or in_shop or product_owner.user_id == current_user.user_id
     add_to_shop_disabled = 'disabled' if add_to_shop_disabled else ''
-    return render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled, add_to_shop_disabled=add_to_shop_disabled)
+    response = flask.Response(render_template('productpage.html', product=product1, shop=shop, cart_disabled=cart_disabled, add_to_shop_disabled=add_to_shop_disabled))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
-@app.route('/product/edit/<product_id>', methods=['GET', 'POST'])
+@app.get('/product/edit/<product_id>')
 @login_required
 def editproduct(product_id):
     product = Product1.query.filter_by(product_id=product_id).first()
-    if request.method == "POST":
-        product_name = request.form.get("product","")
-        category = request.form.get("cat","")
-        quantity = request.form.get("quantity","")
-        price = request.form.get("price","")
-        description = request.form.get("description","")
+    if product:
+        response = flask.Response(render_template('editproduct.html', product=product))
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 200
+        return response
+        
+    response = flask.Response('<h1> Error 404 <br> Product Not Found')
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 404
+    return response
 
-        product.product_name = product_name if product_name != '' else product.product_name
-        product.category = category if category != '' else product.category
-        product.quantity = quantity if quantity != '' else product.quantity
-        product.price = price if price != '' else product.price
-        product.description = description if description != '' else product.description
+@app.post('/product/edit/<product_id>')
+@login_required
+def posteditproduct(product_id):
+    product = Product1.query.filter_by(product_id=product_id).first()
+    product_name = request.form.get("product","")
+    category = request.form.get("cat","")
+    quantity = request.form.get("quantity","")
+    price = request.form.get("price","")
+    description = request.form.get("description","")
 
-        db.session.commit()
-        return redirect(url_for("shop.dashboard"))
-    
-    else:
-        if product:
-            return render_template('editproduct.html', product=product)
-        return '<h1> Error 404 <br> Product Not Found'
+    product.product_name = product_name if product_name != '' else product.product_name
+    product.category = category if category != '' else product.category
+    product.quantity = quantity if quantity != '' else product.quantity
+    product.price = price if price != '' else product.price
+    product.description = description if description != '' else product.description
 
+    db.session.commit()
+    response = redirect(url_for("shop.dashboard"))
+    response.is_redirectrd = True
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 302
+    return response
 
-@app.route('/product/remove/<product_id>')
+@app.get('/product/remove/<product_id>')
 @login_required
 def removeproduct(product_id):
     product1 = Product1.query.filter_by(product_id=product_id).first()
     if not product1:
-        return redirect(url_for('auth.login'))
+        response = redirect(url_for('auth.login'))
+        response.is_redirectrd = True
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 302
+        return response
     product2 = Product2.query.filter_by(product_id=product_id).first()
     db.session.delete(product1)
     db.session.delete(product2)
     db.session.commit()
-    return redirect(url_for("shop.dashboard"))
+    response = redirect(url_for("shop.dashboard"))
+    response.is_redirectrd = True
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 302
+    return response
 
 if __name__ == '__main__':
     if 'mode' in os.environ and os.environ['mode'] == 'production':

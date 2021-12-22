@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
+import flask
 import uuid
 from distributed_ecommerce.blueprints.auth import login
 from distributed_ecommerce.forms.AddProductForm import AddProductForm
@@ -27,7 +28,10 @@ def dashboard():
         p.description = product.description
         p.image = product.image
     
-    return render_template('shopdashboard.html',shop=shop, products=products)
+    response = flask.Response(render_template('shopdashboard.html',shop=shop, products=products))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 @shop.get('/shop/<shop_id>')
 def shop_view(shop_id):
@@ -46,12 +50,28 @@ def shop_view(shop_id):
             product.category = p.category
             product.quantity = p.quantity
 
-        return render_template('shop.html', shop=shop, shop_owner=user, products=products)
-    return 'Error 404.<br> Shop not found'
+        response = flask.Response(render_template('shop.html', shop=shop, shop_owner=user, products=products))
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 200
+        return response
+    
+    response = flask.Response('Error 404.<br> Shop not found')
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 404
+    return response
 
-@shop.route('/shop/addproduct', methods=['GET', 'POST'])
+@shop.get('/shop/addproduct')
 @login_required
 def addproduct():
+    form = AddProductForm()
+    response = flask.Response(render_template('addproduct.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+@shop.post('/shop/addproduct')
+@login_required
+def postaddproduct():
     form = AddProductForm()
     if form.validate_on_submit():
         # get the user's shop.
@@ -72,10 +92,21 @@ def addproduct():
         # save the image
         image.save(os.path.join(os.getcwd(), 'images', image_name))
 
-        return redirect(url_for('productpage', product_id=created_product1.product_id))
-    return render_template('addproduct.html', form=form)
+        response = redirect(url_for('productpage', product_id=created_product1.product_id))
+        response.is_redirectrd = True
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 302
+        return response
+
+    response = flask.Response(render_template('addproduct.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 @shop.get('/shop/orders')
 @login_required
 def orders():
-    return render_template('shoporders.html')
+    response = flask.Response(render_template('shoporders.html'))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response

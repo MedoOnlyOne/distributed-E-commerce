@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for
+import flask
 import uuid
 import distributed_ecommerce.forms as forms
 from db import db
@@ -8,8 +9,16 @@ from flask_login import login_required, login_user, logout_user, current_user
 
 auth = Blueprint('auth', __name__, template_folder='templates')
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.get('/login')
 def login():
+    form = forms.LogInForm()
+    response = flask.Response(render_template('login.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+@auth.post('/login')
+def postlogin():
     form = forms.LogInForm()
 
     if form.validate_on_submit():
@@ -17,21 +26,54 @@ def login():
         if user:
             if bcrypt.check_password_hash(user.password, form.password.data):
                 login_user(user)
-                return redirect(url_for('home'))
-            return render_template('login.html', form=form, message="Incorrect password")
-        return render_template('login.html', form=form, message="Incorrect username")
+                response = redirect(url_for('home'))
+                response.is_redirectrd = True
+                response.headers['Content-Type'] = 'text/html'
+                response.headers['status_code'] = 302
+                return response
 
-    return render_template('login.html', form=form)
+            response = flask.Response(render_template('login.html', form=form, message="Incorrect password"))
+            response.headers['Content-Type'] = 'text/html'
+            response.headers['status_code'] = 200
+            return response
+        
+        response = flask.Response(render_template('login.html', form=form, message="Incorrect username"))
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 200
+        return response
 
-@auth.route('/logout', methods=['GET', 'POST'])
+    response = flask.Response(render_template('login.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+@auth.get('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    response = redirect(url_for('home'))
+    response.is_redirectrd = True
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 302
+    return response
     
 
-@auth.route('/signup', methods=['GET', 'POST'])
+@auth.get('/signup')
 def signup():
+    form = forms.SignUpForm()
+    if current_user.is_authenticated:
+        response = redirect(url_for('home'))
+        response.is_redirectrd = True
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 302
+        return response
+    response = flask.Response(render_template('signup.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+@auth.post('/signup')
+def postsignup():
     form = forms.SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
@@ -53,7 +95,18 @@ def signup():
         db.session.commit()
         
         login_user(created_user2)
-        return redirect(url_for('home'))
+        response = redirect(url_for('home'))
+        response.is_redirectrd = True
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 302
+        return response
     if current_user.is_authenticated:
-        return redirect(url_for('userdashboard'))
-    return render_template('signup.html', form=form)
+        response = redirect(url_for('home'))
+        response.is_redirectrd = True
+        response.headers['Content-Type'] = 'text/html'
+        response.headers['status_code'] = 302
+        return response
+    response = flask.Response(render_template('signup.html', form=form))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
