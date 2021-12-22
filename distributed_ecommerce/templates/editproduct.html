@@ -15,7 +15,7 @@
         <img src="{{ url_for('uploaded_file', filename=product.image) }}" alt="{{product.name}}" height="300" width="300" style="border-radius: 20px;">
     </div>
     <div class="edit_product">
-        <form action="{{ url_for('editproduct', product_id=product.product_id) }}" method="POST">
+        <form action="{{ url_for('editproduct', product_id=product.product_id) }}" method="PUT">
           <div>
             <h3>Product Name:</h3>
             <input type="text" id="product_name" value="{{product.product_name}}" name="product" style="margin-left: 65px;">

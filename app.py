@@ -192,7 +192,7 @@ def editproduct(product_id):
     response.headers['status_code'] = 404
     return response
 
-@app.post('/product/edit/<product_id>')
+@app.put('/product/edit/<product_id>')
 @login_required
 def posteditproduct(product_id):
     product = Product1.query.filter_by(product_id=product_id).first()
