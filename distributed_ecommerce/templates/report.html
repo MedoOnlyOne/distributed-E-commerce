@@ -1,0 +1,38 @@
+{% extends 'layoutshop.html' %} {% block head %}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Report</title>
+    <!-- <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/shop.css') }}"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="../static/css/report.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  {% endblock %}
+  {% block body %}
+
+    <h1 class="shop_info">All transactions about your shop</h1>
+    <div class="items" style="margin-bottom: 50px">
+      <div class="item" title="{{ product.name }}">
+        <p
+          style="
+            font-size: 25px;
+            font-weight: bold;
+            position: relative;
+            text-align: center;
+            top: 5px;
+          "
+        >
+          {{Report from backendk dnvknakdvn;lda nvn;n;bsf;bls bn;lnsl; blnbsln ;n}}
+        </p>
+      </div>
+    </div>
+    {% endblock %}
