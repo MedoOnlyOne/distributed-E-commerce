@@ -254,23 +254,28 @@ def getreport():
             new_shop = None
             buyer = None
             quantity = None
+            cost = None
             if add_to_shop:
                 new_shop = Shop1.query.filter_by(shop_id=t2.new_shop).first()
             else:
                 buyer = User2.query.filter_by(user_id=t2.buyer).first()
                 quantity = t2.quantity
+                cost = quantity * product.price
             t = {
                 "type": t1.transaction_type,
                 "product":product.product_name,
                 "owner": owner_shop.shop_name,
                 "new_shop": None if not new_shop else new_shop.shop_name,
                 "buyer": None if not buyer else buyer.username,
-                "quantity": None if not quantity else quantity
+                "quantity": None if not quantity else quantity,
+                "cost": None if not cost else cost
             }
             transactions.append(t)
             break
-    print(transactions)
-    return f'<h1>Report {transactions}</h1>'
+    response = flask.Response(render_template('report.html', report=transactions, all=True))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
 
 if __name__ == '__main__':
     if 'mode' in os.environ and os.environ['mode'] == 'production':

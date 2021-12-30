@@ -37,7 +37,7 @@
           </li>
 
           <li><a href="{{ url_for('shop.dashboard') }}"> My Products </a></li>
-          
+
           {#
           <li><a href="{{ url_for('addproduct') }}"> Add Product </a></li>
           <li><a href="{{ url_for('addcoupon') }}"> Add coupon </a></li>
@@ -45,7 +45,7 @@
           #}
           <li><a href="{{ url_for('shop.orders') }}"> Orders </a></li>
           <li><a href="{{ url_for('auth.logout') }}"> Logout </a></li>
-          
+
           {% else %}
           <li><a href="{{ url_for('home') }}"> Home </a></li>
           <li><a href="{{ url_for('auth.signup') }}">SignUp</a></li>
@@ -79,7 +79,7 @@
           <li><a href="{{ url_for('home') }}"> Home </a></li>
           <li><a href="{{ url_for('userdashboard') }}"> Profile </a></li>
           <li><a href="{{ url_for('contactus') }}"> Contact Us </a></li>
-          <li><a href="{{ url_for('home') }}"> Report </a></li>
+          <li><a href="{{ url_for('getreport') }}"> Report </a></li>
           <li><a href="{{ url_for('auth.logout') }}"> Logout </a></li>
           {% else %}
           <li><a href="{{ url_for('home') }}"> Home </a></li>
@@ -101,7 +101,9 @@
           <li><a href="{{ url_for('activecoupons') }}"> Active Coupons</a></li>
           #}
           <li><a href="{{ url_for('shop.orders') }}"> Orders </a></li>
-          <li><a href="{{ url_for('shop.orders') }}"> Show Transactions </a></li>
+          <li>
+            <a href="{{ url_for('shop.orders') }}"> Show Transactions </a>
+          </li>
         </ul>
       </nav>
     </section>

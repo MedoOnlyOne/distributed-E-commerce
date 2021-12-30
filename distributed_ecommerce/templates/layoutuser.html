@@ -37,10 +37,11 @@
           <li><a href="{% url 'orders' %}"> Orders </a></li>
           #} {#
           <li><a href="{% url 'wishlist' %}"> Wishlist </a></li>
-          #} 
+          #}
           <li><a href="{{ url_for('order.cart') }}"> Cart </a></li>
-         
+
           <li><a href="{{ url_for('contactus') }}"> Contact Us </a></li>
+          <li><a href="{{ url_for('getreport') }}"> Report </a></li>
           <li><a href="{{ url_for('auth.logout') }}"> Logout </a></li>
           {% else %}
           <li><a href="{{ url_for('home') }}"> Home </a></li>
@@ -51,7 +52,6 @@
       </nav>
     </div>
     <header>
-      
       <div class="logo-burger-search">
         {% if current_user.is_authenticated %}
         <div class="burgers">
@@ -78,6 +78,7 @@
           <li><a href="{{ url_for('home') }}"> Home </a></li>
           <li><a href="{{ url_for('userdashboard') }}"> Profile </a></li>
           <li><a href="{{ url_for('contactus') }}"> Contact Us </a></li>
+          <li><a href="{{ url_for('getreport') }}"> Report </a></li>
           <li><a href="{{ url_for('auth.logout') }}"> Logout </a></li>
           {% else %}
           <li><a href="{{ url_for('home') }}"> Home </a></li>
@@ -99,7 +100,8 @@
           <li><a href="{{ url_for('shop.dashboard') }}"> My shop </a></li>
           {#
           <li><a href="{% url 'orders' %}"> Orders </a></li>
-          <li><a href="{% url 'wishlist' %}"> Wishlist </a></li> #}
+          <li><a href="{% url 'wishlist' %}"> Wishlist </a></li>
+          #}
           <li><a href="{{ url_for('order.cart') }}"> Cart </a></li>
         </ul>
       </nav>

@@ -1,27 +1,23 @@
 {% extends 'layoutshop.html' %} {% block head %}
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Report</title>
-    <!-- <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/shop.css') }}"
-    /> -->
-    <link
-      rel="stylesheet"
-      href="../static/css/report.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  {% endblock %}
-  {% block body %}
-
-    <h1 class="shop_info">All transactions about your shop</h1>
-    <div class="items" style="margin-bottom: 50px">
-      <div class="item" title="{{ product.name }}">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Report</title>
+<link rel="stylesheet" href="../static/css/report.css" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap"
+  rel="stylesheet"
+/>
+{% endblock %} {% block body %} {% if all %}
+<h1 class="shop_info">All transactions in the system</h1>
+{% else %}
+<h1 class="shop_info">All transactions about your shop</h1>
+{%endif%}
+<div class="items" style="margin-bottom: 50px">
+  <div class="item">
+    {% if report|length > 0 %}
+    <ul>
+      {% for t in report %}
+      <li>
         <p
           style="
             font-size: 25px;
@@ -31,8 +27,17 @@
             top: 5px;
           "
         >
-          {{Report from backendk dnvknakdvn;lda nvn;n;bsf;bls bn;lnsl; blnbsln ;n}}
+          {% if t.type == "Add to shop" %} {{t.new_shop}} added {{t.product}} to
+          his shop from {{t.owner}}.{% else %} {{t.buyer}} bought {{t.quantity}}
+          items of {{t.product}} from {{t.owner}} with cost of {{t.cost}}L.E.{%
+          endif %}
         </p>
-      </div>
-    </div>
-    {% endblock %}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <h1>No transactions found</h1>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
