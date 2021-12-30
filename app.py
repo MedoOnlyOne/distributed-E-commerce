@@ -111,6 +111,24 @@ def home():
     response.headers['status_code'] = 200
     return response
 
+@app.post('/')
+@login_required
+def search():
+    text = request.form.get("search_name","")
+    products1 = Product1.query.all()
+    results = []
+    for product in products1:
+        if product.product_name == text:
+            results.append(product)
+    print (results)
+    response = flask.Response(render_template('searchResults.html', results=results))
+    response.headers['Content-Type'] = 'text/html'
+    response.headers['status_code'] = 200
+    return response
+
+
+    
+
 @app.get('/contactus')
 def contactus():
     response = flask.Response(render_template('contactus.html'))
