@@ -4,7 +4,7 @@ import uuid
 from distributed_ecommerce.blueprints.auth import login
 from distributed_ecommerce.forms.CheckoutForm import CheckoutForm
 from db import db
-from distributed_ecommerce.models import Product1, Product2, Shop1, Shop2, User1, User2, Order1, Order2, Cart1, Cart2, cart_product
+from distributed_ecommerce.models import Product1, Product2, Shop1, Shop2, User1, User2, Order1, Order2, Cart1, Cart2, cart_product, Transaction1, Transaction2
 from flask_login import login_required, current_user
 import os
 import json
@@ -89,6 +89,11 @@ def addtoshop():
             shop = current_user.shop
             product2 = Product2.query.get(request.json['product_id'])
             shop.products.append(product2)
+            owner_shop = Shop2.query.filter_by(user_id=product2.user_id).first()
+            transaction1 = Transaction1(transaction_id=str(uuid.uuid4()), transaction_type="Add to shop")
+            transaction2 = Transaction2(transaction_id=transaction1.transaction_id, product_id=product2.product_id, owner_shop=owner_shop.shop_id, new_shop=shop.shop_id, buyer=None)
+            db.session.add(transaction1)
+            db.session.add(transaction2)
             db.session.commit()
             return jsonify({
                 'status': 'success',
@@ -158,12 +163,16 @@ def postcheckout():
             #empty cart
             for product in products:
                 quantity = db.session.query(cart_product).filter_by(product_id=product.product_id, cart_id=cart.cart_id).first().quantity
-                # cart.products.remove(product)
                 shop = product.shops[0]
                 user = User1.query.filter_by(user_id=shop.user_id).first()
                 product = Product1.query.get(product.product_id)
                 user.balance = user.balance + (product.price * quantity)            
-                product.quantity -= quantity             
+                product.quantity -= quantity
+
+                transaction1 = Transaction1(transaction_id=str(uuid.uuid4()), transaction_type="Buy product")
+                transaction2 = Transaction2(transaction_id=transaction1.transaction_id, product_id=product.product_id, owner_shop=shop.shop_id, new_shop=None, buyer=current_user.user_id, quantity=quantity)
+                db.session.add(transaction1)
+                db.session.add(transaction2)
                 
             cart.products = []
             db.session.commit()

@@ -1,5 +1,7 @@
 import datetime
-import uuid 
+import uuid
+
+from sqlalchemy.orm import defaultload 
 from db import db
 from flask_login import UserMixin
 
@@ -173,3 +175,32 @@ class Shop2(db.Model):
 
     def __repr__(self):
         return f"Shop('{self.shop_id}, {self.user_id}')"
+
+
+class Transaction1(db.Model):
+    __tablename__ = 'Transactions1'
+    transaction_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
+    transaction_type = db.Column(db.String(length=255), nullable=False, unique=True)
+    
+    def get_id(self):
+        return self.transaction_id
+
+    def __repr__(self):
+        return f"Transaction('{self.transaction_id}, {self.transaction_type}')"
+
+class Transaction2(db.Model):
+    __tablename__ = 'Transactions2'
+    __bind_key__ = 'db2'
+    transaction_id = db.Column(db.String(length=36), primary_key=True)
+    
+    product_id = db.Column(db.String(length=36), db.ForeignKey('Products2.product_id'))
+    owner_shop = db.Column(db.String(length=36), db.ForeignKey('Shops2.shop_id')) 
+    new_shop = db.Column(db.String(length=36), db.ForeignKey('Shops2.shop_id'), nullable=True)
+    buyer = db.Column(db.String(length=36), db.ForeignKey('Users2.user_id'), nullable=True)
+    quantity = db.Column(db.Integer(), default=0)
+    
+    def get_id(self):
+        return self.transaction_id
+
+    def __repr__(self):
+        return f"Transaction('{self.transaction_id}, {self.product_id}')"
