@@ -1,5 +1,14 @@
 const addToCartForm = document.querySelectorAll('.add-to-cart-form');
-
+var search = document.getElementById('s');
+var search_btn = document.getElementById('b');
+search.addEventListener('input',function(){
+    if (search.value.length>0){
+        search_btn.disabled=false;
+    }
+    else{
+        search_btn.disabled=true;
+    }
+});
 for (const cart of addToCartForm) {
   cart.addEventListener('submit', async (e) => {
     e.preventDefault();

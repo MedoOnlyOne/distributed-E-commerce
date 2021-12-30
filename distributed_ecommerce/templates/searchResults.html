@@ -216,7 +216,7 @@ body{
 
 </style>
 
-    <div class="sort">
+    <!-- <div class="sort">
             <div class="sort-by">
                 Search for:<br>
                <div class="form-check">
@@ -249,7 +249,7 @@ body{
                         </div>
                    
             </div>
-        </div>
+        </div> -->
     <div class="products-search">
         <form method="GET" action="{% url 'search' %}" id="search-form">
             <div class="search">
@@ -274,7 +274,7 @@ body{
     {% else %}
     <p style="text-align: center; font-size: 4rem;">No products found!</p>
     {% endif %}
-    {% else %}
+    <!-- {% else %}
     {% if results%}
     <div id="items">
         <div class="itemscontainer">
@@ -282,7 +282,7 @@ body{
             <div class="shop-item" title="{{ result.name }}">
                 <!-- <p style="font-size:25px; font-weight:bold; position:relative; top:5px;"><a href="{% url 'shop' result.name %}">Product name : {{ result.name }}</a></p>
                 <p><span style="font-weight:bold;">Shop address: </span>{{ result.address }}</p> -->
-                <p style="font-size:25px; margin-bottom: 0.5em; font-weight:bold; position:relative; top:5px;"><a href="{% url 'shop' result.name %}">Shop name : {{ result.name }}</a></p>
+                <!-- <p style="font-size:25px; margin-bottom: 0.5em; font-weight:bold; position:relative; top:5px;"><a href="{% url 'shop' result.name %}">Shop name : {{ result.name }}</a></p>
                 
                 <p><span style="font-weight: bold;">Shop address: </span>{{result.address}}</p>
             </div>
@@ -293,8 +293,8 @@ body{
         <p style="text-align: center; font-size: 4rem;">No shops found!</p>
     {% endif %}
     {% endif %}
-    </div>
-    {% if results %}
+    </div>  -->
+    <!-- {% if results %}
     <div class="pagination">
         {% if not results.has_previous %}
             {% if results.paginator.num_pages <= 5 %}
@@ -308,7 +308,7 @@ body{
                 <div class="dots">...</div>
                 <div class="page" id="{{results.paginator.num_pages}}"><a href="{{current_path}}&page={{results.paginator.num_pages}}">{{results.paginator.num_pages}}</a></div>
             {% endif %}
-        {% elif not results.has_next %}         <!-- Last page -->
+        {% elif not results.has_next %}         
             {% if results.paginator.num_pages <= 5 %}
                 {% for n in results.paginator.page_range %}
                     <div id="{{n}}" class="page"><a href="{{current_path}}&page={{n}}">{{n}}</a></div>
@@ -322,7 +322,7 @@ body{
             {% endif %}
         {% else %}              <!-- In the middle -->                          
             <!-- code -->
-            {% if results.number > 2 %}
+            <!-- {% if results.number > 2 %}
                 <div class="page" id="1"><a href="{{current_path}}&page=1">1</a></div>
             {% endif %}
             {% if results.number > 4  %}
@@ -346,7 +346,7 @@ body{
         {% endif %}    
     </div>
     {% endif %}
-</div>
+</div> --> 
 <script>
     var is_products_search="{{is_products_search}}";
     var el_products=document.getElementById("products");
