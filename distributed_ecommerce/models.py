@@ -180,7 +180,7 @@ class Shop2(db.Model):
 class Transaction1(db.Model):
     __tablename__ = 'Transactions1'
     transaction_id = db.Column(db.String(length=36), default=lambda: str(uuid.uuid4()), primary_key=True)
-    transaction_type = db.Column(db.String(length=255), nullable=False, unique=True)
+    transaction_type = db.Column(db.String(length=255), nullable=False)
     
     def get_id(self):
         return self.transaction_id

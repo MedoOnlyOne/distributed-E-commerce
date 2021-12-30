@@ -122,34 +122,35 @@ def getshopreport():
         for t2 in transaction2:
             if t1.transaction_id != t2.transaction_id:
                 continue
-            product = Product1.query.filter_by(product_id=t2.product_id).first()
-            product2 = Product2.query.filter_by(product_id=t2.product_id).first()
-            owner = Shop2.query.filter_by(user_id=product2.user_id).first()
-            owner_shop = Shop1.query.filter_by(shop_id=owner.shop_id).first()
+            elif t1.transaction_id == t2.transaction_id and (t2.new_shop == current_user.shop.shop_id or t2.owner_shop == current_user.shop.shop_id):
+                product = Product1.query.filter_by(product_id=t2.product_id).first()
+                product2 = Product2.query.filter_by(product_id=t2.product_id).first()
+                owner = Shop2.query.filter_by(user_id=product2.user_id).first()
+                owner_shop = Shop1.query.filter_by(shop_id=owner.shop_id).first()
 
-            add_to_shop = True if (t1.transaction_type == "Add to shop") else False
-            new_shop = None
-            buyer = None
-            quantity = None
-            cost = None
-            if add_to_shop:
-                new_shop = Shop1.query.filter_by(shop_id=t2.new_shop).first()
-            else:
-                buyer = User2.query.filter_by(user_id=t2.buyer).first()
-                quantity = t2.quantity
-                cost = quantity * product.price
-            t = {
-                "type": t1.transaction_type,
-                "product":product.product_name,
-                "owner": owner_shop.shop_name,
-                "new_shop": None if not new_shop else new_shop.shop_name,
-                "buyer": None if not buyer else buyer.username,
-                "quantity": None if not quantity else quantity,
-                "cost": None if not cost else cost
-            }
-            transactions.append(t)
-            break
-    response = flask.Response(render_template('report.html', report=transactions, all=True))
+                add_to_shop = True if (t1.transaction_type == "Add to shop") else False
+                new_shop = None
+                buyer = None
+                quantity = None
+                cost = None
+                if add_to_shop:
+                    new_shop = Shop1.query.filter_by(shop_id=t2.new_shop).first()
+                else:
+                    buyer = User2.query.filter_by(user_id=t2.buyer).first()
+                    quantity = t2.quantity
+                    cost = quantity * product.price
+                t = {
+                    "type": t1.transaction_type,
+                    "product":product.product_name,
+                    "owner": owner_shop.shop_name,
+                    "new_shop": None if not new_shop else new_shop.shop_name,
+                    "buyer": None if not buyer else buyer.username,
+                    "quantity": None if not quantity else quantity,
+                    "cost": None if not cost else cost
+                }
+                transactions.append(t)
+                break
+    response = flask.Response(render_template('report.html', report=transactions))
     response.headers['Content-Type'] = 'text/html'
     response.headers['status_code'] = 200
     return response
